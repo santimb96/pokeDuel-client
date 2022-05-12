@@ -1,26 +1,28 @@
 @import '../variables';
+@import '../mixins';
+@import "../../node_modules/bootstrap/scss/bootstrap";
 
-.gameboy-card {
+.container {
+    width: 400px;
     height: 100%;
-    width: 100%;
-    padding: 0 !important;
-    background-color: $body-bg-md-down;
 
-    .img-card {
-        display: flex;
-        justify-content: center;
-        position: absolute;
-        top: 57vh;
+    .gameboy-card {
+        height: 100%;
         width: 100%;
+        padding: 0 !important;
+        background-color: $body-bg-md-down;
 
-        .mat-card-image {
-            width: 30vh !important;
-            height: 10vh !important;
+        .img-card {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            top: 90%;
+            width: 100%;
+
+            .mat-card-image {
+                width: 25vh !important;
+                height: 10vh !important;
+            }
         }
     }
 }
-
-
-
-//     width: 30vh !important;
-// height: 11vh !important;

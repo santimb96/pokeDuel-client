@@ -1,3 +1,6 @@
+@use "sass:map";
+@use "sass:math";
+
 @mixin pad-buttons($position) {
     @if $position =='right' {
         top: 33%;
@@ -59,4 +62,16 @@
 
 @mixin bg-gradient($position, $start, $end) {
     background: linear-gradient(to $position, $start 0%, $end 100%);
+}
+
+@mixin img-mix($top){
+    @media (max-width: 991.98px){
+        top: '#{$top}vh';
+    }
+    @media(min-width: 992px){
+        $top: $top - 10;
+        top: '#{$top}vh';
+    }
+
+    @debug "top: #{$top}";
 }

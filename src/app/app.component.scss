@@ -26,3 +26,22 @@
         }
     }
 }
+
+@include media-breakpoint-up(lg) {
+    .container {
+        display: flex;
+        flex-direction: row;
+        width: 100vw;
+
+        .gameboy-card {
+            background-color: $body-bg-md-up;
+            margin-top: 9% !important;
+
+            .menu {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+
+}

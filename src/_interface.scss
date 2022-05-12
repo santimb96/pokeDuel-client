@@ -1,3 +1,5 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
 .container {
     height: 100%;
 }
@@ -8,7 +10,7 @@
     border-radius: 5px;
     table-layout: fixed;
 
-    &:after{
+    &:after {
         content: "";
         display: flex;
         padding-bottom: 100%;
@@ -194,21 +196,21 @@
     }
 }
 
-// @include media-breakpoint-up(md) {
-//   .square {
-//     position: relative;
-//     border: solid black 5px;
-//     border-radius: 5px;
-//     table-layout: fixed;
-//   }
+@include media-breakpoint-up(lg) {
+    html, body {
+        background-color: $body-bg-md-up !important;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+    .square:after {
+        padding-bottom: 40%;
+    }
 
-//   .square:after {
-//     content: "";
-//     display: flex;
-//     padding-bottom: 50vw;
-//     background-color: #747570;
-//     border: solid black 10px;
-//     border-radius: 5px;
-//   }
-
-// }
+    .controls {
+        margin-left: -20vh;
+        margin-right: -22vh;
+        margin-bottom: -152px;
+        position: relative;
+        top: -50vh;
+    }
+}

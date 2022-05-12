@@ -1,1 +1,339 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import 'variables';
+@import 'mixins';
+
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$client-primary: mat-palette($mat-indigo);
+$client-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$client-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$client-theme: mat-light-theme((color: (primary: $client-primary,
+        accent: $client-accent,
+        warn: $client-warn,
+      )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($client-theme);
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+/* LOGO */
+h1 {
+  font-family: 'Pokemon Solid', sans-serif;
+  font-size: 5vh !important;
+  color: #ffcc01;
+  -webkit-text-stroke: 2px #365eaa;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  font-size: 7vh;
+  margin-bottom: 3vh;
+}
+
+.container {
+  height: 100%;
+} 
+
+.square {
+  position: relative;
+  border: solid black 5px;
+  border-radius: 5px;
+  table-layout: fixed;
+}
+
+.square:after {
+  content: "";
+  display: flex;
+  padding-bottom: 100%;
+  background-color: $dark-grey;
+  border: solid black 10px;
+  border-radius: 5px;
+  border-top: solid black 5vh;
+  border-bottom: solid black 9vh;
+}
+
+.inside-frame {
+  position: absolute;
+  margin: 5vh;
+  max-width: 80vw;
+  max-height: 80vw;
+}
+
+.controls {
+  margin-left: 4vh;
+  margin-right: 4vh;
+  margin-bottom: -15px;
+}
+
+.a-b {
+
+  .a,
+  .b {
+    background-color: #751650;
+  }
+
+  .a {
+    top: 15px;
+    right: 10px;
+  }
+
+  .b {
+    top: 35px;
+    left: 0%;
+  }
+}
+
+/*GLOBAL*/
+.controls {
+  display: flex;
+  justify-content: space-between;
+
+  .dpad {
+    position: relative;
+    display: inline-block;
+    width: 90px;
+    height: 90px;
+    z-index: 5;
+    margin-top: 1vh;
+
+    >* {
+      width: 33%;
+      height: 33%;
+      position: absolute;
+      background-color: #565e6a;
+      cursor: pointer;
+
+      i {
+        position: relative;
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        height: 100%;
+        font-size: 28px;
+        color: #333a4a;
+        text-shadow: 0px -0.5px 0px #aaa;
+      }
+    }
+
+    .up {
+      top: calc(0% + 4px);
+      left: 33%;
+      border-top: 4px solid black;
+      border-left: 4px solid black;
+      border-right: 4px solid black;
+      border-radius: 5px 5px 0px 0px;
+
+      &:active {
+        background: linear-gradient(to top, #565e6a 0%, #333 100%);
+      }
+
+      i {
+        top: -5px;
+      }
+    }
+
+    .right {
+      top: 33%;
+      left: calc(66% - 4px);
+      border-top: 4px solid black;
+      border-bottom: 4px solid black;
+      border-right: 4px solid black;
+      border-radius: 0px 5px 5px 0px;
+      box-shadow: 0px -2px 0px #888 inset;
+
+      &:active {
+        background: linear-gradient(to right, #565e6a 0%, #333 100%);
+      }
+
+      i {
+        top: -5px;
+      }
+    }
+
+    .down {
+      top: calc(66% - 4px);
+      left: 33%;
+      border-left: 4px solid black;
+      border-bottom: 4px solid black;
+      border-right: 4px solid black;
+      border-radius: 0px 0px 5px 5px;
+      box-shadow: 0px -2px 0px #888 inset;
+
+      &:active {
+        background: linear-gradient(to bottom, #565e6a 0%, #333 100%);
+      }
+    }
+
+    .left {
+      top: 33%;
+      left: calc(0% + 4px);
+      border-top: 4px solid black;
+      border-bottom: 4px solid black;
+      border-left: 4px solid black;
+      border-radius: 5px 0px 0px 5px;
+      box-shadow: 0px -2px 0px #888 inset;
+
+      i {
+        top: -5px;
+      }
+
+      &:active {
+        background: linear-gradient(to left, #565e6a 0%, #333 100%);
+      }
+    }
+
+    .middle {
+      top: 33%;
+      left: 33%;
+      z-index: -5;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        display: inline-block;
+        border: 1px solid #6e737a;
+        background: linear-gradient(to bottom, #6d7075 0%, #6d7075 30%, #23272f 70%, #23272f 100%);
+        border-radius: 50%;
+        height: 60%;
+        width: 60%;
+      }
+    }
+
+    .up-down {
+      background-color: #565e6a;
+      border: 4px solid black;
+      border-radius: 5px;
+      width: 20px;
+      height: 60px;
+    }
+
+    .left-right {
+      background-color: #565e6a;
+      border: 4px solid black;
+      border-radius: 5px;
+      width: 60px;
+      height: 20px;
+    }
+  }
+
+  .a-b {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 90px;
+
+    .a,
+    .b {
+      position: absolute;
+      display: inline-block;
+      font-size: 22px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 50%;
+
+      border-bottom: 2px solid #888;
+      box-shadow: -1px 1px 5px black, 0px 0px 5px black inset;
+      text-shadow: 0px -1px 1px #888;
+      color: #2c313e;
+      text-align: center;
+      -webkit-user-select: none;
+      cursor: pointer;
+      transition: box-shadow 0.1s ease-out, border 0.1s ease-out, line-height 0.2s ease-out;
+
+      &:active {
+        box-shadow: -1px 1px 1px black, 0px 0px 5px black inset;
+        border-width: 0px;
+        line-height: 45px;
+      }
+    }
+  }
+}
+
+.start-select {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+
+  .select,
+  .start {
+    display: inline-block;
+    letter-spacing: -1px;
+    width: 60px;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 60px;
+
+    &::before {
+      content: '';
+      display: block;
+      margin: 0 auto;
+      width: 30px;
+      height: 10px;
+      margin-bottom: 5px;
+      border-radius: 40%;
+      background: linear-gradient(to bottom, #0b0a1c 0%, #0b0a1c 30%, #62636c 70%, #62636c 100%);
+      background-repeat: no-repeat;
+      border: 2px solid #0b0a1c;
+      cursor: pointer;
+    }
+
+    &:active::before {
+      background: linear-gradient(to bottom, #0b0a1c 0%, #0b0a1c 50%, #62636c 100%);
+    }
+  }
+}
+
+// @include media-breakpoint-up(md) {
+//   .square {
+//     position: relative;
+//     border: solid black 5px;
+//     border-radius: 5px;
+//     table-layout: fixed;
+//   }
+
+//   .square:after {
+//     content: "";
+//     display: flex;
+//     padding-bottom: 50vw;
+//     background-color: #747570;
+//     border: solid black 10px;
+//     border-radius: 5px;
+//   }
+
+// }

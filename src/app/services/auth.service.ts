@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   signUp(user){
-    return this.http.post(`${this.url}`, user, this.options('sign-up'));
+    return this.http.post<ResponseI>(`${this.url}`, user, this.options('sign-up'));
   }  
 
   logIn(form: LoginI): Observable<ResponseI>{

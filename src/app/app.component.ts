@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { format } from 'date-fns';
+import { PokemonsService } from './services/pokemons.service';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +13,11 @@ import { format } from 'date-fns';
 export class AppComponent implements OnInit {
   public title = 'client';
   public currentDate = '';
-  constructor(public router: Router, private _authService: AuthService, private datePipe: DatePipe) {
+  constructor(public router: Router, private _authService: AuthService, private _pokemonService: PokemonsService) {
     this.currentDate = format(new Date(), 'DD/MM/YYYY HH:mm');
   }
 
   ngOnInit(): void {
-    console.log(this.currentDate);
     if (localStorage.getItem("userLogged") !== null) {
       let userLogged = JSON.parse(localStorage.getItem('userLogged'));
       if (userLogged.token !== null && this.currentDate < userLogged.expiryDate) {
@@ -30,6 +30,11 @@ export class AppComponent implements OnInit {
             console.error(error)
           });
       }
+
+
+      this._pokemonService.getPokemons().subscribe( pokemons => {
+        console.log(pokemons);
+      });
     }
 
   }

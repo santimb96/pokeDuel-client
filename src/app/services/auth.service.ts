@@ -32,12 +32,12 @@ export class AuthService {
     return this.http.post<ResponseI>(`${this.url}/login`, form, this.options('login'));
   }
 
-  autoLogIn(id, token) {
+  autoLogIn(id: string, token: string) {
     return this.http.post<ResponseI>(`${this.url}/autologin`, { id, token }, this.options('autologin', token));
   }
 
-  getOneUser(id){
-    return this.http.get<any>(`${this.url}/${id}`);
+  getOneUser(id: string): Observable<any> {
+    return this.http.get<User>(`${this.url}/${id}`);
   }
 
   options(type: string, token?: any) {

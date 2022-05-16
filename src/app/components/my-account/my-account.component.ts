@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,9 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class MyAccountComponent implements OnInit {
 
-  public user = {};
-
-  constructor(private _authService: AuthService, private router: Router) {
+  public user: User;
+  constructor(private _authService: AuthService, private router: Router, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -21,8 +21,14 @@ export class MyAccountComponent implements OnInit {
 
   public myAccountData() {
     let userLogged = JSON.parse(localStorage.getItem('userLogged'));
-    this._authService.getOneUser(userLogged.id).subscribe(user => {
-      this.user = user;
-    });
+    this._authService.getOneUser(userLogged.id).subscribe(
+      data => {
+        this.user = {
+          username: data.user.username,
+          email: data.user.email,
+          avatar: data.user.avatar
+        }
+      }
+    );
   }
 }

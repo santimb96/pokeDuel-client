@@ -25,7 +25,7 @@ export class LoginComponent {
   ngOnInit() {
     this._authService.getUsers().subscribe(data => {
       this.users = data;
-      console.log(data);
+      console.log(this.users);
     });
   }
 

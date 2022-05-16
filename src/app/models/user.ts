@@ -1,10 +1,10 @@
 export class User {
     _id?: number; //mongoDB --> optional
-    username: string;
-    password: string;
-    email: string;
+    username?: string;
+    password?: string;
+    email?: string;
     avatar?: string;
-    createdAt: Date;
+    createdAt?: Date;
 
     constructor(username: string, password: string, email: string, avatar: string, createdAt: Date) {
         this.username = username;

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 
@@ -10,10 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterComponent {
   signUpForm: FormGroup;
-  
-  public avatarFile = File;
 
-  constructor(public fb: FormBuilder, private _authService: AuthService) {
+  constructor(public fb: FormBuilder, private _authService: AuthService, private router: Router) {
     this.signUpForm = this.fb.group({
       username: [''],
       password: [''],
@@ -24,7 +23,10 @@ export class RegisterComponent {
 
   signUp(form) {
     this._authService.signUp(form).subscribe(
-      data => { console.log(data); },
+      data => {
+        console.log(data);
+        this.router.navigate(["login"])
+      },
       error => { console.log(error); }
     )
   }

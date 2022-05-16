@@ -40,11 +40,20 @@ export class AuthService {
     return this.http.get<User>(`${this.url}/${id}`);
   }
 
+  deleteUser(id: string): Observable<any> {
+    return this.http.delete(`${this.url}/${id}`);
+  }
+
+  editUser(id: string, form): Observable<any> {
+    return this.http.put(`${this.url}/${id}`, form, this.options('edit'));
+  }
+
   options(type: string, token?: any) {
     switch (type) {
-      case 'sign-up': return { headers: new HttpHeaders({ 'Authorization': `Bearer${token}`}) };
-      case 'autologin': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}) };
+      case 'sign-up': return { headers: new HttpHeaders({ 'Authorization': `Bearer${token}` }) };
+      case 'autologin': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }) };
       case 'login': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': '' }) };
+      case 'edit': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }) };
       default: console.log('error');
     }
   }

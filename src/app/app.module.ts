@@ -58,6 +58,7 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { MyStatsComponent } from './components/my-stats/my-stats.component';
 import { HowToPlayComponent } from './components/how-to-play/how-to-play.component';
 import { DatePipe } from '@angular/common';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { DatePipe } from '@angular/common';
     MyAccountComponent,
     MyStatsComponent,
     HowToPlayComponent,
+    EditUserComponent,
 
   ],
   imports: [

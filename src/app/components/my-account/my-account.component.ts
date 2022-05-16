@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class MyAccountComponent implements OnInit {
 
   public user: User;
-  constructor(private _authService: AuthService, private router: Router, private fb: FormBuilder) {
+  constructor(private _authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -24,11 +24,19 @@ export class MyAccountComponent implements OnInit {
     this._authService.getOneUser(userLogged.id).subscribe(
       data => {
         this.user = {
+          _id: data.user._id,
           username: data.user.username,
           email: data.user.email,
           avatar: data.user.avatar
         }
       }
     );
+  }
+
+  public deleteProfile(id: string){
+      this._authService.deleteUser(id).subscribe(user => {
+        console.log(`${user} eliminated`);
+        this.router.navigate([""]);
+      });
   }
 }

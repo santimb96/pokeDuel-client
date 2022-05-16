@@ -1,24 +1,42 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { LoginI } from 'src/app/models/login.interface';
+import { ResponseI } from 'src/app/models/response.interface';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  public users = [];
   isLinear = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  username: FormGroup;
+  password: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _authService: AuthService, private router: Router) { }
+
+  logInForm = new FormGroup({
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
+  })
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
+    this._authService.getUsers().subscribe(data => {
+      this.users = data;
+      console.log(data);
     });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
+  }
+
+  public logIn(form: LoginI): void {
+    this._authService.logIn(form).subscribe(
+      data => {
+        let dataResponse: ResponseI = data;
+        console.log(data);
+        localStorage.setItem("userLogged",JSON.stringify({"id": dataResponse.user?._id,"token": dataResponse.token, "expiryDate": dataResponse.expiryDate.toString()}));
+        this.router.navigate(["my-account"])
+      },
+      error => console.log(error));
   }
 }

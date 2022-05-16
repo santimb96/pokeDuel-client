@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core'
+import { NgModule } from '@angular/core'
 import { LayoutModule } from '@angular/cdk/layout'
 import { HttpClientModule } from '@angular/common/http'
+
+import { HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -46,6 +48,7 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import {MatNativeDateModule} from '@angular/material/core';
 import { MatTreeModule } from '@angular/material/tree'
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { RouterModule } from '@angular/router';
 
 /** COMPONENTS */
 import { HomeComponent } from './components/home/home.component';
@@ -54,6 +57,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { MyStatsComponent } from './components/my-stats/my-stats.component';
 import { HowToPlayComponent } from './components/how-to-play/how-to-play.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -136,10 +140,15 @@ import { HowToPlayComponent } from './components/how-to-play/how-to-play.compone
     MatExpansionModule,
     MatGridListModule,
     MatTreeModule,
-    DragDropModule
+    DragDropModule,
+    
 
   ],
-  providers: [],
+  providers: [
+    HttpClient,
+    HttpClientModule,
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,39 +1,22 @@
-<div class="container inside-frame">
-    <div class="login-form">
-        <mat-vertical-stepper [linear]="isLinear" #stepper>
-            <mat-step [stepControl]="firstFormGroup">
-                <form [formGroup]="firstFormGroup">
-                    <ng-template matStepLabel>Fill out your name</ng-template>
-                    <mat-form-field>
-                        <mat-label>Name</mat-label>
-                        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-                    </mat-form-field>
-                    <div>
-                        <button mat-button matStepperNext>Next</button>
-                    </div>
-                </form>
-            </mat-step>
-            <mat-step [stepControl]="secondFormGroup">
-                <form [formGroup]="secondFormGroup">
-                    <ng-template matStepLabel>Fill out your address</ng-template>
-                    <mat-form-field>
-                        <mat-label>Address</mat-label>
-                        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-                    </mat-form-field>
-                    <div>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button matStepperNext>Next</button>
-                    </div>
-                </form>
-            </mat-step>
-            <mat-step>
-                <ng-template matStepLabel>Done</ng-template>
-                <p>You are now done.</p>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button (click)="stepper.reset()">Reset</button>
+<div class="inside-frame">
+    <div class="row">
+        <div class="col mx-auto">
+            <div class="card">
+                <div class="card-header">Log in</div>
+                <div class="card-body d-flex flex-column">
+                    <form [formGroup]="logInForm" (ngSubmit)="logIn(logInForm.value)">
+                        <div class="form-group">
+                            <input type="text" formControlName="username" name="username" class="form-control"
+                                placeholder="Username" required autofocus />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" formControlName="password" name="password" class="form-control"
+                                placeholder="Password" required />
+                        </div>
+                        <input type="submit" class="btn btn-primary btn-block" value="Log in"/>
+                    </form>
                 </div>
-            </mat-step>
-        </mat-vertical-stepper>
+            </div>
+        </div>
     </div>
 </div>

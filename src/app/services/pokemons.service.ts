@@ -16,6 +16,11 @@ export class PokemonsService {
     return this.http.get<any>(this.url);
   }
 
+  getOnePokemon(id: string): Observable<any> {
+    return this.http.get<any>(`${this.url}/${id}`);
+  }
+
+
   options(type: string, token?: any) {
     switch (type) {
       case 'sign-up': return { headers: new HttpHeaders({ 'Authorization': `Bearer${token}` }) };

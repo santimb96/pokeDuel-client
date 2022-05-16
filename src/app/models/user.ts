@@ -3,7 +3,7 @@ export class User {
     username: string;
     password: string;
     email: string;
-    avatar: string;
+    avatar?: string;
     createdAt: Date;
 
     constructor(username: string, password: string, email: string, avatar: string, createdAt: Date) {

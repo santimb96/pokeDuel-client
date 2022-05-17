@@ -1,16 +1,22 @@
 <div class="container-fluid inside-frame">
   <mat-grid-list cols="2" rowHeight="360px">
-    <mat-grid-tile>
+    <mat-grid-tile *ngIf="pokemonLeft.life > 0">
       <div class="pokemon-left">
-        <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+        <p>{{ pokemonLeft.name }}</p>
+        <mat-progress-bar mode="determinate" :value="{{ pokemonLeft.life }}"></mat-progress-bar>
         <img :src="{{ pokemonLeft.imgBack }}" class="card-img" alt="pokemon-left">
       </div>
     </mat-grid-tile>
-    <mat-grid-tile>
+    <mat-grid-tile *ngIf="pokemonRight.life > 0">
       <div class="pokemon-right">
-        <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+        <p>{{ pokemonRight.name }}</p>
+        <mat-progress-bar mode="determinate" :value="{{ pokemonRight.life }}"></mat-progress-bar>
         <img :src="{{ pokemonRight.imgFront }}" class="card-img" alt="pokemon-left">
       </div>
+        <div class="example-button-row">
+          <button mat-button [disabled]="isDisabled" (click)="attack()">Attack</button>
+          <button mat-button [disabled]="isDisabled" (click)="defense()">Defense</button>
+        </div>
     </mat-grid-tile>
   </mat-grid-list>
 </div>

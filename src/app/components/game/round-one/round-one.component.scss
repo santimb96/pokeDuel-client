@@ -1,20 +1,48 @@
 //VARIABLES
 @import '../../../../variables';
 
-.pokemon-left{
+.pokemon-left {
     height: 100%;
     width: 100%;
     position: absolute;
     top: 40vh;
 }
 
-.pokemon-right{
+.pokemon-right {
     height: 100%;
     width: 100%;
     position: absolute;
     top: 2vh;
 }
 
-.card-img{
+.card-img {
     width: 60% !important;
+}
+
+.example-label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    min-width: 120px;
+}
+
+.example-button-row {
+    display: table-cell;
+    width: 490px;
+}
+
+.example-button-row .mat-button-base {
+    margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
 }

@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "package-name": "git+https://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:x-oauth-basic@github.com/onikakimasiaod/https://github.com/onikakimasiaod/client.git",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

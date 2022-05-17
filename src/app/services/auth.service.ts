@@ -44,8 +44,13 @@ export class AuthService {
     return this.http.delete(`${this.url}/${id}`);
   }
 
-  editUser(id: string, form): Observable<any> {
-    return this.http.put(`${this.url}/${id}`, form, this.options('edit'));
+  editUser(id: string, user): Observable<any> {
+    const formData = new FormData();
+    formData.append('username', user.username);
+    formData.append('password', user.password);
+    formData.append('email', user.email);
+    formData.append('avatar', user.avatar);
+    return this.http.put(`${this.url}/${id}`, formData);
   }
 
   options(type: string, token?: any) {
@@ -53,7 +58,6 @@ export class AuthService {
       case 'sign-up': return { headers: new HttpHeaders({ 'Authorization': `Bearer${token}` }) };
       case 'autologin': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }) };
       case 'login': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': '' }) };
-      case 'edit': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }) };
       default: console.log('error');
     }
   }

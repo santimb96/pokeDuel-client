@@ -25,10 +25,15 @@ export class EditUserComponent implements OnInit {
   }
 
   editUser(form) {
+    console.log(form);
     let userLogged = JSON.parse(localStorage.getItem('userLogged'));
     this._authService.editUser(userLogged.id, form).subscribe(
       data => {
         console.log(`${data} has been updated!`);
+        this.router.navigate(["my-account"]);
+      },
+      error => {
+        console.log(error);
       }
     );
   }

@@ -32,13 +32,13 @@ export class AppComponent implements OnInit {
       }
 
 
-      this._pokemonService.getPokemons().subscribe( pokemons => {
-        console.log(pokemons);
-      });
+      // this._pokemonService.getPokemons().subscribe( pokemons => {
+      //   console.log(pokemons);
+      // });
 
-      this._pokemonService.getOnePokemon("624807e157be8e2ea84066df").subscribe(pokemon => {
-        console.log(pokemon);
-      })
+      // this._pokemonService.getOnePokemon("624807e157be8e2ea84066df").subscribe(pokemon => {
+      //   console.log(pokemon);
+      // });
     }
 
   }

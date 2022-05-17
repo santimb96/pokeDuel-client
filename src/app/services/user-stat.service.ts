@@ -31,12 +31,16 @@ export class UserStatService {
     return this.http.post<ResponseI>(`${this.url}`, formData, this.options('newState'));
   }
 
-  deleteUser(id: string): Observable<any> {
+  deleteState(id: string): Observable<any> {
     return this.http.delete(`${this.url}/${id}`);
   }
 
-  editUser(id: string, form): Observable<any> {
-    return this.http.put(`${this.url}/${id}`, form, this.options('edit'));
+  editState(id: string, state): Observable<any> {
+    const formData = new FormData();
+    formData.append('timePlayed', state.timePlayed);
+    formData.append('round', state.round);
+    formData.append('team', state.team);
+    return this.http.put(`${this.url}/${id}`, formData, this.options('edit'));
   }
 
   options(type: string, token?: any) {

@@ -35,7 +35,7 @@ export class LoginComponent {
         let dataResponse: ResponseI = data;
         console.log(data);
         localStorage.setItem("userLogged",JSON.stringify({"id": dataResponse.user?._id,"token": dataResponse.token, "expiryDate": dataResponse.expiryDate.toString()}));
-        this.router.navigate(["my-account"])
+        this.router.navigate(["menu-game"]);
       },
       error => console.log(error));
   }

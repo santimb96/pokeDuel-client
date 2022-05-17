@@ -1,0 +1,20 @@
+//VARIABLES
+@import '../../../../variables';
+
+.pokemon-left{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 40vh;
+}
+
+.pokemon-right{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 2vh;
+}
+
+.card-img{
+    width: 60% !important;
+}

@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router, RouterEvent } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { format } from 'date-fns';
 import { PokemonsService } from './services/pokemons.service';
@@ -30,16 +30,12 @@ export class AppComponent implements OnInit {
             console.error(error)
           });
       }
-
-
-      // this._pokemonService.getPokemons().subscribe( pokemons => {
-      //   console.log(pokemons);
-      // });
-
-      // this._pokemonService.getOnePokemon("624807e157be8e2ea84066df").subscribe(pokemon => {
-      //   console.log(pokemon);
-      // });
     }
 
+    this._pokemonService.getPokemons().subscribe( pokemons => {
+      console.log(pokemons);
+    });
+
   }
+
 }

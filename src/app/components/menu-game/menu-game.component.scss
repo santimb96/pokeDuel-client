@@ -1,0 +1,33 @@
+//VARIABLES
+@import '../../../variables';
+
+
+.section-menu {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        text-align: center;
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+    }
+
+    button {
+        background-color: $yellow;
+    }
+
+    .img-card {
+        display: flex;
+        justify-content: center;
+        margin-bottom: -3vh;
+
+        .mat-card-image {
+            width: 20vh;
+        }
+    }
+
+}

@@ -48,7 +48,6 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import {MatNativeDateModule} from '@angular/material/core';
 import { MatTreeModule } from '@angular/material/tree'
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import { RouterModule } from '@angular/router';
 
 /** COMPONENTS */
 import { HomeComponent } from './components/home/home.component';
@@ -59,6 +58,14 @@ import { MyStatsComponent } from './components/my-stats/my-stats.component';
 import { HowToPlayComponent } from './components/how-to-play/how-to-play.component';
 import { DatePipe } from '@angular/common';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { MenuGameComponent } from './components/menu-game/menu-game.component';
+import { CreditsComponent } from './components/credits/credits.component';
+import { RoundOneComponent } from './components/game/round-one/round-one.component';
+import { RoundTwoComponent } from './components/game/round-two/round-two.component';
+import { RoundThreeComponent } from './components/game/round-three/round-three.component';
+
+
+/* RESOLVERS */
 
 @NgModule({
   declarations: [
@@ -70,6 +77,11 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
     MyStatsComponent,
     HowToPlayComponent,
     EditUserComponent,
+    MenuGameComponent,
+    CreditsComponent,
+    RoundOneComponent,
+    RoundTwoComponent,
+    RoundThreeComponent,
 
   ],
   imports: [
@@ -143,13 +155,11 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
     MatGridListModule,
     MatTreeModule,
     DragDropModule,
-    
-
   ],
   providers: [
     HttpClient,
     HttpClientModule,
-    DatePipe
+    DatePipe,  
   ],
   bootstrap: [AppComponent]
 })

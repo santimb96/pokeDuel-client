@@ -13,7 +13,7 @@
         <mat-progress-bar mode="determinate" :value="{{ pokemonRight.life }}"></mat-progress-bar>
         <img :src="{{ pokemonRight.imgFront }}" class="card-img" alt="pokemon-left">
       </div>
-        <div class="example-button-row">
+        <div class="example-button-row" *ngIf="pokemonLeft.life !== 0 || pokemonRight.life !== 0">
           <button mat-button [disabled]="isDisabled" (click)="attack()">Attack</button>
           <button mat-button [disabled]="isDisabled" (click)="defense()">Defense</button>
         </div>

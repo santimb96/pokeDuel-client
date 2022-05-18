@@ -29,23 +29,23 @@ export class RoundOneComponent implements OnInit {
     console.log(this.pokemonRight);
   }
 
-  getRandomId() {
+  getRandomId(): number {
     return Math.round(Math.random() * 88);
   }
 
-  attack() {
+  attack(): void {
     if (this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass'
       || this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water'
       || this.pokemonLeft.type === 'water' && this.pokemonRight.type === 'fire') {
 
-        if (this.pokemonRight.life <= 20) {
-          this.pokemonRight.life = 0;
-        }
-        else {
-          this.pokemonRight.life = this.pokemonRight.life * 0.2;
-        }
+      if (this.pokemonRight.life <= 20) {
+        this.pokemonRight.life = 0;
+      }
+      else {
+        this.pokemonRight.life = this.pokemonRight.life * 0.2;
+      }
     }
-    else{
+    else {
       if (this.pokemonRight.life <= 10) {
         this.pokemonRight.life = 0;
       }
@@ -53,7 +53,7 @@ export class RoundOneComponent implements OnInit {
         this.pokemonRight.life = this.pokemonRight.life * 0.1;
       }
     }
-    
+
     this.isDisabled = true;
     setTimeout(function () {
       this.enemyAtacking();
@@ -61,21 +61,23 @@ export class RoundOneComponent implements OnInit {
 
   }
 
-  defense() {
+  defense(): void {
     this.pokemonRight.life = this.pokemonRight.life * 0.2;
     setTimeout(function () {
       this.enemyAtacking();
     }.bind(this), 1000);
   }
 
-  enemyAtacking() {
+  enemyAtacking(): void {
     const moves = ['attack', 'defense'];
-    let move = moves[Math.round(Math.random() * 2)];
-    switch (move) {
-      case 'attack': this.pokemonLeft.life = this.pokemonLeft.life * 0.2;
-      case 'defense': this.pokemonLeft.life = this.pokemonLeft.life * 0.2;
-      default: console.log('not attacking');
+    if (this.pokemonRight.life > 0 || this.pokemonLeft.life > 0) {
+      let move = moves[Math.round(Math.random() * 2)];
+      switch (move) {
+        case 'attack': this.pokemonLeft.life = this.pokemonLeft.life * 0.2;
+        case 'defense': this.pokemonLeft.life = this.pokemonLeft.life * 0.2;
+        default: console.log('not attacking');
+      }
+      this.isDisabled = false;
     }
-    this.isDisabled = false;
   }
 }

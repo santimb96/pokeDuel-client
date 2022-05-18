@@ -63,6 +63,7 @@ import { CreditsComponent } from './components/credits/credits.component';
 import { RoundOneComponent } from './components/game/round-one/round-one.component';
 import { RoundTwoComponent } from './components/game/round-two/round-two.component';
 import { RoundThreeComponent } from './components/game/round-three/round-three.component';
+import { NewGameComponent } from './components/new-game/new-game.component';
 
 
 /* RESOLVERS */
@@ -82,6 +83,7 @@ import { RoundThreeComponent } from './components/game/round-three/round-three.c
     RoundOneComponent,
     RoundTwoComponent,
     RoundThreeComponent,
+    NewGameComponent,
 
   ],
   imports: [

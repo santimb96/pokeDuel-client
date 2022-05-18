@@ -16,17 +16,26 @@ export class RoundOneComponent implements OnInit {
   public isDisabled: boolean = false;
 
   constructor(private _pokemonService: PokemonsService, private route: ActivatedRoute) {
-    this.pokemons = this.route.snapshot.data['pokemons'];
-    this.pokemonLeft = this.route.snapshot.data['pokemons'].pokemons[this.getRandomId()];
-    this.pokemonRight = this.route.snapshot.data['pokemons'].pokemons[this.getRandomId()];
-    this.pokemonLeft.life = 100;
-    this.pokemonRight.life = 100;
+    this.generatePokemons();
+    // this.pokemons = this.route.snapshot.data['pokemons'];
+    // this.pokemonLeft = this.route.snapshot.data['pokemons'].pokemons[this.getRandomId()];
+    // this.pokemonRight = this.route.snapshot.data['pokemons'].pokemons[this.getRandomId()];
+    // this.pokemonLeft.life = 100;
+    // this.pokemonRight.life = 100;
   }
 
   ngOnInit(): void {
     console.log(this.pokemons);
     console.log(this.pokemonLeft);
     console.log(this.pokemonRight);
+  }
+
+  generatePokemons(): void{
+    this.pokemons = this.route.snapshot.data['pokemons'];
+    this.pokemonLeft = this.route.snapshot.data['pokemons'].pokemons[this.getRandomId()];
+    this.pokemonRight = this.route.snapshot.data['pokemons'].pokemons[this.getRandomId()];
+    this.pokemonLeft.life = 100;
+    this.pokemonRight.life = 100;
   }
 
   getRandomId(): number {

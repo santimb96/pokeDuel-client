@@ -1,1 +1,18 @@
-<p>my-stats works!</p>
+<div class="container-fluid inside-frame">
+    <div class="card d-flex flex-column " style="background-color: transparent; border: none;">
+      <div class="d-flex justify-content-center">
+        <img :src="{{ user.avatar }}" class="card-img-top" alt="Avatar" style="width:100px; border-radius: 50%;">
+      </div>
+      <div class="card-body text">
+        <h2 class="card-title">{{ user.username }}</h2>
+        <p class="card-text">
+          <img src="../../../assets/img/email.png" class="card-img-top" alt="Avatar" style="width:10%;">
+          <span>{{ user.email }}</span>
+        </p>
+        <p class="card-text">
+          <img src="../../../assets/img/trofeo.png" class="card-img-top" alt="Avatar" style="width:10%;">
+          <span>8 Victories</span>
+        </p>
+      </div>
+    </div>
+  </div>

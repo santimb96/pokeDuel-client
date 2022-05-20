@@ -33,10 +33,10 @@ export class MyAccountComponent implements OnInit {
     );
   }
 
-  public deleteProfile(id: string){
-      this._authService.deleteUser(id).subscribe(user => {
-        console.log(`${user} eliminated`);
-        this.router.navigate([""]);
-      });
+  public deleteProfile(id: string) {
+    this._authService.deleteUser(id).subscribe(user => {
+      console.log(`${user} eliminated`);
+      this.router.navigate([""]);
+    });
   }
 }

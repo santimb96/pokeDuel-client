@@ -197,7 +197,7 @@
     }
 }
 
-@include media-breakpoint-up(lg) {
+@include media-breakpoint-up(xl) {
     html, body {
         background-color: $body-bg-md-up !important;
         overflow-y: hidden;

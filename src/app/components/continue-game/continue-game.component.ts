@@ -1,29 +1,26 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { Pokemon } from 'src/app/models/pokemon';
-import { PokemonsService } from 'src/app/services/pokemons.service';
-import { of } from 'rxjs';
-import { UserStatService } from 'src/app/services/user-stat.service';
-import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
-import { Params } from '@angular/router';
 import { UserStat } from 'src/app/models/userStat';
+import { AuthService } from 'src/app/services/auth.service';
+import { PokemonsService } from 'src/app/services/pokemons.service';
+import { UserStatService } from 'src/app/services/user-stat.service';
 
 @Component({
-  selector: 'app-new-game',
-  templateUrl: './new-game.component.html',
-  styleUrls: ['./new-game.component.scss']
+  selector: 'app-continue-game',
+  templateUrl: './continue-game.component.html',
+  styleUrls: ['./continue-game.component.scss']
 })
-export class NewGameComponent implements OnInit {
-
+export class ContinueGameComponent implements OnInit {
   public pokemonLeft: Pokemon;
   public user: User;
   public pokemonRight: Pokemon;
-  private pokemons: Pokemon[];
-  public isDisabled: boolean = false;
-  public currentDate: Date = new Date();
   public userStat: UserStat;
+  public isDisabled: boolean = false;
+  public userStatID: string;
+  public currentDate: Date = new Date();
 
   constructor(private _pokemonService: PokemonsService, private route: ActivatedRoute,
     private cdr: ChangeDetectorRef, private router: Router, private _userStatService: UserStatService,
@@ -33,31 +30,26 @@ export class NewGameComponent implements OnInit {
     let interval = setInterval(() => {
       this.cdr.detectChanges();
       if (this.pokemonLeft.life === 0 || this.pokemonRight.life === 0) {
-        this.generateNewUserState();
+        this.generateUserState();
         setTimeout(function () {
           console.log(this.userStat._id);
           this.router.navigate([`my-stats/${this.user._id}/${this.userStat._id}`]);
         }.bind(this), 3000)
-
         clearInterval(interval);
-
       }
     }, 1000)
-
-
   }
 
   ngOnInit(): void { }
 
   generateData(): void {
-    this.pokemons = this.route.snapshot.data['pokemons'];
     this.pokemonLeft = this.route.snapshot.data['pokemons'].pokemons[this.getRandomId()];
     this.pokemonRight = this.route.snapshot.data['pokemons'].pokemons[this.getRandomId()];
+    this.userStat = this.route.snapshot.data['userStats'].userStat;
     this.user = this.route.snapshot.data['users'].user;
+    this.userStatID = this.user._id;
     this.pokemonLeft.life = 100;
     this.pokemonRight.life = 100;
-
-
   }
 
   getRandomId(): number {
@@ -119,17 +111,20 @@ export class NewGameComponent implements OnInit {
     }
   }
 
-  generateNewUserState() {
+  generateUserState() {
+
+    let myTeam: Array<Pokemon> = this.userStat.team;
+    myTeam.push({ "name": this.pokemonLeft.name, "life": this.pokemonLeft.life, "img3d": this.pokemonLeft.img3d });
+
     let newState = JSON.stringify({
       user: this.user._id,
       timePlayed: this.currentDate,
-      round: 1,
-      team: [{ "name": this.pokemonLeft.name, "life": this.pokemonLeft.life, "img3d": this.pokemonLeft.img3d }]
+      round: this.userStat.round+1,
+      team: myTeam
     });
 
-    this._userStatService.newState(newState).subscribe(state => {
-      this.userStat = state.userStat;
+    this._userStatService.editState(this.user._id, newState).subscribe(state => {
+      console.log(state);
     });
   }
-
 }

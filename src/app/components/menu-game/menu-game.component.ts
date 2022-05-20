@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-menu-game',
@@ -8,9 +9,12 @@ import { Router } from '@angular/router';
 })
 export class MenuGameComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  public userID = JSON.parse(localStorage.getItem('userLogged')).id;
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log(this.userID);
+
   }
 
   public logOut(): void {

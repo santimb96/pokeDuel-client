@@ -27,7 +27,7 @@
     }
 }
 
-@include media-breakpoint-up(lg) {
+@include media-breakpoint-up(xl) {
     .container {
         display: flex;
         flex-direction: row;

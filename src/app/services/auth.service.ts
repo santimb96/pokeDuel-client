@@ -55,7 +55,7 @@ export class AuthService {
 
   options(type: string, token?: any) {
     switch (type) {
-      case 'sign-up': return { headers: new HttpHeaders({ 'Authorization': `Bearer${token}` }) };
+      case 'sign-up': return { headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` }) };
       case 'autologin': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }) };
       case 'login': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': '' }) };
       default: console.log('error');

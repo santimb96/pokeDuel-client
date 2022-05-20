@@ -24,11 +24,7 @@ export class UserStatService {
   }
 
   newState(state) {
-    const formData = new FormData();
-    formData.append('timePlayed', state.timePlayed);
-    formData.append('round', state.round);
-    formData.append('team', state.team);
-    return this.http.post<ResponseI>(`${this.url}`, formData, this.options('newState'));
+    return this.http.post<any>(`${this.url}`, JSON.parse(state), this.options('newState'));
   }
 
   deleteState(id: string): Observable<any> {
@@ -36,16 +32,12 @@ export class UserStatService {
   }
 
   editState(id: string, state): Observable<any> {
-    const formData = new FormData();
-    formData.append('timePlayed', state.timePlayed);
-    formData.append('round', state.round);
-    formData.append('team', state.team);
-    return this.http.put(`${this.url}/${id}`, formData, this.options('edit'));
+    return this.http.put(`${this.url}/${id}`, JSON.parse(state), this.options('edit'));
   }
 
   options(type: string, token?: any) {
     switch (type) {
-      case 'newState': return { headers: new HttpHeaders({ 'Authorization': `Bearer${token}` }) };
+      case 'newState': return { headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` }) };
       case 'login': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': '' }) };
       case 'edit': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }) };
       default: console.log('error');

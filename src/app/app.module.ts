@@ -64,6 +64,7 @@ import { RoundOneComponent } from './components/game/round-one/round-one.compone
 import { RoundTwoComponent } from './components/game/round-two/round-two.component';
 import { RoundThreeComponent } from './components/game/round-three/round-three.component';
 import { NewGameComponent } from './components/new-game/new-game.component';
+import { ContinueGameComponent } from './components/continue-game/continue-game.component';
 
 
 /* RESOLVERS */
@@ -84,6 +85,7 @@ import { NewGameComponent } from './components/new-game/new-game.component';
     RoundTwoComponent,
     RoundThreeComponent,
     NewGameComponent,
+    ContinueGameComponent,
 
   ],
   imports: [

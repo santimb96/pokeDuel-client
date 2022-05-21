@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContinueGameComponent } from './components/continue-game/continue-game.component';
 import { CreditsComponent } from './components/credits/credits.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
-import { RoundOneComponent } from './components/game/round-one/round-one.component';
 import { HomeComponent } from './components/home/home.component';
 import { HowToPlayComponent } from './components/how-to-play/how-to-play.component';
 import { LoginComponent } from './components/login/login.component';

@@ -30,6 +30,7 @@ export class MenuGameComponent implements OnInit {
 
   public logOut(): void {
     localStorage.removeItem('userLogged');
+    localStorage.removeItem('gameId');
     this.router.navigate([""]);
   }
 }

@@ -5,7 +5,9 @@
         </div>
         <div class="menu">
             <button mat-raised-button [routerLink]="['/new-game',userID]">New game</button>
-            <button mat-raised-button>Continue</button>
+            <ng-container *ngIf="userStat.round < 3">
+                <button mat-raised-button [routerLink]="['/continue-game', userID, userStatID]">Continue</button>
+            </ng-container>
             <button mat-raised-button [routerLink]="['/my-account',userID]">My account</button>
             <button mat-raised-button routerLink="/how-to-play">How to play</button> <!-- SOUND OPTIONS -->
             <button mat-raised-button routerLink="/credits">Credits</button>

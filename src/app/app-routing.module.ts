@@ -33,7 +33,14 @@ const routes: Routes = [
   },
   { path: 'how-to-play', component: HowToPlayComponent },
   { path: 'edit-my-account', component: EditUserComponent },
-  { path: 'menu-game', component: MenuGameComponent },
+  { 
+    path: 'menu-game/:id', 
+    component: MenuGameComponent,
+    resolve: {
+      users: UserResolverService,
+      userStats: UserStatResolverService
+    }
+  },
   { path: 'credits', component: CreditsComponent },
   {
     path: 'continue-game/:id/:id2',

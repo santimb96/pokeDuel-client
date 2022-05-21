@@ -20,7 +20,7 @@ export class NewGameComponent implements OnInit {
   public pokemonLeft: Pokemon;
   public user: User;
   public pokemonRight: Pokemon;
-  private pokemons: Pokemon[];
+  public pokemons: Pokemon[];
   public isDisabled: boolean = false;
   public currentDate: Date = new Date();
   public userStat: UserStat;
@@ -127,9 +127,22 @@ export class NewGameComponent implements OnInit {
       team: [{ "name": this.pokemonLeft.name, "life": this.pokemonLeft.life, "img3d": this.pokemonLeft.img3d }]
     });
 
-    this._userStatService.newState(newState).subscribe(state => {
-      this.userStat = state.userStat;
+    this._userStatService.getOneUserStats(this.user._id).subscribe(state => {
+      console.log(state);
+      if (state !== null || state !== undefined){
+        this._userStatService.deleteState(state.userStat._id).subscribe(state => {
+          console.log(`${state} erased`);
+          this._userStatService.newState(newState).subscribe(state => {
+            this.userStat = state.userStat;
+          });
+        });
+      }else{
+        this._userStatService.newState(newState).subscribe(state => {
+          this.userStat = state.userStat;
+        });
+      }
     });
+    
   }
 
 }

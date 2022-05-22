@@ -7,7 +7,6 @@ import { of } from 'rxjs';
 import { UserStatService } from 'src/app/services/user-stat.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
-import { Params } from '@angular/router';
 import { UserStat } from 'src/app/models/userStat';
 
 @Component({
@@ -56,8 +55,6 @@ export class NewGameComponent implements OnInit {
     this.user = this.route.snapshot.data['users'].user;
     this.pokemonLeft.life = 100;
     this.pokemonRight.life = 100;
-
-
   }
 
   getRandomId(): number {

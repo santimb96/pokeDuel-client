@@ -53,6 +53,15 @@ export class AuthService {
     return this.http.put(`${this.url}/${id}`, formData);
   }
 
+  isLoggedIn() {
+    if (localStorage.getItem('userLogged') !== null){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   options(type: string, token?: any) {
     switch (type) {
       case 'sign-up': return { headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` }) };

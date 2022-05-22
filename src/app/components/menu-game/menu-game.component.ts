@@ -13,17 +13,22 @@ export class MenuGameComponent implements OnInit {
   public userID: string;
   public user: User;
   public userStat: UserStat;
-  public userStatID: string;
+  public userStatExists: boolean = true;
 
   constructor(private router: Router, private route: ActivatedRoute) { 
     //objects
     this.user = this.route.snapshot.data['users'].user;
     this.userStat = this.route.snapshot.data['userStats'].userStat;
 
-    console.log(this.userStat);
     //id's
-    this.userStatID = this.userStat._id;
     this.userID = this.user._id;
+
+    if( this.userStat === null){
+      this.userStatExists = false;
+    } else if( this.userStat.team.length === 0){
+      this.userStatExists = false;
+    }
+
   }
 
   ngOnInit(): void {}

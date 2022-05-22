@@ -60,11 +60,9 @@ import { DatePipe } from '@angular/common';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { MenuGameComponent } from './components/menu-game/menu-game.component';
 import { CreditsComponent } from './components/credits/credits.component';
-import { RoundOneComponent } from './components/game/round-one/round-one.component';
-import { RoundTwoComponent } from './components/game/round-two/round-two.component';
-import { RoundThreeComponent } from './components/game/round-three/round-three.component';
 import { NewGameComponent } from './components/new-game/new-game.component';
 import { ContinueGameComponent } from './components/continue-game/continue-game.component';
+import { GameComponent } from './components/game/game.component';
 
 
 /* RESOLVERS */
@@ -81,11 +79,9 @@ import { ContinueGameComponent } from './components/continue-game/continue-game.
     EditUserComponent,
     MenuGameComponent,
     CreditsComponent,
-    RoundOneComponent,
-    RoundTwoComponent,
-    RoundThreeComponent,
     NewGameComponent,
     ContinueGameComponent,
+    GameComponent,
 
   ],
   imports: [

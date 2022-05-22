@@ -11,9 +11,11 @@
       </p>
       <p class="card-text">
         <img src="../../../assets/img/trofeo.png" class="card-img-top" alt="Avatar" style="width:10%;">
-        <span>8 Victories</span>
+        <span>{{ userStat.victories }} victories</span>
+        <span> in {{ userStat.round }} rounds</span>
       </p>
     </div>
     <button class="btn btn-danger" (click)="deleteProfile(user._id)">Delete my profile</button>
+    <button class="btn btn-primary" [routerLink]="['/menu-game',userID]">Go to menu</button>
   </div>
 </div>

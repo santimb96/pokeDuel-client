@@ -19,6 +19,7 @@ export class UserStatService {
     return this.http.get<any>(this.url);
   }
 
+  //id user
   getOneUserStats(id: string): Observable<any> {
     return this.http.get<any>(`${this.url}/${id}`);
   }
@@ -27,12 +28,14 @@ export class UserStatService {
     return this.http.post<any>(`${this.url}`, JSON.parse(state), this.options('newState'));
   }
 
+  //id stat
   deleteState(id: string): Observable<any> {
     return this.http.delete(`${this.url}/${id}`);
   }
 
+  //id user
   editState(id: string, state): Observable<any> {
-    return this.http.put(`${this.url}/${id}`, JSON.parse(state), this.options('edit'));
+    return this.http.put(`${this.url}/${id}`, JSON.parse(state), this.options('edit')); 
   }
 
   options(type: string, token?: any) {

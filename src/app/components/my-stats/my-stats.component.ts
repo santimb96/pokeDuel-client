@@ -29,8 +29,8 @@ export class MyStatsComponent implements OnInit {
     this.userStatID = this.userStat._id;
     this.userID = this.user._id;
 
-    //data for html
-    this.won = this.userStat.team[this.userStat.round-1].life !== 0 ? true : false;
+    // //data for html
+    // this.won = this.userStat.team[this.userStat.round-1].life !== 0 ? true : false;
   }
 
   ngOnInit(): void {

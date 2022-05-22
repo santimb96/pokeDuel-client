@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 import { ContinueGameComponent } from './components/continue-game/continue-game.component';
 import { CreditsComponent } from './components/credits/credits.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { GameComponent } from './components/game/game.component';
 import { HomeComponent } from './components/home/home.component';
 import { HowToPlayComponent } from './components/how-to-play/how-to-play.component';
 import { LoginComponent } from './components/login/login.component';
@@ -18,12 +20,20 @@ import { UserStatResolverService } from './resolvers/userStat.resolver.service';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'my-account/:id', component: MyAccountComponent },
+  { 
+    path: 'my-account/:id', 
+    component: MyAccountComponent,
+    resolve: {
+      users: UserResolverService,
+      userStats: UserStatResolverService
+    } 
+  },
   {
-    path: 'my-stats/:id/:id2',
+    path: 'my-stats/:id',
     component: MyStatsComponent,
     resolve: {
       users: UserResolverService,
@@ -35,6 +45,7 @@ const routes: Routes = [
   { 
     path: 'menu-game/:id', 
     component: MenuGameComponent,
+    canActivate: [AuthGuard],
     resolve: {
       users: UserResolverService,
       userStats: UserStatResolverService
@@ -42,12 +53,12 @@ const routes: Routes = [
   },
   { path: 'credits', component: CreditsComponent },
   {
-    path: 'continue-game/:id/:id2',
+    path: 'continue-game/:id',
     component: ContinueGameComponent,
     resolve: {
       pokemons: DataResolverService,
       users: UserResolverService,
-      userStats: UserStatResolverService
+      userStat: UserStatResolverService
     }
   },
   {
@@ -56,6 +67,15 @@ const routes: Routes = [
     resolve: {
       pokemons: DataResolverService,
       users: UserResolverService
+    }
+  },
+  {
+    path: 'game/:id',
+    component: GameComponent,
+    resolve: {
+      pokemons: DataResolverService,
+      users: UserResolverService,
+      userStat: UserStatResolverService
     }
   },
 ];

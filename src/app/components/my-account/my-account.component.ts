@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { UserStat } from 'src/app/models/userStat';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,11 +12,16 @@ import { AuthService } from 'src/app/services/auth.service';
 export class MyAccountComponent implements OnInit {
 
   public user: User;
-  constructor(private _authService: AuthService, private router: Router) {
+  public userStat: UserStat;
+  public userID: string;
+  constructor(private _authService: AuthService, private router: Router, private route: ActivatedRoute) {
+    this.user = this.route.snapshot.data['users'].user;
+    this.userStat = this.route.snapshot.data['userStats'].userStat;
+    this.userID = this.user._id;
   }
 
   ngOnInit(): void {
-    this.myAccountData();
+    
   }
 
   public myAccountData() {

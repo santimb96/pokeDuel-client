@@ -22,12 +22,5 @@
       </p>
     </div>
   </div>
-  <div *ngIf="userStat.round < 3">
-    <!-- *ngIf="userStat <= 3" -->
-    <button mat-raised-button [routerLink]="['/continue-game', userID, userStatID]" (click)="print()">Next round</button>
-  </div>
-  <div *ngIf="userStat.round > 3 || userStat.round === 3">
-    <!-- *ngIf="userStat <= 3" -->
-    <button mat-raised-button [routerLink]="['../../../my-account', userID]" (click)="print()">Finish</button>
-  </div>
+  <button mat-raised-button [routerLink]="['../../../my-account', userID]" (click)="print()">Finish</button>
 </div>

@@ -13,9 +13,15 @@
     border: none;
 }
 
+.inputs-lg{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
 @include media-breakpoint-up(xl) {
     .card{
         height: 100%;
         width: 100%;
-    }
+    }      
 }

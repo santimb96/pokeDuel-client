@@ -6,16 +6,23 @@
     <div class="card-body text">
       <h2 class="card-title">{{ user.username }}</h2>
       <p class="card-text">
-        <img src="../../../assets/img/email.png" class="card-img-top" alt="Avatar" style="width:10%;">
+        <img src="../../../assets/img/email.png" class="card-img-top" alt="Avatar" style="width:50px;">
         <span>{{ user.email }}</span>
       </p>
       <p class="card-text">
-        <img src="../../../assets/img/trofeo.png" class="card-img-top" alt="Avatar" style="width:10%;">
+        <img src="../../../assets/img/trofeo.png" class="card-img-top" alt="Avatar" style="width:50px;">
         <span>{{ userStat.victories }} victories</span>
         <span> in {{ userStat.round }} rounds</span>
       </p>
     </div>
-    <button class="btn btn-danger" (click)="deleteProfile(user._id)">Delete my profile</button>
-    <button class="btn btn-primary" [routerLink]="['/menu-game',userID]">Go to menu</button>
+    <div class="d-flex justify-content-around">
+      <button class="btn btn-primary" [routerLink]="['/menu-game',userID]">Go to menu</button>
+      <button class="btn btn-secondary" [routerLink]="['/edit-my-account',userID]">Edit my profile</button>
+      <button class="btn btn-danger" (click)="deleteProfile(user._id)">Delete my profile</button> <!-- TODO: change button for edit then in edit, add the button "delete"-->
+    </div>
   </div>
 </div>
+
+<!-- FIXME: Fix when battle: even the pokemonRight is death, still attacking -->
+
+<!-- FIXME: victories -->

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -11,26 +11,28 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class EditUserComponent implements OnInit {
   editForm: FormGroup;
+  public user: User;
+  ngOnInit(): void { }
 
-  ngOnInit(): void {
-    this.oldValues();
-  }
-  constructor(public fb: FormBuilder, private _authService: AuthService, private router: Router) {
+  constructor(public fb: FormBuilder, private _authService: AuthService, private router: Router, private route: ActivatedRoute) {
+    this.user = this.user = this.route.snapshot.data['users'].user;
+    
     this.editForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', Validators.required],
       avatar: ['', Validators.required],
     });
+    this.oldValues();
+    console.log('test');
   }
 
   editUser(form) {
     console.log(form);
-    let userLogged = JSON.parse(localStorage.getItem('userLogged'));
-    this._authService.editUser(userLogged.id, form).subscribe(
+    this._authService.editUser(this.user._id, form).subscribe(
       data => {
         console.log(`${data} has been updated!`);
-        this.router.navigate(["my-account"]);
+        this.router.navigate([`my-account/${this.user._id}`]);
       },
       error => {
         console.log(error);

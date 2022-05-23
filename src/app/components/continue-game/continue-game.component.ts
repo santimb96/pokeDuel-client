@@ -239,8 +239,6 @@ saveGame() {
     localStorage.removeItem('pokemonRight');
     this.nextRound();
   }
-
-  
 }
 
 score(): number {

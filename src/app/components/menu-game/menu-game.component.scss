@@ -1,10 +1,11 @@
 //VARIABLES
 @import '../../../variables';
-
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
 
 .section-menu {
     display: flex;
     flex-direction: column;
+    height: 100%;
 
     h1 {
         text-align: center;
@@ -19,6 +20,8 @@
     button {
         background-color: $dark-garnet;
         color: $white;
+        height: 30px;
+        border-radius: 1vh;
     }
 
     .img-card {
@@ -28,6 +31,23 @@
 
         .mat-card-image {
             width: 20vh;
+        }
+    }
+
+}
+
+@include media-breakpoint-up(xl) {
+    .section-menu {
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            button {
+                height: 30px;
+                border-radius: 1vh;
+            }
         }
     }
 

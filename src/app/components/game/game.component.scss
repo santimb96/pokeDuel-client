@@ -1,18 +1,27 @@
 //VARIABLES
 @import '../../../variables';
+@import "../../../../node_modules/bootstrap/scss/bootstrap";
+
+.mat-grid-list {
+    height: 360px;
+}
 
 .pokemon-left {
     height: 100%;
     width: 100%;
     position: absolute;
-    top: 20vh;
+    display: flex;
+    flex-direction: column;
+    place-content: flex-end;
 }
 
 .pokemon-right {
     height: 100%;
     width: 100%;
     position: absolute;
-    top: 2vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-img {
@@ -24,11 +33,6 @@
     font-size: 14px;
     margin-left: 8px;
     min-width: 120px;
-}
-
-.example-button-row {
-    display: table-cell;
-    width: 490px;
 }
 
 .example-button-row .mat-button-base {
@@ -45,4 +49,29 @@
     display: flex;
     justify-content: center;
     width: 120px;
+}
+
+.attack-buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+@include media-breakpoint-up(xl) {
+    .card-img {
+        width:30% !important;
+    }
+
+    .pokemon-left {
+        height: 60%;
+    }
+
+    .attack-buttons{
+        display: flex;
+        align-self: start;
+    }
+
+    .pokeR-height{
+        margin-bottom: 110px !important;
+    }
+    
 }

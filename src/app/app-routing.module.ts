@@ -24,13 +24,13 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { 
-    path: 'my-account/:id', 
+  {
+    path: 'my-account/:id',
     component: MyAccountComponent,
     resolve: {
       users: UserResolverService,
       userStats: UserStatResolverService
-    } 
+    }
   },
   {
     path: 'my-stats/:id',
@@ -42,9 +42,15 @@ const routes: Routes = [
   },
   { path: 'how-to-play', component: HowToPlayComponent },
   { path: 'options', component: OptionsComponent },
-  { path: 'edit-my-account', component: EditUserComponent },
-  { 
-    path: 'menu-game/:id', 
+  {
+    path: 'edit-my-account/:id',
+    component: EditUserComponent,
+    resolve: {
+      users: UserResolverService,
+    }
+  },
+  {
+    path: 'menu-game/:id',
     component: MenuGameComponent,
     canActivate: [AuthGuard],
     resolve: {

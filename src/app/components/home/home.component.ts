@@ -29,6 +29,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  quit(): void {
+    window.open("", '_self').window.close(); //TODO: fix the close window
+  }
+
 }
 
 //TODO: fix the load of the html ('cz it loads the / before the menu)

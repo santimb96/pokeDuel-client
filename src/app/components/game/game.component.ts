@@ -211,7 +211,9 @@ export class GameComponent {
   }
 
   saveGame() {
-    this.userCurrentStat = this.route.snapshot.data['userStat'].userStat;
+    this._userStatService.getOneUserStats(this.user._id).subscribe(currentStatus=>{
+      this.userCurrentStat = currentStatus.userStat;
+    });
     let currentStatus: string = '';
     if (this.pokemonLeft.life === 0) {
       this.myAliveTeam.pop();
@@ -227,7 +229,8 @@ export class GameComponent {
       });
       localStorage.removeItem('pokemonLeftLife');
       this.nextRound();
-
+      
+  
     } else if (this.pokemonRight.life === 0) {
       currentStatus = JSON.stringify({
         user: this.userCurrentStat.user,
@@ -236,6 +239,7 @@ export class GameComponent {
         round: this.userCurrentStat.round++,
         team: this.myAliveTeam
       });
+  
       this._userStatService.editState(this.user._id, currentStatus).subscribe(status => {
         this.userCurrentStat = status.status;
       });

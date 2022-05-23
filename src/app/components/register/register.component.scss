@@ -1,0 +1,21 @@
+@import '../../../variables';
+@import '../../../mixins';
+@import "../../../../node_modules/bootstrap/scss/bootstrap";
+
+.mat-stepper-vertical {
+    background-color: transparent !important;
+}
+
+.card{
+    height: 360px;
+    width: 335px;
+    background: transparent;
+    border: none;
+}
+
+@include media-breakpoint-up(xl) {
+    .card{
+        height: 100%;
+        width: 100%;
+    }
+}

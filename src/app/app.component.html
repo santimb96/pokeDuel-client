@@ -24,8 +24,13 @@
       </div>
 
       <div class="start-select">
-        <div class="select">SELECT</div>
-        <div class="start">START</div>
+        <div class="select" routerLink="/options">OPTIONS</div>
+        <ng-container *ngIf="!userLogged">
+          <div class="start" routerLink="/">START</div>
+        </ng-container>
+        <ng-container *ngIf="userLogged">
+          <div class="start" [routerLink]="['/menu-game',userID]">START</div>
+        </ng-container>
       </div>
     </mat-card-actions>
   </mat-card>

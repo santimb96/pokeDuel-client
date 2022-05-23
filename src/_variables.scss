@@ -1,12 +1,20 @@
 // ------------- VARIABLES GLOBAL
 // ------------------------------------
 
-// -- Colors
-$dark-grey: #747570 !default;
-$dark-garnet: #751650 !default;
-$black: #000000;
+
 
 // -- Logo colors
+$dark-grey: #747570 !default;
+$dark-garnet: #751650 !default;
+$dark-purple: #665f9e;
+$black: #000000;
+$white: #ffffff;
+
+//override-colors
+$primary: #751650;
+$secondary: #665f9e;
+
+
 $yellow: #ffcc01 !default;
 $dark-blue: #365eaa !default;
 

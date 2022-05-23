@@ -13,11 +13,12 @@
     .menu {
         display: flex;
         flex-direction: column;
-        gap: 1vh;
+        gap: 5px;
     }
 
     button {
-        background-color: $yellow;
+        background-color: $dark-garnet;
+        color: $white;
     }
 
     .img-card {

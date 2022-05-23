@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 import { Pokemon } from 'src/app/models/pokemon';
 import { User } from 'src/app/models/user';
 import { UserStat } from 'src/app/models/userStat';
@@ -42,9 +43,13 @@ export class GameComponent {
 
   // Generate Stat (for new game and continue)
   currentStat() {
+    let $status;
     this.userCurrentStat = this.route.snapshot.data['userStat'].userStat;
-    if (this.userCurrentStat === null || this.userCurrentStat === undefined) {
-      //newStat!!
+    //getting and deletting stat if exists 'cause it's a new game
+    if (this.userCurrentStat !== null || this.userCurrentStat !== undefined) {
+      this._userStatService.deleteState(this.user._id).subscribe(stat => {
+        console.log(stat);
+      });
       let newState = JSON.stringify({
         user: this.user._id,
         victories: 0,
@@ -52,44 +57,35 @@ export class GameComponent {
         round: 1,
         team: this.generateTeam() //TODO: fix this: must be only specified fields
       });
-
-      //creating the newStat
       this._userStatService.newState(newState).subscribe(newStat => {
         this.userCurrentStat = newStat.userStat;
         this.myTeam = newStat.userStat.team;
+        console.log(this.myTeam);
         this.myAliveTeam = newStat.userStat.team;
       });
-      localStorage.removeItem('pokemonRight');
-      localStorage.removeItem('pokemonLeftLife');
     }
-    //taking the old stat
-    else {
-      this._userStatService.getOneUserStats(this.user._id).subscribe(stat => {
-        this._userStatService.deleteState(stat.userStat._id).subscribe( status => {
-          console.log(status);
-          let newState = JSON.stringify({
-            user: this.user._id,
-            victories: 0,
-            score: 0,
-            round: 1,
-            team: this.generateTeam() //TODO: fix this: must be only specified fields
-          });
-    
-          this._userStatService.newState(newState).subscribe(newStat => {
-            this.userCurrentStat = newStat.userStat;
-          });
-        });
-      });
+    //newStat!!
+    // let newState = JSON.stringify({
+    //   user: this.user._id,
+    //   victories: 0,
+    //   score: 0,
+    //   round: 1,
+    //   team: this.generateTeam() //TODO: fix this: must be only specified fields
+    // });
 
+    // //creating the newStat
+    // this._userStatService.newState(newState).subscribe(newStat => {
+    //   this.userCurrentStat = newStat.userStat;
+    //   this.myTeam = newStat.userStat.team;
+    //   this.myAliveTeam = newStat.userStat.team;
+    // });
+    localStorage.removeItem('pokemonRight');
+    localStorage.removeItem('pokemonLeftLife');
 
-      console.log(this.userCurrentStat);
+    console.log(this.userCurrentStat);
+    console.log(this.myTeam);
+    console.log(this.myAliveTeam);
 
-      this.myTeam = this.userCurrentStat.team;
-      this.myAliveTeam = this.userCurrentStat.team;
-      console.log(this.myTeam);
-
-      console.log(this.myAliveTeam);
-    }
   }
 
   //generates a new team if userStat doesn't exist

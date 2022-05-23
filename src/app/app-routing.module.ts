@@ -12,7 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MenuGameComponent } from './components/menu-game/menu-game.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { MyStatsComponent } from './components/my-stats/my-stats.component';
-import { NewGameComponent } from './components/new-game/new-game.component';
+import { OptionsComponent } from './components/options/options.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DataResolverService } from './resolvers/data.resolver.service';
 import { UserResolverService } from './resolvers/user.resolver.service';
@@ -41,6 +41,7 @@ const routes: Routes = [
     }
   },
   { path: 'how-to-play', component: HowToPlayComponent },
+  { path: 'options', component: OptionsComponent },
   { path: 'edit-my-account', component: EditUserComponent },
   { 
     path: 'menu-game/:id', 
@@ -61,14 +62,14 @@ const routes: Routes = [
       userStat: UserStatResolverService
     }
   },
-  {
-    path: 'new-game/:id',
-    component: NewGameComponent,
-    resolve: {
-      pokemons: DataResolverService,
-      users: UserResolverService
-    }
-  },
+  // {
+  //   path: 'new-game/:id',
+  //   component: NewGameComponent,
+  //   resolve: {
+  //     pokemons: DataResolverService,
+  //     users: UserResolverService
+  //   }
+  // },
   {
     path: 'game/:id',
     component: GameComponent,
@@ -79,7 +80,6 @@ const routes: Routes = [
     }
   },
 ];
-// falta gameComponent --> how many routes must be?
 
 
 @NgModule({

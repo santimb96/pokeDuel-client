@@ -22,13 +22,7 @@
     }
 }
 
-.inside-frame {
-    position: absolute;
-    margin: 5vh;
-    max-width: 360px;
-    max-height: 360px;
-    z-index: 3;
-}
+
 
 .controls {
     margin-left: 4vh;
@@ -213,5 +207,22 @@
         margin-bottom: -152px;
         position: relative;
         top: -50vh;
+    }
+
+    .inside-frame {
+        position: absolute;
+        margin: 5vh;
+        z-index: 3;
+        height: 58vh;
+    }
+}
+
+@include media-breakpoint-down(lg) {
+    .inside-frame {
+        position: absolute;
+        margin: 5vh;
+        width: 360px;
+        height: 360px;
+        z-index: 3;
     }
 }

@@ -1,6 +1,12 @@
 //VARIABLES
 @import '../../../variables';
 
+.mat-slider-thumb-container {
+    .mat-slider-thumb {
+        background-color: blue !important;
+    }
+}
+
 
 .section-menu {
     display: flex;
@@ -14,6 +20,12 @@
         display: flex;
         flex-direction: column;
         gap: 2vh;
+
+        .mat-slider {
+            width: 60%;
+        }
+
+
     }
 
     button {
@@ -30,5 +42,7 @@
             width: 25vh;
         }
     }
+
+
 
 }

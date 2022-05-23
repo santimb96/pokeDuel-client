@@ -163,12 +163,6 @@ enemyAtacking(): void {
     }
     this.isDisabled = false;
     localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
-    
-    // this.myAliveTeam.forEach(myPokemon => {
-    //   if (this.pokemonLeft.name === myPokemon.name) {
-    //     myPokemon.life = this.pokemonLeft.life;
-    //   }
-    // });
   }
 }
 
@@ -223,7 +217,6 @@ saveGame() {
       round: this.userCurrentStat.round++,
       team: this.myAliveTeam
     });
-    console.log(currentStatus);
     this._userStatService.editState(this.user._id, currentStatus).subscribe(status => {
       this.userCurrentStat = status.status;
     });
@@ -232,7 +225,6 @@ saveGame() {
     
 
   } else if (this.pokemonRight.life === 0) {
-    console.log('enemy died');
     currentStatus = JSON.stringify({
       user: this.userCurrentStat.user,
       victories: this.userCurrentStat.victories + 1,
@@ -241,7 +233,6 @@ saveGame() {
       team: this.myAliveTeam
     });
 
-    console.log(currentStatus);
     this._userStatService.editState(this.user._id, currentStatus).subscribe(status => {
       this.userCurrentStat = status.status;
     });
@@ -266,4 +257,3 @@ nextRound() {
 }
 }
 
-//TODO --> fix victories

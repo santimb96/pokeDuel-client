@@ -24,7 +24,7 @@
       </div>
 
       <div class="start-select">
-        <div class="select" routerLink="/options">OPTIONS</div>
+        <div class="select" routerLink="/options" (click)="savePath()">OPTIONS</div>
         <ng-container *ngIf="!userLogged">
           <div class="start" routerLink="/">START</div>
         </ng-container>

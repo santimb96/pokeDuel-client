@@ -258,6 +258,3 @@ export class GameComponent {
   }
 }
 
-
-//TODO, take the life from localStorage o whateva
-//TODO: just takes 2 pokemons from the other.

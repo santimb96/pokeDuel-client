@@ -44,4 +44,9 @@ export class AppComponent implements OnInit {
     }
   }
 
+  savePath(){
+    localStorage.setItem('path',this.router.url);
+    this.router.navigate['options'];
+  }
+
 }

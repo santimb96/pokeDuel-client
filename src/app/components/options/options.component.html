@@ -14,7 +14,7 @@
             </div>
             <div>
                 <ng-container *ngIf="userLogged">
-                    <button class="btn btn-secondary" [routerLink]="['/menu-game',userID]">Back</button>
+                    <button class="btn btn-secondary" (click)="goTo()">Back</button>
                 </ng-container>
                 <ng-container *ngIf="!userLogged">
                     <button class="btn btn-secondary" routerLink="/">Back</button>

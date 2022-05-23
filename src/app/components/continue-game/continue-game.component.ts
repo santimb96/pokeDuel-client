@@ -210,7 +210,9 @@ defense(): void {
 }
 
 saveGame() {
-  this.userCurrentStat = this.route.snapshot.data['userStat'].userStat;
+  this._userStatService.getOneUserStats(this.user._id).subscribe(currentStatus=>{
+    this.userCurrentStat = currentStatus.userStat;
+  });
   let currentStatus: string = '';
   if (this.pokemonLeft.life === 0) {
     this.myAliveTeam.pop();
@@ -221,6 +223,7 @@ saveGame() {
       round: this.userCurrentStat.round++,
       team: this.myAliveTeam
     });
+    console.log(currentStatus);
     this._userStatService.editState(this.user._id, currentStatus).subscribe(status => {
       this.userCurrentStat = status.status;
     });
@@ -229,6 +232,7 @@ saveGame() {
     
 
   } else if (this.pokemonRight.life === 0) {
+    console.log('enemy died');
     currentStatus = JSON.stringify({
       user: this.userCurrentStat.user,
       victories: this.userCurrentStat.victories + 1,
@@ -236,6 +240,8 @@ saveGame() {
       round: this.userCurrentStat.round++,
       team: this.myAliveTeam
     });
+
+    console.log(currentStatus);
     this._userStatService.editState(this.user._id, currentStatus).subscribe(status => {
       this.userCurrentStat = status.status;
     });
@@ -259,3 +265,5 @@ nextRound() {
   this.isDisabled = false;
 }
 }
+
+//TODO --> fix victories

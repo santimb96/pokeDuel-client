@@ -160,31 +160,36 @@ enemyAtacking(): void {
         else {
           console.log('enemy attacking');
           this.pokemonLeft.life = this.pokemonLeft.life-(this.pokemonLeft.life * (this.getRandomId(50)/100));
+          // document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
         }
         break;
       case 'defense':
         console.log('enemy defense');
         this.pokemonRight.life = this.pokemonRight.life + (this.pokemonRight.life * 0.05);
         break;
-      default: console.log('i`m not attacking');
+      default: this.pokemonLeft.life = this.pokemonLeft.life-(this.pokemonLeft.life * (this.getRandomId(50)/100));
     }
     this.isDisabled = false;
+    // document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
     localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
   }
 }
 
 attack(): void {
+  document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
   if (this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass'
     || this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water'
     || this.pokemonLeft.type === 'water' && this.pokemonRight.type === 'fire') {
 
     if (this.pokemonRight.life <= 20) {
+      // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
       this.pokemonRight.life = 0;
       localStorage.removeItem('pokemonRight');
     }
     else {
-      console.log(this.pokemonRight.life*this.getRandomId(80)/100);
       this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * (this.getRandomId(80)/100));
+      // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
+      
     }
   }
   else {
@@ -193,8 +198,8 @@ attack(): void {
       localStorage.removeItem('pokemonRight');
     }
     else {
-      console.log(this.pokemonRight.life*this.getRandomId(50)/100);
       this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * (this.getRandomId(50)/100));
+      // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
     }
   }
   localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
@@ -205,14 +210,14 @@ attack(): void {
 
 }
 
-defense(): void {
-  this.pokemonLeft.life = this.pokemonLeft.life + (this.pokemonLeft.life*0.05);
-  localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
-  this.isDisabled = true;
-  setTimeout(function () {
-    this.enemyAtacking();
-  }.bind(this), 1000);
-}
+  defense(): void {
+    // document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
+    this.pokemonLeft.life = this.pokemonLeft.life + (this.pokemonLeft.life*0.05);
+    localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
+    setTimeout(function () {
+      this.enemyAtacking();
+    }.bind(this), 1000);
+  }
 
 saveGame() {
   this._userStatService.getOneUserStats(this.user._id).subscribe(currentStatus=>{

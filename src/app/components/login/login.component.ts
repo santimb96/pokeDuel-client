@@ -23,12 +23,7 @@ export class LoginComponent {
     password: new FormControl('', Validators.required)
   })
 
-  ngOnInit() {
-    this._authService.getUsers().subscribe(data => {
-      this.users = data;
-      console.log(this.users);
-    });
-  }
+  ngOnInit() {}
 
   public logIn(form: LoginI): void {
     this._authService.logIn(form).subscribe(

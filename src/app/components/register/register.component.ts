@@ -10,8 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  signUpForm: FormGroup;
-  hide = true;
+  public signUpForm: FormGroup;
+  public hide = true;
   public error = null;
 
   constructor(public fb: FormBuilder, private _authService: AuthService, private router: Router) {
@@ -23,7 +23,7 @@ export class RegisterComponent {
     })
   }
 
-  signUp(form) {
+  signUp(form): void {
     this._authService.signUp(form).subscribe(
       data => {
         console.log(data);
@@ -36,8 +36,9 @@ export class RegisterComponent {
     )
   }
 
-  uploadFile(event) {
+  uploadFile(event): void {
     let file = event.target.files[0];
+    console.log("???")
     this.signUpForm.patchValue({
       avatar: file
     });

@@ -150,63 +150,65 @@ export class GameComponent {
     return pokemonAlive;
   }
 
-  // ATTACK && DEFFENSE
-  enemyAtacking(): void {
-    const moves = ['attack', 'defense'];
-    if (this.pokemonRight.life > 0 && this.pokemonLeft.life > 0) {
-      let move = moves[Math.round(Math.random() * 2)];
-      switch (move) {
-        case 'attack':
-          if (this.pokemonLeft.life <= 20) {
-            console.log('enemy attacking');
-            this.pokemonLeft.life = 0;
-            localStorage.removeItem('pokemonLeftLife');
-          }
-          else {
-            console.log('enemy attacking');
-            this.pokemonLeft.life = this.pokemonLeft.life-(this.pokemonLeft.life * this.getRandomId(0.5));
-          }
-          break;
-        case 'defense':
-          console.log('enemy defense');
-          this.pokemonRight.life = this.pokemonRight.life + (this.pokemonRight.life * 0.05);
-          break;
-        default: console.log('i`m not attacking');
-      }
-      this.isDisabled = false;
-      localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
+// ATTACK && DEFFENSE
+enemyAtacking(): void {
+  const moves = ['attack', 'defense'];
+  if (this.pokemonRight.life > 0 && this.pokemonLeft.life > 0) {
+    let move = moves[Math.round(Math.random() * 2)];
+    switch (move) {
+      case 'attack':
+        if (this.pokemonLeft.life <= 20) {
+          console.log('enemy attacking');
+          this.pokemonLeft.life = 0;
+          localStorage.removeItem('pokemonLeftLife');
+        }
+        else {
+          console.log('enemy attacking');
+          this.pokemonLeft.life = this.pokemonLeft.life-(this.pokemonLeft.life * (this.getRandomId(50)/100));
+        }
+        break;
+      case 'defense':
+        console.log('enemy defense');
+        this.pokemonRight.life = this.pokemonRight.life + (this.pokemonRight.life * 0.05);
+        break;
+      default: console.log('i`m not attacking');
     }
+    this.isDisabled = false;
+    localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
   }
+}
 
-  attack(): void {
-    if (this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass'
-      || this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water'
-      || this.pokemonLeft.type === 'water' && this.pokemonRight.type === 'fire') {
+attack(): void {
+  if (this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass'
+    || this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water'
+    || this.pokemonLeft.type === 'water' && this.pokemonRight.type === 'fire') {
 
-      if (this.pokemonRight.life <= 20) {
-        this.pokemonRight.life = 0;
-        localStorage.removeItem('pokemonRight');
-      }
-      else {
-        this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * this.getRandomId(0.5));
-      }
+    if (this.pokemonRight.life <= 20) {
+      this.pokemonRight.life = 0;
+      localStorage.removeItem('pokemonRight');
     }
     else {
-      if (this.pokemonRight.life <= 10) {
-        this.pokemonRight.life = 0;
-        localStorage.removeItem('pokemonRight');
-      }
-      else {
-        this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * this.getRandomId(0.2));
-      }
+      console.log(this.pokemonRight.life*this.getRandomId(80)/100);
+      this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * (this.getRandomId(80)/100));
     }
-    localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
-    this.isDisabled = true;
-    setTimeout(function () {
-      this.enemyAtacking();
-    }.bind(this), 1000);
-
   }
+  else {
+    if (this.pokemonRight.life <= 10) {
+      this.pokemonRight.life = 0;
+      localStorage.removeItem('pokemonRight');
+    }
+    else {
+      console.log(this.pokemonRight.life*this.getRandomId(50)/100);
+      this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * (this.getRandomId(50)/100));
+    }
+  }
+  localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
+  this.isDisabled = true;
+  setTimeout(function () {
+    this.enemyAtacking();
+  }.bind(this), 1000);
+
+}
 
   defense(): void {
     this.pokemonLeft.life = this.pokemonLeft.life + (this.pokemonLeft.life*0.05);

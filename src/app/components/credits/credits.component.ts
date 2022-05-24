@@ -14,6 +14,7 @@ export class CreditsComponent {
     //objects
     if (localStorage.getItem('userLogged') !== null) {
       this.userID = JSON.parse(localStorage.getItem('userLogged')).id;
+      console.log(this.userID);
       this.userLogged = true;
     }
 

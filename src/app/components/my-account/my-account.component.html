@@ -18,11 +18,7 @@
     <div class="d-flex justify-content-around">
       <button class="btn btn-primary" [routerLink]="['/menu-game',userID]">Go to menu</button>
       <button class="btn btn-secondary" [routerLink]="['/edit-my-account',userID]">Edit my profile</button>
-      <button class="btn btn-danger" (click)="deleteProfile(user._id)">Delete my profile</button> <!-- TODO: change button for edit then in edit, add the button "delete"-->
+      <button class="btn btn-danger" (click)="deleteProfile(user._id)">Delete my profile</button>
     </div>
   </div>
 </div>
-
-<!-- FIXME: Fix when battle: even the pokemonRight is death, still attacking -->
-
-<!-- FIXME: victories -->

@@ -54,7 +54,10 @@
 .attack-buttons{
     display: flex;
     flex-direction: column;
+    background-color: rgb(255, 255, 255, 0.5);
+    border-radius: 1vh;
 }
+
 
 @include media-breakpoint-up(xl) {
     .card-img {
@@ -73,5 +76,17 @@
     .pokeR-height{
         margin-bottom: 110px !important;
     }
+
+    .background-battle{
+        background-image:url('../../../assets/img/background-xl-battle.jpg'); 
+        background-size: cover;
+    }
     
+}
+
+@include media-breakpoint-down(lg){
+    .background-battle{
+        background-image:url('../../../assets/img/bg-battle.png'); 
+        background-size: cover;
+    }
 }

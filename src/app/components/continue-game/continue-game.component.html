@@ -1,4 +1,4 @@
-<div class="container-fluid inside-frame">
+<div class="container-fluid inside-frame background-battle">
     <mat-grid-list cols="2">
         <mat-grid-tile *ngIf="pokemonLeft.life > 0" style="display: flex; height: 100%;">
             <div class="pokemon-left">
@@ -9,7 +9,7 @@
         </mat-grid-tile>
         <mat-grid-tile *ngIf="pokemonRight.life > 0" style="height: 100%;">
             <div class="pokemon-right">
-                <div class="d-flex flex-column" style="align-items: flex-end; height: 100%;">
+                <div class="d-flex flex-column justify-content-center" style="align-items: flex-end; height: 100%;">
                     <p>{{ pokemonRight.name }}</p>
                     <mat-progress-bar mode="determinate" :value="{{ pokemonRight.life }}"></mat-progress-bar>
                     <img :src="{{ pokemonRight.imgFront }}" class="card-img" alt="pokemon-left">

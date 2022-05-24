@@ -30,6 +30,7 @@ constructor(private _pokemonService: PokemonsService, private route: ActivatedRo
   this.user = this.route.snapshot.data['users'].user; //saves the user
   this.currentStat();
   this.generateDataPokemon();
+  this.attackFirst();
   cdr.detach();
   let interval = setInterval(() => {
     this.cdr.detectChanges();
@@ -51,7 +52,7 @@ currentStat() {
       victories: 0,
       score: 0,
       round: 1,
-      team: this.generateTeam() //TODO: fix this: must be only specified fields
+      team: this.generateTeam()
     });
 
     //creating the newStat
@@ -71,7 +72,7 @@ currentStat() {
         victories: this.userCurrentStat.victories,
         score: this.userCurrentStat.score,
         round: 1,
-        team: this.generateTeam() //TODO: fix this: must be only specified fields
+        team: this.generateTeam()
       });
       this._userStatService.editState(this.user._id,newState).subscribe(newStat => {
         this.userCurrentStat = newStat.userStat;
@@ -93,12 +94,15 @@ generateTeam() {
   let pokemon: Pokemon = {};
   for (let i = 0; i < 3; i++) {
     pokemon = this.route.snapshot.data['pokemons'].pokemons[this.getRandomId(88)]; //we get a pokemon
-    myTeam.push(pokemon); //we add the pokemon into the array
-    myTeam[i].life = 100; // we add life's field of the pokemon
+    myTeam.push({
+      name: pokemon.name,
+      life: 100,
+      speed: pokemon.speed,
+      imgBack: pokemon.imgBack
+    });
   }
   this.myTeam = myTeam;
   this.myAliveTeam = myTeam;
-  console.log(this.myAliveTeam);
   return myTeam;
 }
 
@@ -153,11 +157,11 @@ enemyAtacking(): void {
           localStorage.removeItem('pokemonLeftLife');
         }
         else {
-          this.pokemonLeft.life = this.pokemonLeft.life * 0.2;
+          this.pokemonLeft.life = this.pokemonLeft.life-(this.pokemonLeft.life * 0.2);
         }
         break;
       case 'defense':
-        this.pokemonLeft.life = this.pokemonLeft.life * 0.2;
+        this.pokemonRight.life = this.pokemonRight.life + (this.pokemonRight.life * 0.05);
         break;
       default: console.log('i`m not attacking');
     }
@@ -176,7 +180,7 @@ attack(): void {
       localStorage.removeItem('pokemonRight');
     }
     else {
-      this.pokemonRight.life = this.pokemonRight.life * 0.1;
+      this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * 0.2);
     }
   }
   else {
@@ -185,7 +189,7 @@ attack(): void {
       localStorage.removeItem('pokemonRight');
     }
     else {
-      this.pokemonRight.life = this.pokemonRight.life * 0.05;
+      this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * 0.2);
     }
   }
   localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
@@ -197,7 +201,9 @@ attack(): void {
 }
 
 defense(): void {
-  this.pokemonRight.life = this.pokemonRight.life * 0.2;
+  this.pokemonLeft.life = this.pokemonLeft.life + (this.pokemonLeft.life*0.05);
+  localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
+  this.isDisabled = true;
   setTimeout(function () {
     this.enemyAtacking();
   }.bind(this), 1000);
@@ -249,9 +255,18 @@ score(): number {
   return sum;
 }
 
-nextRound() {
+nextRound(): void {
   this.generateDataPokemon();
-  this.isDisabled = false;
+  this.attackFirst();
 }
+
+attackFirst(): void{
+  if(this.pokemonLeft.speed < this.pokemonRight.speed){
+    this.isDisabled = true;
+    console.log('Left is slower than right');
+    this.enemyAtacking();
+  }
+}
+
 }
 

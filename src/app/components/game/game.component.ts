@@ -30,6 +30,7 @@ export class GameComponent {
     this.user = this.route.snapshot.data['users'].user; //saves the user
     this.currentStat();
     this.generateDataPokemon();
+    this.attackFirst();
     cdr.detach();
     let interval = setInterval(() => {
       this.cdr.detectChanges();
@@ -43,49 +44,39 @@ export class GameComponent {
 
   // Generate Stat (for new game and continue)
   currentStat() {
-    let $status;
+    let response = false;
     this.userCurrentStat = this.route.snapshot.data['userStat'].userStat;
     //getting and deletting stat if exists 'cause it's a new game
     if (this.userCurrentStat !== null || this.userCurrentStat !== undefined) {
       this._userStatService.deleteState(this.user._id).subscribe(stat => {
+        console.log('New game --> userStat deleted to create a new one.');
         console.log(stat);
-      });
-      let newState = JSON.stringify({
-        user: this.user._id,
-        victories: 0,
-        score: 0,
-        round: 1,
-        team: this.generateTeam() //TODO: fix this: must be only specified fields
-      });
-      this._userStatService.newState(newState).subscribe(newStat => {
-        this.userCurrentStat = newStat.userStat;
-        this.myTeam = newStat.userStat.team;
-        console.log(this.myTeam);
-        this.myAliveTeam = newStat.userStat.team;
+        if (stat.userStat === null){
+          response = true;
+        }
       });
     }
-    //newStat!!
-    // let newState = JSON.stringify({
-    //   user: this.user._id,
-    //   victories: 0,
-    //   score: 0,
-    //   round: 1,
-    //   team: this.generateTeam() //TODO: fix this: must be only specified fields
-    // });
 
-    // //creating the newStat
-    // this._userStatService.newState(newState).subscribe(newStat => {
-    //   this.userCurrentStat = newStat.userStat;
-    //   this.myTeam = newStat.userStat.team;
-    //   this.myAliveTeam = newStat.userStat.team;
-    // });
+    let newState = JSON.stringify({
+      user: this.user._id,
+      victories: 0,
+      score: 0,
+      round: 1,
+      team: this.generateTeam()
+    });
+
+    this._userStatService.newState(newState).subscribe(newStat => {
+      console.log('Created a new stat')
+      this.userCurrentStat = newStat.userStat;
+      this.myTeam = newStat.userStat.team;
+      this.myAliveTeam = newStat.userStat.team;
+    });
+
     localStorage.removeItem('pokemonRight');
     localStorage.removeItem('pokemonLeftLife');
 
     console.log(this.userCurrentStat);
     console.log(this.myTeam);
-    console.log(this.myAliveTeam);
-
   }
 
   //generates a new team if userStat doesn't exist
@@ -94,8 +85,12 @@ export class GameComponent {
     let pokemon: Pokemon = {};
     for (let i = 0; i < 3; i++) {
       pokemon = this.route.snapshot.data['pokemons'].pokemons[this.getRandomId(88)]; //we get a pokemon
-      myTeam.push(pokemon); //we add the pokemon into the array
-      myTeam[i].life = 100; // we add life's field of the pokemon
+      myTeam.push({
+        name: pokemon.name,
+        life: 100,
+        speed: pokemon.speed,
+        imgBack: pokemon.imgBack
+      });
     }
     this.myTeam = myTeam;
     this.myAliveTeam = myTeam;
@@ -154,22 +149,16 @@ export class GameComponent {
             localStorage.removeItem('pokemonLeftLife');
           }
           else {
-            this.pokemonLeft.life = this.pokemonLeft.life * 0.2;
+            this.pokemonLeft.life = this.pokemonLeft.life-(this.pokemonLeft.life * 0.2);
           }
           break;
         case 'defense':
-          this.pokemonLeft.life = this.pokemonLeft.life * 0.2;
+          this.pokemonRight.life = this.pokemonRight.life + (this.pokemonRight.life * 0.05);
           break;
         default: console.log('i`m not attacking');
       }
       this.isDisabled = false;
       localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
-
-      // this.myAliveTeam.forEach(myPokemon => {
-      //   if (this.pokemonLeft.name === myPokemon.name) {
-      //     myPokemon.life = this.pokemonLeft.life;
-      //   }
-      // });
     }
   }
 
@@ -183,7 +172,7 @@ export class GameComponent {
         localStorage.removeItem('pokemonRight');
       }
       else {
-        this.pokemonRight.life = this.pokemonRight.life * 0.1;
+        this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * 0.2);
       }
     }
     else {
@@ -192,7 +181,7 @@ export class GameComponent {
         localStorage.removeItem('pokemonRight');
       }
       else {
-        this.pokemonRight.life = this.pokemonRight.life * 0.05;
+        this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * 0.2);
       }
     }
     localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
@@ -204,7 +193,8 @@ export class GameComponent {
   }
 
   defense(): void {
-    this.pokemonRight.life = this.pokemonRight.life * 0.2;
+    this.pokemonLeft.life = this.pokemonLeft.life + (this.pokemonLeft.life*0.05);
+    localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
     setTimeout(function () {
       this.enemyAtacking();
     }.bind(this), 1000);
@@ -230,7 +220,6 @@ export class GameComponent {
       localStorage.removeItem('pokemonLeftLife');
       this.nextRound();
       
-  
     } else if (this.pokemonRight.life === 0) {
       currentStatus = JSON.stringify({
         user: this.userCurrentStat.user,
@@ -243,6 +232,8 @@ export class GameComponent {
       this._userStatService.editState(this.user._id, currentStatus).subscribe(status => {
         this.userCurrentStat = status.status;
       });
+
+      console.log(this.userCurrentStat);
       localStorage.removeItem('pokemonRight');
       this.nextRound();
     }
@@ -256,9 +247,17 @@ export class GameComponent {
     return sum;
   }
 
-  nextRound() {
+  nextRound():void {
     this.generateDataPokemon();
-    this.isDisabled = false;
+    this.attackFirst();
+  }
+
+  attackFirst(): void{
+    if(this.pokemonLeft.speed < this.pokemonRight.speed){
+      this.isDisabled = true;
+      console.log('Left is slower than right');
+      this.enemyAtacking();
+    }
   }
 }
 

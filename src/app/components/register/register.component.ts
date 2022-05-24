@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterComponent {
   signUpForm: FormGroup;
+  hide = true;
+  public error = null;
 
   constructor(public fb: FormBuilder, private _authService: AuthService, private router: Router) {
     this.signUpForm = this.fb.group({
@@ -27,7 +29,10 @@ export class RegisterComponent {
         console.log(data);
         this.router.navigate(["login"])
       },
-      error => { console.log(error); }
+      error => { 
+        console.log(error.error.message);
+        this.error = error.error.message;   
+      }
     )
   }
 

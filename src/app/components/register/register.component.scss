@@ -13,6 +13,12 @@
     border: none;
 }
 
+.error-input{
+    background: transparent;
+    border:none;
+    color: red;
+}
+
 @include media-breakpoint-up(xl) {
     .card{
         height: 100%;

@@ -14,7 +14,8 @@ export class LoginComponent {
   isLinear = false;
   username: FormGroup;
   password: FormGroup;
-
+  hide = true;
+  public error = null;
   constructor(private _authService: AuthService, private router: Router) { }
 
   logInForm = new FormGroup({
@@ -37,6 +38,9 @@ export class LoginComponent {
         localStorage.setItem("userLogged",JSON.stringify({"id": dataResponse.user?._id,"token": dataResponse.token, "expiryDate": dataResponse.expiryDate.toString()}));
         this.router.navigate([`menu-game/${dataResponse.user._id}`]);
       },
-      error => console.log(error));
+      error => {
+        console.log(error.error.message);
+        this.error = error.error.message;        
+      });
   }
 }

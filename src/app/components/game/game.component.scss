@@ -58,6 +58,15 @@
     border-radius: 1vh;
 }
 
+.pokemon-name{
+    background-color: $black;
+    border-radius: 1vh;
+    width: 20vh;
+    color: $white;
+    text-align: center;
+    text-transform: uppercase;
+}
+
 
 @include media-breakpoint-up(xl) {
     .card-img {

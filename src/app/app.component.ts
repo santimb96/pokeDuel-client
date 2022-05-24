@@ -50,3 +50,6 @@ export class AppComponent implements OnInit {
   }
 
 }
+
+//TODO: DIALOG TO CONFIRM IF YOU WANT TO GO TO MENU
+//FIXME: FIX THE 'MY-ACCOUNT' INTERFACE

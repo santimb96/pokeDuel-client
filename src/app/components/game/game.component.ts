@@ -44,39 +44,52 @@ export class GameComponent {
 
   // Generate Stat (for new game and continue)
   currentStat() {
-    let response = false;
     this.userCurrentStat = this.route.snapshot.data['userStat'].userStat;
     //getting and deletting stat if exists 'cause it's a new game
-    if (this.userCurrentStat !== null || this.userCurrentStat !== undefined) {
-      this._userStatService.deleteState(this.user._id).subscribe(stat => {
-        console.log('New game --> userStat deleted to create a new one.');
-        console.log(stat);
-        if (stat.userStat === null){
-          response = true;
-        }
+    if (this.userCurrentStat !== null) {
+
+      let newState = JSON.stringify({
+        user: this.user,
+        victories: this.userCurrentStat.victories,
+        score: this.userCurrentStat.score,
+        round: 1,
+        team: this.generateTeam()
+      });
+      
+      this._userStatService.editState(this.user._id,newState).subscribe(newStat => {
+        this.userCurrentStat = newStat.userToUpdate;
+        this.myTeam = newStat.userToUpdate.team;
+        this.myAliveTeam = newStat.userToUpdate.team;
+      });
+
+      // this._userStatService.deleteState(this.user._id).subscribe(stat => {
+      //   console.log('New game --> userStat deleted to create a new one.');
+      //   console.log(stat);
+      //   if (stat.userStat === null){
+      //     response = true;
+      //   }
+      // });
+    } else {
+      let newState = JSON.stringify({
+        user: this.user._id,
+        victories: 0,
+        score: 0,
+        round: 1,
+        team: this.generateTeam()
+      });
+  
+      this._userStatService.newState(newState).subscribe(newStat => {
+        console.log('Created a new stat')
+        this.userCurrentStat = newStat.userStat;
+        this.myTeam = newStat.userStat.team;
+        this.myAliveTeam = newStat.userStat.team;
       });
     }
-
-    let newState = JSON.stringify({
-      user: this.user._id,
-      victories: 0,
-      score: 0,
-      round: 1,
-      team: this.generateTeam()
-    });
-
-    this._userStatService.newState(newState).subscribe(newStat => {
-      console.log('Created a new stat')
-      this.userCurrentStat = newStat.userStat;
-      this.myTeam = newStat.userStat.team;
-      this.myAliveTeam = newStat.userStat.team;
-    });
 
     localStorage.removeItem('pokemonRight');
     localStorage.removeItem('pokemonLeftLife');
 
     console.log(this.userCurrentStat);
-    console.log(this.myTeam);
   }
 
   //generates a new team if userStat doesn't exist
@@ -145,14 +158,17 @@ export class GameComponent {
       switch (move) {
         case 'attack':
           if (this.pokemonLeft.life <= 20) {
+            console.log('enemy attacking');
             this.pokemonLeft.life = 0;
             localStorage.removeItem('pokemonLeftLife');
           }
           else {
-            this.pokemonLeft.life = this.pokemonLeft.life-(this.pokemonLeft.life * 0.2);
+            console.log('enemy attacking');
+            this.pokemonLeft.life = this.pokemonLeft.life-(this.pokemonLeft.life * this.getRandomId(0.5));
           }
           break;
         case 'defense':
+          console.log('enemy defense');
           this.pokemonRight.life = this.pokemonRight.life + (this.pokemonRight.life * 0.05);
           break;
         default: console.log('i`m not attacking');
@@ -172,7 +188,7 @@ export class GameComponent {
         localStorage.removeItem('pokemonRight');
       }
       else {
-        this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * 0.2);
+        this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * this.getRandomId(0.5));
       }
     }
     else {
@@ -181,7 +197,7 @@ export class GameComponent {
         localStorage.removeItem('pokemonRight');
       }
       else {
-        this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * 0.2);
+        this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * this.getRandomId(0.2));
       }
     }
     localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));

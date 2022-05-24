@@ -1,6 +1,6 @@
 <div class="container-fluid inside-frame">
   <div class="card d-flex flex-column " style="background-color: transparent; border: none;">
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-1">
       <img :src="{{ user.avatar }}" class="card-img-top" alt="Avatar" style="width:100px; border-radius: 50%;">
     </div>
     <div class="card-body text">
@@ -11,6 +11,7 @@
       </p>
       <p class="card-text">
         <img src="../../../assets/img/trofeo.png" class="card-img-top" alt="Avatar" style="width:50px;">
+        <span> {{ userStat.score }} points: </span>
         <span>{{ userStat.victories }} victories</span>
         <span> in {{ userStat.round }} rounds</span>
       </p>

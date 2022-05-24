@@ -19,6 +19,17 @@
     align-self: center;
 }
 
+input .mat-input-element {
+    height: 50px;
+    width: 250px;
+}
+
+.error-input{
+    background: transparent;
+    border:none;
+    color: red;
+}
+
 @include media-breakpoint-up(xl) {
     .card{
         height: 100%;

@@ -11,7 +11,6 @@ import { HowToPlayComponent } from './components/how-to-play/how-to-play.compone
 import { LoginComponent } from './components/login/login.component';
 import { MenuGameComponent } from './components/menu-game/menu-game.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
-import { MyStatsComponent } from './components/my-stats/my-stats.component';
 import { OptionsComponent } from './components/options/options.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DataResolverService } from './resolvers/data.resolver.service';
@@ -27,14 +26,6 @@ const routes: Routes = [
   {
     path: 'my-account/:id',
     component: MyAccountComponent,
-    resolve: {
-      users: UserResolverService,
-      userStats: UserStatResolverService
-    }
-  },
-  {
-    path: 'my-stats/:id',
-    component: MyStatsComponent,
     resolve: {
       users: UserResolverService,
       userStats: UserStatResolverService

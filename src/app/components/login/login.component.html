@@ -8,9 +8,12 @@
                             <input type="text" formControlName="username" name="username" class="form-control"
                                 placeholder="Username" required autofocus />
                         </div>
-                        <div class="form-group">
-                            <input type="password" formControlName="password" name="password" class="form-control"
+                        <div class="form-group d-flex">
+                                <input [type]="hide ? 'password' : 'text'" formControlName="password" name="password" class="form-control"
                                 placeholder="Password" required />
+                                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
                         </div>
 
                         <div class="d-flex justify-content-between">
@@ -19,6 +22,7 @@
                         </div>
                     </form>
                 </div>
+                <input [(ngModel)]="error" class="error-input"/>
             </div>
         </div>
     </div>

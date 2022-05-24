@@ -57,9 +57,9 @@ currentStat() {
 
     //creating the newStat
     this._userStatService.newState(newState).subscribe(newStat => {
-      this.userCurrentStat = newStat.userStat;
-      this.myTeam = newStat.userStat.team;
-      this.myAliveTeam = newStat.userStat.team;
+      this.userCurrentStat = newStat.userToUpdate;
+      this.myTeam = newStat.userToUpdate.team;
+      this.myAliveTeam = newStat.userToUpdate.team;
     });
     localStorage.removeItem('pokemonRight');
     localStorage.removeItem('pokemonLeftLife');
@@ -74,6 +74,7 @@ currentStat() {
         round: 1,
         team: this.generateTeam()
       });
+
       this._userStatService.editState(this.user._id,newState).subscribe(newStat => {
         this.userCurrentStat = newStat.userStat;
         this.myTeam = newStat.userStat.team;
@@ -83,7 +84,6 @@ currentStat() {
       this.myTeam = this.userCurrentStat.team;
       this.myAliveTeam = this.userCurrentStat.team;
     }
-    console.log(this.myTeam);
     console.log(this.userCurrentStat);
   }
 }
@@ -153,14 +153,17 @@ enemyAtacking(): void {
     switch (move) {
       case 'attack':
         if (this.pokemonLeft.life <= 20) {
+          console.log('enemy attacking');
           this.pokemonLeft.life = 0;
           localStorage.removeItem('pokemonLeftLife');
         }
         else {
-          this.pokemonLeft.life = this.pokemonLeft.life-(this.pokemonLeft.life * 0.2);
+          console.log('enemy attacking');
+          this.pokemonLeft.life = this.pokemonLeft.life-(this.pokemonLeft.life * (this.getRandomId(50)/100));
         }
         break;
       case 'defense':
+        console.log('enemy defense');
         this.pokemonRight.life = this.pokemonRight.life + (this.pokemonRight.life * 0.05);
         break;
       default: console.log('i`m not attacking');
@@ -180,7 +183,8 @@ attack(): void {
       localStorage.removeItem('pokemonRight');
     }
     else {
-      this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * 0.2);
+      console.log(this.pokemonRight.life*this.getRandomId(80)/100);
+      this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * (this.getRandomId(80)/100));
     }
   }
   else {
@@ -189,7 +193,8 @@ attack(): void {
       localStorage.removeItem('pokemonRight');
     }
     else {
-      this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * 0.2);
+      console.log(this.pokemonRight.life*this.getRandomId(50)/100);
+      this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * (this.getRandomId(50)/100));
     }
   }
   localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
@@ -220,7 +225,7 @@ saveGame() {
       user: this.userCurrentStat.user,
       victories: this.userCurrentStat.victories,
       score: this.userCurrentStat.score,
-      round: this.userCurrentStat.round++,
+      round: this.userCurrentStat.round+1,
       team: this.myAliveTeam
     });
     this._userStatService.editState(this.user._id, currentStatus).subscribe(status => {
@@ -235,7 +240,7 @@ saveGame() {
       user: this.userCurrentStat.user,
       victories: this.userCurrentStat.victories + 1,
       score: this.userCurrentStat.score + this.score(),
-      round: this.userCurrentStat.round++,
+      round: this.userCurrentStat.round+1,
       team: this.myAliveTeam
     });
 
@@ -252,7 +257,7 @@ score(): number {
   this.myAliveTeam.forEach(pokemon =>{
     sum += pokemon.life;
   })
-  return sum;
+  return Math.round(sum);
 }
 
 nextRound(): void {

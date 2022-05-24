@@ -54,7 +54,6 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
-import { MyStatsComponent } from './components/my-stats/my-stats.component';
 import { HowToPlayComponent } from './components/how-to-play/how-to-play.component';
 import { DatePipe } from '@angular/common';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
@@ -74,7 +73,6 @@ import { OptionsComponent } from './components/options/options.component';
     LoginComponent,
     RegisterComponent,
     MyAccountComponent,
-    MyStatsComponent,
     HowToPlayComponent,
     EditUserComponent,
     MenuGameComponent,

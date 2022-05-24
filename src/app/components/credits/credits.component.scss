@@ -1,4 +1,7 @@
 //VARIABLES
 @import '../../../variables';
+@import '../../../mixins';
+@import "../../../../node_modules/bootstrap/scss/bootstrap";
 
 //FIXME: fix the color of the button
+$secondary: $secondary;

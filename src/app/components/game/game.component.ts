@@ -5,6 +5,7 @@ import { Pokemon } from 'src/app/models/pokemon';
 import { User } from 'src/app/models/user';
 import { UserStat } from 'src/app/models/userStat';
 import { AuthService } from 'src/app/services/auth.service';
+import { BattleService } from 'src/app/services/battle.service';
 import { PokemonsService } from 'src/app/services/pokemons.service';
 import { UserStatService } from 'src/app/services/user-stat.service';
 
@@ -26,7 +27,7 @@ export class GameComponent {
 
   constructor(private _pokemonService: PokemonsService, private route: ActivatedRoute,
     private cdr: ChangeDetectorRef, private router: Router, private _userStatService: UserStatService,
-    private _authService: AuthService) {
+    private _authService: AuthService, private _battleService: BattleService) {
     this.user = this.route.snapshot.data['users'].user; //saves the user
     this.currentStat();
     this.generateDataPokemon();
@@ -34,12 +35,33 @@ export class GameComponent {
     cdr.detach();
     let interval = setInterval(() => {
       this.cdr.detectChanges();
-      this.saveGame();
+      this.autosave();
+
+      if (this.pokemonLeft.life === 0 || this.pokemonRight.life === 0) {
+        if ((this.pokemonLeft.life === 0 && this.pokemonRight.life !== 0) || 
+        (this.pokemonLeft.life !== 0 && this.pokemonRight.life === 0) ) {
+          console.log(this.user._id);
+          this._battleService.saveGame(this.user._id);
+        }
+        localStorage.removeItem('pokemonRight');
+        localStorage.removeItem('pokemonLeftLife');
+        localStorage.removeItem('pokemonLeft');
+        if (this.pokemonLeft.life === 0) {
+          this.myAliveTeam.pop()
+          localStorage.setItem('myAliveTeam', JSON.stringify(this.myAliveTeam));
+        }
+
+        this.generateDataPokemon();
+        setTimeout(function () {
+          this.attackFirst();
+        }.bind(this), 5000);
+      }
+
       if (this.myAliveTeam.length === 0) {
         this.router.navigate([`my-account/${this.user._id}`]);
         clearInterval(interval);
       }
-    }, 1000)
+    }, 3000)
   }
 
   // Generate Stat (for new game and continue)
@@ -55,20 +77,13 @@ export class GameComponent {
         round: 1,
         team: this.generateTeam()
       });
-      
-      this._userStatService.editState(this.user._id,newState).subscribe(newStat => {
+
+      this._userStatService.editState(this.user._id, newState).subscribe(newStat => {
         this.userCurrentStat = newStat.userToUpdate;
         this.myTeam = newStat.userToUpdate.team;
         this.myAliveTeam = newStat.userToUpdate.team;
       });
 
-      // this._userStatService.deleteState(this.user._id).subscribe(stat => {
-      //   console.log('New game --> userStat deleted to create a new one.');
-      //   console.log(stat);
-      //   if (stat.userStat === null){
-      //     response = true;
-      //   }
-      // });
     } else {
       let newState = JSON.stringify({
         user: this.user._id,
@@ -77,9 +92,8 @@ export class GameComponent {
         round: 1,
         team: this.generateTeam()
       });
-  
+
       this._userStatService.newState(newState).subscribe(newStat => {
-        console.log('Created a new stat')
         this.userCurrentStat = newStat.userStat;
         this.myTeam = newStat.userStat.team;
         this.myAliveTeam = newStat.userStat.team;
@@ -113,10 +127,11 @@ export class GameComponent {
 
   //currentPokemons
   generateDataPokemon() {
+    console.log('generating data pokemon');
     if (this.myAliveTeam.length !== 0) {
       this.pokemonLeft = this.myAliveTeam[this.myAliveTeam.length - 1];
       if (localStorage.getItem('pokemonLeftLife') !== null) {
-        this.pokemonLeft.life = JSON.parse(localStorage.getItem('pokemonLeftLife')); //it gives me a random pokemon alive from team
+        this.pokemonLeft.life = JSON.parse(localStorage.getItem('pokemonLeftLife'));
       }
       else {
         this.pokemonLeft.life = 100;
@@ -150,135 +165,88 @@ export class GameComponent {
     return pokemonAlive;
   }
 
-// ATTACK && DEFFENSE
-enemyAtacking(): void {
-  const moves = ['attack', 'defense'];
-  if (this.pokemonRight.life > 0 && this.pokemonLeft.life > 0) {
-    let move = moves[Math.round(Math.random() * 2)];
-    switch (move) {
-      case 'attack':
-        if (this.pokemonLeft.life <= 20) {
-          console.log('enemy attacking');
-          this.pokemonLeft.life = 0;
-          localStorage.removeItem('pokemonLeftLife');
-        }
-        else {
-          console.log('enemy attacking');
-          this.pokemonLeft.life = this.pokemonLeft.life-(this.pokemonLeft.life * (this.getRandomId(50)/100));
-          // document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
-        }
-        break;
-      case 'defense':
-        console.log('enemy defense');
-        this.pokemonRight.life = this.pokemonRight.life + (this.pokemonRight.life * 0.05);
-        break;
-      default: console.log('i`m not attacking');
+  // ATTACK && DEFFENSE
+  enemyAtacking(): void {
+    const moves = ['attack', 'defense'];
+    if (this.pokemonRight.life > 0 && this.pokemonLeft.life > 0) {
+      let move = moves[Math.round(Math.random() * 2)];
+      switch (move) {
+        case 'attack':
+          if (this.pokemonLeft.life <= 20) {
+            console.log('enemy attacking');
+            this.pokemonLeft.life = 0;
+            localStorage.removeItem('pokemonLeftLife');
+          }
+          else {
+            console.log('enemy attacking');
+            this.pokemonLeft.life = this.pokemonLeft.life - (this.pokemonLeft.life * (this.getRandomId(50) / 100));
+            // document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
+          }
+          break;
+        case 'defense':
+          console.log('enemy defense');
+          this.pokemonRight.life = this.pokemonRight.life + (this.pokemonRight.life * 0.05);
+          break;
+        default: console.log('i`m not attacking');
+      }
+      this.isDisabled = false;
+      // document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
+      localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
     }
-    this.isDisabled = false;
-    // document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
-    localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
   }
-}
 
-attack(): void {
-  // document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
-  if (this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass'
-    || this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water'
-    || this.pokemonLeft.type === 'water' && this.pokemonRight.type === 'fire') {
+  attack(): void {
+    // document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
+    if (this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass'
+      || this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water'
+      || this.pokemonLeft.type === 'water' && this.pokemonRight.type === 'fire') {
 
-    if (this.pokemonRight.life <= 20) {
-      this.pokemonRight.life = 0;
-      localStorage.removeItem('pokemonRight');
+      if (this.pokemonRight.life <= 20) {
+        this.pokemonRight.life = 0;
+        localStorage.removeItem('pokemonRight');
+      }
+      else {
+        this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * (this.getRandomId(80) / 100));
+        // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
+
+      }
     }
     else {
-      this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * (this.getRandomId(80)/100));
-      // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
-      
+      if (this.pokemonRight.life <= 10) {
+        this.pokemonRight.life = 0;
+        localStorage.removeItem('pokemonRight');
+      }
+      else {
+        this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * (this.getRandomId(50) / 100));
+        // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
+      }
     }
-  }
-  else {
-    if (this.pokemonRight.life <= 10) {
-      this.pokemonRight.life = 0;
-      localStorage.removeItem('pokemonRight');
-    }
-    else {
-      this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * (this.getRandomId(50)/100));
-      // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
-    }
-  }
-  localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
-  this.isDisabled = true;
-  setTimeout(function () {
-    this.enemyAtacking();
-  }.bind(this), 1000);
+    localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
+    this.isDisabled = true;
+    setTimeout(function () {
+      this.enemyAtacking();
+    }.bind(this), 1000);
 
-}
+  }
 
   defense(): void {
     // document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
-    this.pokemonLeft.life = this.pokemonLeft.life + (this.pokemonLeft.life*0.05);
+    this.pokemonLeft.life = this.pokemonLeft.life + (this.pokemonLeft.life * 0.05);
     localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
     setTimeout(function () {
       this.enemyAtacking();
     }.bind(this), 1000);
   }
 
-  saveGame() {
-    this._userStatService.getOneUserStats(this.user._id).subscribe(currentStatus=>{
-      this.userCurrentStat = currentStatus.userStat;
-    });
-    let currentStatus: string = '';
-    if (this.pokemonLeft.life === 0) {
-      this.myAliveTeam.pop();
-      currentStatus = JSON.stringify({
-        user: this.userCurrentStat.user,
-        victories: this.userCurrentStat.victories,
-        score: this.userCurrentStat.score,
-        round: this.userCurrentStat.round++,
-        team: this.myAliveTeam
-      });
-      this._userStatService.editState(this.user._id, currentStatus).subscribe(status => {
-        this.userCurrentStat = status.status;
-      });
-      localStorage.removeItem('pokemonLeftLife');
-      this.nextRound();
-      
-    } else if (this.pokemonRight.life === 0) {
-      currentStatus = JSON.stringify({
-        user: this.userCurrentStat.user,
-        victories: this.userCurrentStat.victories + 1,
-        score: this.userCurrentStat.score + this.score(),
-        round: this.userCurrentStat.round++,
-        team: this.myAliveTeam
-      });
-  
-      this._userStatService.editState(this.user._id, currentStatus).subscribe(status => {
-        this.userCurrentStat = status.status;
-      });
-
-      console.log(this.userCurrentStat);
-      localStorage.removeItem('pokemonRight');
-      this.nextRound();
-    }
+  autosave() {
+    localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
+    localStorage.setItem('pokemonLeft', JSON.stringify(this.pokemonLeft));
+    localStorage.setItem('myAliveTeam', JSON.stringify(this.myAliveTeam));
   }
 
-  score(): number {
-    let sum: number = 0;
-    this.myAliveTeam.forEach(pokemon => {
-      sum += pokemon.life;
-    })
-    return sum;
-  }
-
-  nextRound():void {
-    this.generateDataPokemon();
-    this.attackFirst();
-  }
-
-  attackFirst(): void{
-    if(this.pokemonLeft.speed < this.pokemonRight.speed){
-      this.isDisabled = true;
-      console.log('Left is slower than right');
+  attackFirst(): void {
+    if (this.pokemonLeft.speed < this.pokemonRight.speed) {
+      // this.isDisabled = true;
       this.enemyAtacking();
     }
   }

@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent, DialogContentComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /* ANGULAR MATERIAL */
@@ -80,6 +80,7 @@ import { OptionsComponent } from './components/options/options.component';
     ContinueGameComponent,
     GameComponent,
     OptionsComponent,
+    DialogContentComponent
 
   ],
   imports: [

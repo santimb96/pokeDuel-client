@@ -29,7 +29,7 @@
           <div class="start" routerLink="/">MENU</div>
         </ng-container>
         <ng-container *ngIf="userLogged">
-          <div class="start" [routerLink]="['/menu-game',userID]">MENU</div>
+          <div class="start" (click)="goTo()">MENU</div>
         </ng-container>
       </div>
     </mat-card-actions>

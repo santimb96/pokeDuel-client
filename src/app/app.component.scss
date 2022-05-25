@@ -3,26 +3,31 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "../interface";
 
-.container {
-    width: 400px;
-    height: 100%;
+.custom-container {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: hidden;
+    overflow-x: hidden;
 
     .gameboy-card {
-        height: 100%;
-        width: 100%;
+        background: red;
+        height: 100px;
         padding: 0 !important;
         background-color: $body-bg-md-down;
 
         .img-card {
             display: flex;
             justify-content: center;
+            align-items: center;
             position: absolute;
-            top: 90%;
-            width: 100%;
+            top: 87%;
+            width: 100vw;
+            height: 70px;
 
             .mat-card-image {
-                width: 170px !important;
-                height: 75px !important;
+                margin: 0;
+                width: 80px !important;
+                height: 70px !important;
             }
         }
     }

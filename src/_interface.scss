@@ -133,12 +133,12 @@
             height: 40px;
             line-height: 40px;
             border-radius: 50%;
-            border-bottom: 2px solid $pad-but-shadow;
-            box-shadow: -1px 1px 5px $black, 0px 0px 5px $black inset;
-            text-shadow: 0px -1px 1px $pad-but-shadow;
-            color: #2c313e;
+            //border-bottom: 2px solid $pad-but-shadow;
+            //box-shadow: -1px 1px 5px $black, 0px 0px 5px $black inset;
+            //text-shadow: 0px -1px 1px $pad-but-shadow;
+            color: black;
             text-align: center;
-            -webkit-user-select: none;
+            -webkit-user-select: none; //for chrome
             cursor: pointer;
             transition: box-shadow 0.1s ease-out, border 0.1s ease-out, line-height 0.2s ease-out;
 

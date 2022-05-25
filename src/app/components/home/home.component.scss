@@ -19,6 +19,11 @@
     button {
         background-color: $dark-garnet;
         color: $white;
+        transition: all 0.3s ease;
+    }
+    button:hover{
+        background-color: white;
+        color: black;
     }
 
     .img-card {
@@ -31,4 +36,23 @@
         }
     }
 
+}
+
+@media (min-width: 800px) {
+    .section-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .menu {
+            gap: 4vh;
+            width: 30vw;
+        }
+        .img-card {
+
+            .mat-card-image {
+                width: 200px;
+            }
+        }
+    }
 }

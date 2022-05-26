@@ -1,7 +1,7 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "variables";
-.container {
-    height: 100%;
+.custom-container {
+    height: 100vh;
 }
 
 .square {
@@ -193,22 +193,23 @@
         overflow-x: hidden;
     }
     .square:after {
+        height: 60vh;
+        width: 60vw;
         padding-bottom: 40%;
     }
 
-    .controls {
-        margin-left: -20vh;
-        margin-right: -22vh;
-        margin-bottom: -152px;
-        position: relative;
-        top: -50vh;
+    .controls[_ngcontent-tjm-c101] {
+        width: 100vw;
+        position: absolute;
+        margin-left: 1vw;
+        top: 35vh;
     }
 
     .inside-frame {
         position: absolute;
-        margin: 5vh;
         z-index: 3;
         height: 440px;
+        margin: 0;
     }
 
     .a, .b {
@@ -223,11 +224,12 @@
 
 @include media-breakpoint-down(lg) {
     .inside-frame {
-        position: absolute;
-        margin: 5vh;
-        width: 360px;
-        height: 360px;
-        z-index: 3;
+        // position: absolute;
+        // margin: 5vh;
+        // width: 360px;
+        // height: 360px;
+        // z-index: 3;
+
     }
 
     .a,

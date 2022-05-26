@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
     private _pokemonService: PokemonsService, private route: ActivatedRoute, public dialog: MatDialog,
     private _battleService: BattleService) {
     this.currentDate = format(new Date(), 'DD/MM/YYYY HH:mm');
-    //objects
     if (localStorage.getItem('userLogged') !== null) {
       this.user = JSON.parse(localStorage.getItem('userLogged'));
       this.userID = this.user.id;
@@ -47,12 +46,12 @@ export class AppComponent implements OnInit {
     }
   }
 
-  savePath() {
+  public savePath(): void {
     localStorage.setItem('path', this.router.url);
     this.router.navigate(['options']);
   }
 
-  goTo(): void{
+  public goTo(): void{
     if(location.pathname.includes('/game/') || location.pathname.includes('continue-game')){
       this.openDialog();
     }
@@ -61,7 +60,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  openDialog() {
+  public openDialog(): void {
     const dialogRef = this.dialog.open(DialogContentComponent);
 
     dialogRef.afterClosed().subscribe(result => {

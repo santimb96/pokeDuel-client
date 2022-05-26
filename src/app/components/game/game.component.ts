@@ -1,12 +1,9 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs/operators';
 import { Pokemon } from 'src/app/models/pokemon';
 import { User } from 'src/app/models/user';
 import { UserStat } from 'src/app/models/userStat';
-import { AuthService } from 'src/app/services/auth.service';
 import { BattleService } from 'src/app/services/battle.service';
-import { PokemonsService } from 'src/app/services/pokemons.service';
 import { UserStatService } from 'src/app/services/user-stat.service';
 
 @Component({
@@ -15,7 +12,6 @@ import { UserStatService } from 'src/app/services/user-stat.service';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent {
-  // public pokemon: Pokemon;
   public pokemonLeft: Pokemon;
   public user: User;
   public pokemonRight: Pokemon;
@@ -25,10 +21,9 @@ export class GameComponent {
   public currentDate: Date = new Date();
   public userCurrentStat: UserStat;
 
-  constructor(private _pokemonService: PokemonsService, private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef, private router: Router, private _userStatService: UserStatService,
-    private _authService: AuthService, private _battleService: BattleService) {
-    this.user = this.route.snapshot.data['users'].user; //saves the user
+  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef, private router: Router, 
+    private _userStatService: UserStatService, private _battleService: BattleService) {
+    this.user = this.route.snapshot.data['users'].user; 
     this.currentStat();
     this.generateDataPokemon();
     this.attackFirst();
@@ -66,12 +61,10 @@ export class GameComponent {
     }, 3000)
   }
 
-  // Generate Stat (for new game and continue)
-  currentStat() {
+  public currentStat(): void {
     this.userCurrentStat = this.route.snapshot.data['userStat'].userStat;
-    //getting and deletting stat if exists 'cause it's a new game
+    console.log(this.userCurrentStat)
     if (this.userCurrentStat !== null) {
-
       let newState = JSON.stringify({
         user: this.user,
         victories: this.userCurrentStat.victories,
@@ -79,7 +72,6 @@ export class GameComponent {
         round: 1,
         team: this.generateTeam()
       });
-
       this._userStatService.editState(this.user._id, newState).subscribe(newStat => {
         this.userCurrentStat = newStat.userToUpdate;
         this.myTeam = newStat.userToUpdate.team;
@@ -108,8 +100,8 @@ export class GameComponent {
     console.log(this.userCurrentStat);
   }
 
-  //generates a new team if userStat doesn't exist
-  generateTeam() {
+  
+  private generateTeam(): Pokemon[] {
     let myTeam: Pokemon[] = [];
     let pokemon: Pokemon = {};
     for (let i = 0; i < 3; i++) {
@@ -127,8 +119,7 @@ export class GameComponent {
     return myTeam;
   }
 
-  //currentPokemons
-  generateDataPokemon() {
+  private generateDataPokemon(): void {
     if (this.myAliveTeam.length !== 0) {
       this.pokemonLeft = this.myAliveTeam[this.myAliveTeam.length - 1];
       if (localStorage.getItem('pokemonLeftLife') !== null) {
@@ -147,11 +138,9 @@ export class GameComponent {
     } else {
       this.router.navigate([`my-account/${this.user._id}`]);
     }
-
   }
 
-  //gives me a pokemon that is alive
-  getPokemonFromTeam() {
+  private getPokemonFromTeam(): Pokemon[] {
     let pokemonAlive: Pokemon[] = [];
     this.myTeam.forEach(pokemon => {
       if (pokemon.life > 0) {
@@ -161,8 +150,7 @@ export class GameComponent {
     return pokemonAlive;
   }
 
-  // ATTACK && DEFFENSE
-  enemyAtacking(): void {
+  private enemyAtacking(): void {
     document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
     const moves = ['attack', 'defense', 'attack','attack','attack'];
     if (this.pokemonRight.life > 0 && this.pokemonLeft.life > 0) {
@@ -191,7 +179,7 @@ export class GameComponent {
     }
   }
 
-  attack(): void {
+  public attack(): void {
     document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
     if (this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass'
       || this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water'
@@ -204,7 +192,6 @@ export class GameComponent {
       else {
         this.pokemonRight.life = this.pokemonRight.life - (this.pokemonRight.life * (this._battleService.getRandomId(80) / 100));
         document.getElementById("pokemonRight").classList.add("animate__bounceIn");
-
       }
     }
     else {
@@ -222,10 +209,9 @@ export class GameComponent {
     setTimeout(function () {
       this.enemyAtacking();
     }.bind(this), 1000);
-
   }
 
-  defense(): void {
+  public defense(): void {
     this.pokemonLeft.life = this.pokemonLeft.life + (this.pokemonLeft.life * 0.05);
     localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
     setTimeout(function () {
@@ -233,13 +219,13 @@ export class GameComponent {
     }.bind(this), 1000);
   }
 
-  autosave() {
+  private autosave(): void {
     localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
     localStorage.setItem('pokemonLeft', JSON.stringify(this.pokemonLeft));
     localStorage.setItem('myAliveTeam', JSON.stringify(this.myAliveTeam));
   }
 
-  attackFirst(): void {
+  private attackFirst(): void {
     if (this.pokemonLeft.speed < this.pokemonRight.speed) {
       this.isDisabled = true;
       this.enemyAtacking();

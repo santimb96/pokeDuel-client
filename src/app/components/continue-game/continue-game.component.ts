@@ -14,7 +14,6 @@ import { UserStatService } from 'src/app/services/user-stat.service';
   styleUrls: ['./continue-game.component.scss']
 })
 export class ContinueGameComponent {
-  // public pokemon: Pokemon;
   public pokemonLeft: Pokemon;
   public user: User;
   public pokemonRight: Pokemon;
@@ -24,10 +23,9 @@ export class ContinueGameComponent {
   public currentDate: Date = new Date();
   public userCurrentStat: UserStat;
 
-  constructor(private _pokemonService: PokemonsService, private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef, private router: Router, private _userStatService: UserStatService,
-    private _authService: AuthService, private _battleService: BattleService) {
-    this.user = this.route.snapshot.data['users'].user; //saves the user
+  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef, 
+    private router: Router, private _userStatService: UserStatService, private _battleService: BattleService) {
+    this.user = this.route.snapshot.data['users'].user;
     this.currentStat();
     this.generateDataPokemon();
     this.attackFirst();
@@ -37,7 +35,6 @@ export class ContinueGameComponent {
       this.autosave();
 
       if (this.pokemonLeft.life === 0 || this.pokemonRight.life === 0) {
-        
         if ((this.pokemonLeft.life === 0 && this.pokemonRight.life !== 0) || 
         (this.pokemonLeft.life !== 0 && this.pokemonRight.life === 0) ) {
           this._battleService.saveGame(this.user._id);
@@ -65,11 +62,10 @@ export class ContinueGameComponent {
     }, 3000)
   }
 
-  // Generate Stat (for new game and continue)
-  currentStat() {
+  private currentStat(): void {
     this.userCurrentStat = this.route.snapshot.data['userStat'].userStat;
     if (this.userCurrentStat === null || this.userCurrentStat === undefined) {
-      //newStat!!
+
       let newState = JSON.stringify({
         user: this.user._id,
         victories: 0,
@@ -78,7 +74,7 @@ export class ContinueGameComponent {
         team: this.generateTeam()
       });
 
-      //creating the newStat
+
       this._userStatService.newState(newState).subscribe(newStat => {
         this.userCurrentStat = newStat.userToUpdate;
         this.myTeam = newStat.userToUpdate.team;
@@ -93,7 +89,7 @@ export class ContinueGameComponent {
       }
      
     }
-    //taking the old stat
+
     else {
       if (this.userCurrentStat.team.length === 0) {
         let newState = JSON.stringify({
@@ -116,8 +112,7 @@ export class ContinueGameComponent {
     }
   }
 
-  //generates a new team if userStat doesn't exist
-  generateTeam() {
+  private generateTeam(): Pokemon[] {
     let myTeam: Pokemon[] = [];
     let pokemon: Pokemon = {};
     for (let i = 0; i < 3; i++) {
@@ -135,8 +130,7 @@ export class ContinueGameComponent {
     return myTeam;
   }
 
-  //currentPokemons
-  generateDataPokemon() {
+  private generateDataPokemon(): void {
     if (this.myAliveTeam.length !== 0) {
       this.pokemonLeft = this.myAliveTeam[this.myAliveTeam.length - 1];
       if (localStorage.getItem('pokemonLeftLife') !== null) {
@@ -155,10 +149,8 @@ export class ContinueGameComponent {
     } else {
       this.router.navigate([`my-account/${this.user._id}`]);
     }
-
   }
 
-  //gives me a pokemon that is alive
   getPokemonFromTeam() {
     let pokemonAlive: Pokemon[] = [];
     this.myTeam.forEach(pokemon => {

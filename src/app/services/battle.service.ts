@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pokemon } from '../models/pokemon';
 import { User } from '../models/user';
@@ -22,7 +23,7 @@ export class BattleService {
 
   constructor(private _pokemonService: PokemonsService, private route: ActivatedRoute,
     private router: Router, private _userStatService: UserStatService,
-    private _authService: AuthService) {
+    private _authService: AuthService, private _snackBar: MatSnackBar) {
   }
 
   //gets a random number
@@ -79,6 +80,29 @@ export class BattleService {
       sum += pokemon.life;
     })
     return sum;
+  }
+
+  openSnackBar(life: number, pokemonName: string, action: string) {
+    let message: string = '';
+    switch(action){
+      case 'attack': 
+        if (life < 30){
+          message = `${pokemonName} has attacked`;
+        } else if (life > 30){
+          message = 'Critic attack!';
+        } else {
+          message = `Amazing attack by ${pokemonName}`;
+        }
+      break;
+      case 'defense': 
+        message = `${pokemonName} choose defense!`;
+      break;
+      case 'died':
+        message = `${pokemonName} died :(`;
+        break;
+    }
+
+    this._snackBar.open(message,'', {horizontalPosition: 'start', verticalPosition: 'top', duration: 2000,});
   }
 
 }

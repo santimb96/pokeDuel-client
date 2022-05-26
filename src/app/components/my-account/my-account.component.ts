@@ -14,10 +14,13 @@ export class MyAccountComponent implements OnInit {
   public user: User;
   public userStat: UserStat;
   public userID: string;
+  public score: number;
   constructor(private _authService: AuthService, private router: Router, private route: ActivatedRoute) {
     this.user = this.route.snapshot.data['users'].user;
     this.userStat = this.route.snapshot.data['userStats'].userStat;
     this.userID = this.user._id;
+    this.score = Math.round(this.userStat.score);
+
   }
 
   ngOnInit(): void {

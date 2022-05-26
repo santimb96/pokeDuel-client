@@ -240,7 +240,7 @@ export class GameComponent {
       this.enemyAtacking();
     } else if (this.pokemonLeft.speed > this.pokemonRight.speed) {
       this.isDisabled = false;
-    } else { //TODO: WE CAN DO IT RANDOMLY
+    } else {
       this.isDisabled = true;
       this.enemyAtacking();
     }

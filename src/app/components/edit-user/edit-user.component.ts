@@ -24,7 +24,6 @@ export class EditUserComponent implements OnInit {
       avatar: ['', Validators.required],
     });
     this.oldValues();
-    console.log('test');
   }
 
   editUser(form) {

@@ -21,9 +21,9 @@ export class GameComponent {
   public currentDate: Date = new Date();
   public userCurrentStat: UserStat;
 
-  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef, private router: Router, 
+  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef, private router: Router,
     private _userStatService: UserStatService, private _battleService: BattleService) {
-    this.user = this.route.snapshot.data['users'].user; 
+    this.user = this.route.snapshot.data['users'].user;
     this.currentStat();
     this.generateDataPokemon();
     this.attackFirst();
@@ -33,9 +33,9 @@ export class GameComponent {
       this.autosave();
 
       if (this.pokemonLeft.life === 0 || this.pokemonRight.life === 0) {
-        
-        if ((this.pokemonLeft.life === 0 && this.pokemonRight.life !== 0) || 
-        (this.pokemonLeft.life !== 0 && this.pokemonRight.life === 0) ) {
+
+        if ((this.pokemonLeft.life === 0 && this.pokemonRight.life !== 0) ||
+          (this.pokemonLeft.life !== 0 && this.pokemonRight.life === 0)) {
           this._battleService.saveGame(this.user._id);
         }
 
@@ -63,7 +63,6 @@ export class GameComponent {
 
   public currentStat(): void {
     this.userCurrentStat = this.route.snapshot.data['userStat'].userStat;
-    console.log(this.userCurrentStat)
     if (this.userCurrentStat !== null) {
       let newState = JSON.stringify({
         user: this.user,
@@ -96,16 +95,13 @@ export class GameComponent {
 
     localStorage.removeItem('pokemonRight');
     localStorage.removeItem('pokemonLeftLife');
-
-    console.log(this.userCurrentStat);
   }
 
-  
   private generateTeam(): Pokemon[] {
     let myTeam: Pokemon[] = [];
     let pokemon: Pokemon = {};
     for (let i = 0; i < 3; i++) {
-      pokemon = this.route.snapshot.data['pokemons'].pokemons[this._battleService.getRandomId(88)]; //we get a pokemon
+      pokemon = this.route.snapshot.data['pokemons'].pokemons[this._battleService.getRandomId(88)];
       myTeam.push({
         name: pokemon.name,
         life: 100,
@@ -115,7 +111,6 @@ export class GameComponent {
     }
     this.myTeam = myTeam;
     this.myAliveTeam = myTeam;
-    console.log(this.myAliveTeam);
     return myTeam;
   }
 
@@ -152,27 +147,24 @@ export class GameComponent {
 
   private enemyAtacking(): void {
     document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
-    const moves = ['attack', 'defense', 'attack','attack','attack'];
+    const moves = ['attack', 'defense', 'attack', 'attack', 'attack'];
     if (this.pokemonRight.life > 0 && this.pokemonLeft.life > 0) {
       let move = moves[this._battleService.getRandomId(5)];
       switch (move) {
         case 'attack':
           if (this.pokemonLeft.life <= 20) {
-            console.log('enemy attacking');
             this.pokemonLeft.life = 0;
             localStorage.removeItem('pokemonLeftLife');
           }
           else {
-            console.log('enemy attacking');
             this.pokemonLeft.life = this.pokemonLeft.life - (this.pokemonLeft.life * (this._battleService.getRandomId(50) / 100));
             document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
           }
           break;
         case 'defense':
-          console.log('enemy defense');
           this.pokemonRight.life = this.pokemonRight.life + (this.pokemonRight.life * 0.05);
           break;
-        default: console.log('i`m not attacking');
+        default: this.pokemonLeft.life = this.pokemonLeft.life - (this.pokemonLeft.life * (this._battleService.getRandomId(20) / 100));
       }
       this.isDisabled = false;
       localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
@@ -229,7 +221,7 @@ export class GameComponent {
     if (this.pokemonLeft.speed < this.pokemonRight.speed) {
       this.isDisabled = true;
       this.enemyAtacking();
-    } else if(this.pokemonLeft.speed > this.pokemonRight.speed){
+    } else if (this.pokemonLeft.speed > this.pokemonRight.speed) {
       this.isDisabled = false;
     } else { //TODO: WE CAN DO IT RANDOMLY
       this.isDisabled = true;

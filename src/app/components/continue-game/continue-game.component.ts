@@ -126,7 +126,6 @@ export class ContinueGameComponent {
     }
     this.myTeam = myTeam;
     this.myAliveTeam = myTeam;
-    console.log(this.myAliveTeam);
     return myTeam;
   }
 
@@ -151,7 +150,7 @@ export class ContinueGameComponent {
     }
   }
 
-  getPokemonFromTeam() {
+  private getPokemonFromTeam(): Pokemon[] {
     let pokemonAlive: Pokemon[] = [];
     this.myTeam.forEach(pokemon => {
       if (pokemon.life > 0) {
@@ -162,7 +161,7 @@ export class ContinueGameComponent {
   }
 
    // ATTACK && DEFFENSE
-   enemyAtacking(): void {
+   private enemyAtacking(): void {
     document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
     const moves = ['attack', 'defense', 'attack','attack','attack'];
     if (this.pokemonRight.life > 0 && this.pokemonLeft.life > 0) {
@@ -170,28 +169,25 @@ export class ContinueGameComponent {
       switch (move) {
         case 'attack':
           if (this.pokemonLeft.life <= 20) {
-            console.log('enemy attacking');
             this.pokemonLeft.life = 0;
             localStorage.removeItem('pokemonLeftLife');
           }
           else {
-            console.log('enemy attacking');
             this.pokemonLeft.life = this.pokemonLeft.life - (this.pokemonLeft.life * (this._battleService.getRandomId(50) / 100));
             document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
           }
           break;
         case 'defense':
-          console.log('enemy defense');
           this.pokemonRight.life = this.pokemonRight.life + (this.pokemonRight.life * 0.05);
           break;
-        default: console.log('i`m not attacking');
+        default: this.pokemonLeft.life = this.pokemonLeft.life - (this.pokemonLeft.life * (this._battleService.getRandomId(20) / 100));
       }
       this.isDisabled = false;
       localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
     }
   }
 
-  attack(): void {
+  public attack(): void {
     document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
     if (this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass'
       || this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water'
@@ -225,7 +221,7 @@ export class ContinueGameComponent {
 
   }
 
-  defense(): void {
+  public defense(): void {
     this.pokemonLeft.life = this.pokemonLeft.life + (this.pokemonLeft.life * 0.05);
     localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
     setTimeout(function () {
@@ -233,13 +229,13 @@ export class ContinueGameComponent {
     }.bind(this), 1000);
   }
 
-  autosave() {
+  private autosave(): void {
     localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
     localStorage.setItem('pokemonLeft', JSON.stringify(this.pokemonLeft));
     localStorage.setItem('myAliveTeam', JSON.stringify(this.myAliveTeam));
   }
 
-  attackFirst(): void {
+  private attackFirst(): void {
     if (this.pokemonLeft.speed < this.pokemonRight.speed) {
       this.isDisabled = true;
       this.enemyAtacking();

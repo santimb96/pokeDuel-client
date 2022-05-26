@@ -176,18 +176,18 @@ export class ContinueGameComponent {
           else {
             life = Math.round(this.pokemonLeft.life * (this._battleService.getRandomId(50) / 100));
             this.pokemonLeft.life = this.pokemonLeft.life - life;
-            this._battleService.openSnackBar(life,this.pokemonLeft.name,'attack');
+            this._battleService.openSnackBar(life,this.pokemonRight.name,'attack');
             document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
           }
           break;
         case 'defense':
           life = this.pokemonRight.life * 0.05;
           this.pokemonRight.life = this.pokemonRight.life + life;
-          this._battleService.openSnackBar(life,this.pokemonLeft.name,'defense');
+          this._battleService.openSnackBar(life,this.pokemonRight.name,'defense');
           break;
         default: 
           this.pokemonLeft.life = this.pokemonLeft.life - (this.pokemonLeft.life * (this._battleService.getRandomId(20) / 100));
-          this._battleService.openSnackBar(life,this.pokemonLeft.name,'attack');
+          this._battleService.openSnackBar(life,this.pokemonRight.name,'attack');
       }
       this.isDisabled = false;
       localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));

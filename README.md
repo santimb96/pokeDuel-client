@@ -31,7 +31,7 @@ A continuación se listarán los puntos del proyecto:
 - Alumnos: Kim Asiao y Santiago Martínez
 - 2º de Desarrollo de Aplicaciones Web (presencial)
 - 31 de mayo de 2022
-- [Despliegue en Vercel](https://breakdance.github.io/breakdance/)
+- [Despliegue en Vercel](https://client-five-xi.vercel.app/)
 - [Link del proyecto](https://github.com/onikakimasiaod/pokeDuel)
 
 #### Descripción<a name="descripcion"></a>

@@ -26,7 +26,7 @@ export class EditUserComponent implements OnInit {
     this.oldValues();
   }
 
-  editUser(form) {
+  public editUser(form): void {
     console.log(form);
     this._authService.editUser(this.user._id, form).subscribe(
       data => {
@@ -39,7 +39,7 @@ export class EditUserComponent implements OnInit {
     );
   }
 
-  oldValues() {
+  public oldValues(): void {
     let userLogged = JSON.parse(localStorage.getItem('userLogged'));
     this._authService.getOneUser(userLogged.id).subscribe(
       data => {
@@ -53,7 +53,7 @@ export class EditUserComponent implements OnInit {
     );
   }
 
-  uploadFile(event) {
+  public uploadFile(event): void {
     let file = event.target.files[0];
     this.editForm.patchValue({
       avatar: file

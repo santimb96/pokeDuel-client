@@ -20,8 +20,7 @@ export class AppComponent implements OnInit {
   public userLogged: boolean = false;
 
   constructor(public router: Router, private _authService: AuthService,
-    private _pokemonService: PokemonsService, private route: ActivatedRoute, public dialog: MatDialog,
-    private _battleService: BattleService) {
+    public dialog: MatDialog, private _battleService: BattleService) {
     this.currentDate = format(new Date(), 'DD/MM/YYYY HH:mm');
     if (localStorage.getItem('userLogged') !== null) {
       this.user = JSON.parse(localStorage.getItem('userLogged'));
@@ -86,6 +85,4 @@ export class AppComponent implements OnInit {
 })
 export class DialogContentComponent { }
 
-//TODO: DIALOG TO CONFIRM IF YOU WANT TO GO TO MENU
 //FIXME: FIX THE 'MY-ACCOUNT' INTERFACE
-// FIXME: FIX THE CANCEL BUTTON OF THE DIALOG

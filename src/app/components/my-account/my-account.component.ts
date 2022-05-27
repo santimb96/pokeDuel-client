@@ -23,11 +23,9 @@ export class MyAccountComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
-  public myAccountData() {
+  public myAccountData(): void {
     let userLogged = JSON.parse(localStorage.getItem('userLogged'));
     this._authService.getOneUser(userLogged.id).subscribe(
       data => {
@@ -41,9 +39,8 @@ export class MyAccountComponent implements OnInit {
     );
   }
 
-  public deleteProfile(id: string) {
+  public deleteProfile(id: string): void {
     this._authService.deleteUser(id).subscribe(user => {
-      console.log(`${user} eliminated`);
       this.router.navigate([""]);
     });
   }

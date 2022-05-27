@@ -13,18 +13,16 @@ export class OptionsComponent implements OnInit {
   public userID;
   public userLogged: boolean = false;
   constructor(private router: Router) {
-    //objects
     if (localStorage.getItem('userLogged') !== null) {
       this.user = JSON.parse(localStorage.getItem('userLogged'));
       this.userID = this.user.id;
       this.userLogged = true;
     }
-
   }
 
-  ngOnInit(): void {
-  }
-  goTo() {
+  ngOnInit(): void {}
+
+  public goTo(): void {
     let path = localStorage.getItem('path');
     if (path !== null) {
       if (path === `/menu-game/${this.userID}`) {

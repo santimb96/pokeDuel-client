@@ -26,8 +26,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   quit(): void {
     window.open("", '_self').window.close(); //TODO: fix the close window

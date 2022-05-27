@@ -23,22 +23,21 @@ export class RegisterComponent {
     })
   }
 
-  signUp(form): void {
+  public signUp(form): void {
     this._authService.signUp(form).subscribe(
       data => {
         console.log(data);
         this.router.navigate(["login"])
       },
-      error => { 
+      error => {
         console.log(error.error.message);
-        this.error = error.error.message;   
+        this.error = error.error.message;
       }
     )
   }
 
-  uploadFile(event): void {
+  public uploadFile(event): void {
     let file = event.target.files[0];
-    console.log("???")
     this.signUpForm.patchValue({
       avatar: file
     });

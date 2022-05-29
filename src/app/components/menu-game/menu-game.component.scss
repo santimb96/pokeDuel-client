@@ -34,7 +34,7 @@
         .mat-card-image {
             width: 100px;
             height: 100px;
-            margin: 0px 0px 30px 0px;
+            margin: 30px;
         }
     }
 
@@ -66,6 +66,12 @@
                 &:active{
                     transform: translateY(2px);
                 }
+            }
+        }
+
+        .img-card{
+            .mat-card-image{
+                margin: 0px 0px 30px 0px;
             }
         }
     }

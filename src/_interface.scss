@@ -14,7 +14,7 @@
         content: "";
         display: flex;
         padding-bottom: 100%;
-        background-color: $dark-grey;
+        background-color: #BEBFC4;
         border: solid black 10px;
         border-radius: 5px;
         border-top: solid black 3vh;
@@ -134,7 +134,6 @@
             line-height: 40px;
             border-radius: 50%;
             border-bottom: 2px solid $pad-but-shadow;
-            color: white;
             text-align: center;
             -webkit-user-select: none;
             cursor: pointer;
@@ -216,7 +215,8 @@
     }
 
     .a, .b {
-        background-color: $dark-grey;
+        background-color: #BEBFC4;
+        color: $black;
     }
 
     .mat-card {
@@ -237,6 +237,7 @@
     .a,
     .b {
         background-color: $dark-garnet;
+        color: white;
     }
     
 }

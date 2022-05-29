@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this._battleService.saveGame(this.userID); //TODO: SAVE THE GAME HERE
+        this._battleService.saveGame(this.userID);
         this.router.navigate([`menu-game/${this.userID}`]);
       } else if(!result){
         this.router.navigate([`menu-game/${this.userID}`]);

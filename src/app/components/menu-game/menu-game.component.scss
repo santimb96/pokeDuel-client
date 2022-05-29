@@ -14,7 +14,7 @@
     .menu {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 8px;
     }
 
     button {
@@ -30,7 +30,9 @@
         margin-bottom: -3vh;
 
         .mat-card-image {
-            width: 20vh;
+            width: 100px;
+            height: 100px;
+            margin: 30px;
         }
     }
 

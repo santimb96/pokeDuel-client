@@ -17,12 +17,13 @@
             display: flex;
             justify-content: center;
             position: absolute;
-            top: 90%;
+            top: 92%;
             width: 100%;
 
             .mat-card-image {
-                width: 170px !important;
-                height: 75px !important;
+                width: 150px !important;
+                height: 40px !important;
+                margin: 0;
             }
         }
     }

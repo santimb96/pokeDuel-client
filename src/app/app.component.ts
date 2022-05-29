@@ -74,6 +74,8 @@ export class AppComponent implements OnInit {
 
 }
 
+
+//FIXME:CANCEL
 @Component({
   selector: 'dialog-content',
   template: `<h2 mat-dialog-title>Do you want to save the game?</h2>

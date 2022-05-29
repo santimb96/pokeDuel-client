@@ -24,8 +24,12 @@
     justify-content: space-between;
 }
 
-.card-img {
-    width: 60% !important;
+.card-img-left {
+    width: 70% !important;
+}
+
+.card-img-right {
+    width: 50% !important;
 }
 
 .example-label {
@@ -51,51 +55,74 @@
     width: 120px;
 }
 
-.attack-buttons{
+.attack-buttons {
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
     background-color: rgb(255, 255, 255, 0.5);
-    border-radius: 1vh;
+    padding: 10px 0px 10px 0px;
+    img {
+        width: 25px;
+    }
+
 }
 
-.pokemon-name{
-    background-color: $black;
+//FIXME: refactorize code
+.pokemon-name-right {
+    text-align: end;
+    text-shadow: 1px 0 0 $black, -1px 0 0 $black, 0 1px 0 $black,
+        0 -1px 0 $black, 1px 1px $black, -1px -1px 0 $black,
+        1px -1px 0 $black, -1px 1px 0 $black;
     border-radius: 1vh;
     width: 20vh;
     color: $white;
-    text-align: center;
+    text-transform: uppercase;
+}
+
+.pokemon-name-left {
+    text-align: start;
+    text-shadow: 1px 0 0 $black, -1px 0 0 $black, 0 1px 0 $black,
+        0 -1px 0 $black, 1px 1px $black, -1px -1px 0 $black,
+        1px -1px 0 $black, -1px 1px 0 $black;
+    border-radius: 1vh;
+    width: 20vh;
+    color: $white;
     text-transform: uppercase;
 }
 
 
+
+
 @include media-breakpoint-up(xl) {
     .card-img {
-        width:30% !important;
+        width: 30% !important;
     }
 
     .pokemon-left {
         height: 60%;
     }
 
-    .attack-buttons{
+    .attack-buttons {
         display: flex;
         align-self: start;
     }
 
-    .pokeR-height{
+    .pokeR-height {
         margin-bottom: 110px !important;
     }
 
-    .background-battle{
-        background-image:url('../../../assets/img/background-xl-battle.jpg'); 
+    .background-battle {
+        background-image: url('../../../assets/img/background-xl-battle.jpg');
         background-size: cover;
     }
-    
+
 }
 
-@include media-breakpoint-down(lg){
-    .background-battle{
-        background-image:url('../../../assets/img/bg-battle.png'); 
+@include media-breakpoint-down(lg) {
+    .background-battle {
+        background-image: url('../../../assets/img/bg-battle.png');
         background-size: cover;
+        height: 92%;
+        width: 96%;
+        margin-left: 1.5vw;
     }
 }

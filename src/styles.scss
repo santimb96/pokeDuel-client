@@ -33,32 +33,3 @@ $client-theme: mat-light-theme((color: (primary: $client-primary,
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($client-theme);
-
-html,
-body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  padding: 0;
-  margin: 0;
-}
-
-h1 {
-  font-family: 'Pokemon Solid', sans-serif;
-  font-size: 5vh !important;
-  color: $dark-garnet;
-  -webkit-text-stroke: 2px $dark-blue;
-}
-
-.logo {
-  display: flex;
-  justify-content: center;
-  font-size: 7vh;
-  margin-bottom: 3vh;
-}
-

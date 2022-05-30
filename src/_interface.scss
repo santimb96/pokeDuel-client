@@ -1,5 +1,6 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "variables";
+
 .container {
     height: 100%;
 }
@@ -13,7 +14,7 @@
     &:after {
         content: "";
         display: flex;
-        padding-bottom: 100%;
+        padding-bottom: 60vh;
         background-color: #BEBFC4;
         border: solid black 10px;
         border-radius: 5px;
@@ -139,13 +140,6 @@
             cursor: pointer;
             transition: all 0.1s ease;
             transform: translateY(0);
-            // transition: box-shadow 0.1s ease-out, border 0.1s ease-out, line-height 0.2s ease-out;
-
-            // &:active {
-            //     box-shadow: -1px 1px 1px $black, 0px 0px 5px $black inset;
-            //     border-width: 0px;
-            //     line-height: 45px;
-            // }
             &:active{
                 transform: translateY(2px);
             }
@@ -189,14 +183,11 @@
     }
 }
 
-@include media-breakpoint-up(xl) {
+@include media-breakpoint-up(md) {
     html, body {
         background-color: $body-bg-md-up !important;
         overflow-y: hidden;
         overflow-x: hidden;
-    }
-    .square:after {
-        padding-bottom: 40%;
     }
 
     .controls {
@@ -225,7 +216,14 @@
 
 }
 
-@include media-breakpoint-down(lg) {
+@include media-breakpoint-down(sm) {
+    html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    }
+
     .inside-frame {
         position: absolute;
         top: 1vh;

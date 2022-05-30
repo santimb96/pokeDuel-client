@@ -4,8 +4,11 @@
 @import "../interface";
 
 .container {
-    width: 400px;
-    height: 100%;
+    // width: 400px;
+    // height: 100%;
+    // width: 100%;
+    // padding: 0;
+    // margin: 0;
 
     .gameboy-card {
         height: 100%;
@@ -29,7 +32,16 @@
     }
 }
 
-@include media-breakpoint-up(xl) {
+@include media-breakpoint-down(md) {
+    .container {
+        height: 100%;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+@include media-breakpoint-up(md) {
     .container {
         display: flex;
         flex-direction: row;

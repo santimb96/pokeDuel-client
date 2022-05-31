@@ -46,7 +46,6 @@
     }
 }
 
-//FIXME: refactorize code
 .pokemon-name-right {
     text-align: end;
     text-shadow: 1px 0 0 $black, -1px 0 0 $black, 0 1px 0 $black,
@@ -82,10 +81,6 @@
         display: flex;
         align-self: start;
     }
-
-    // .pokeR-height {
-    //     margin-bottom: 110px !important;
-    // }
 
     .background-battle {
         background-image: url('assets/img/background-xl-battle.jpg');

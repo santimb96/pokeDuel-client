@@ -18,13 +18,7 @@ import { UserResolverService } from './resolvers/user.resolver.service';
 import { UserStatResolverService } from './resolvers/userStat.resolver.service';
 
 
-//FIXME: '/' TO HOME
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: 'home',
-  //   pathMatch: 'full'
-  // },
   {
     path: '',
     component: HomeComponent

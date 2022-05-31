@@ -26,7 +26,6 @@ export class BattleService {
     private _authService: AuthService, private _snackBar: MatSnackBar) {
   }
 
-  //gets a random number
   getRandomId(max): number {
     return Math.round(Math.random() * max);
   }

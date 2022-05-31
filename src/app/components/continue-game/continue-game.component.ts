@@ -116,7 +116,7 @@ export class ContinueGameComponent {
     let myTeam: Pokemon[] = [];
     let pokemon: Pokemon = {};
     for (let i = 0; i < 3; i++) {
-      pokemon = this.route.snapshot.data['pokemons'].pokemons[this._battleService.getRandomId(88)]; //we get a pokemon
+      pokemon = this.route.snapshot.data['pokemons'].pokemons[this._battleService.getRandomId(88)];
       myTeam.push({
         name: pokemon.name,
         life: 100,
@@ -256,7 +256,7 @@ export class ContinueGameComponent {
       this.enemyAtacking();
     } else if(this.pokemonLeft.speed > this.pokemonRight.speed){
       this.isDisabled = false;
-    } else { //TODO: WE CAN DO IT RANDOMLY
+    } else {
       this.isDisabled = true;
       this.enemyAtacking();
     }

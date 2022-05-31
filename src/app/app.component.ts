@@ -86,5 +86,3 @@ export class AppComponent implements OnInit {
   </mat-dialog-actions>`,
 })
 export class DialogContentComponent { }
-
-//FIXME: FIX THE 'MY-ACCOUNT' INTERFACE

@@ -4,15 +4,9 @@
 @import "../interface";
 
 .container {
-    // width: 400px;
-    // height: 100%;
-    // width: 100%;
-    // padding: 0;
-    // margin: 0;
-
     .gameboy-card {
-        height: 100%;
-        width: 100%;
+        height: 100vh;
+        width: 100vw;
         padding: 0 !important;
         background-color: $body-bg-md-down;
 
@@ -32,10 +26,8 @@
     }
 }
 
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(sm) {
     .container {
-        height: 100%;
-        width: 100%;
         padding: 0;
         margin: 0;
     }

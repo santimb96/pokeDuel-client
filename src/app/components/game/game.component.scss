@@ -89,10 +89,7 @@
     text-transform: uppercase;
 }
 
-
-
-
-@include media-breakpoint-up(xl) {
+@include media-breakpoint-up(md) {
     .card-img {
         width: 30% !important;
     }
@@ -117,7 +114,7 @@
 
 }
 
-@include media-breakpoint-down(lg) {
+@include media-breakpoint-down(sm) {
     .background-battle {
         background-image: url('../../../assets/img/bg-battle.png');
         background-size: cover;

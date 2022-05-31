@@ -44,12 +44,12 @@
         .menu {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 5px;
             align-items: center;
 
             button {
                 width: 55%;
-                height: 35px;
+                height: 5vh;
                 border-radius: 1vh;
                 background: $white;
                 color: $black;

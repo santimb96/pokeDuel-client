@@ -37,12 +37,10 @@
             margin: 30px;
         }
     }
-
 }
 
-@include media-breakpoint-up(md) {
+@media (min-width: 800px) {
     .section-menu {
-
         .menu {
             display: flex;
             flex-direction: column;

@@ -40,7 +40,7 @@
 
 }
 
-@include media-breakpoint-up(md) {
+@media (min-width: 800px) {
     .section-menu {
 
         .menu {

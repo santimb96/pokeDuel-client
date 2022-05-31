@@ -188,7 +188,7 @@
 
 }
 
-@include media-breakpoint-up(md) {
+@media (min-width: 800px) {
     html, body {
         background-color: $body-bg-md-up !important;
         overflow-y: hidden;
@@ -203,13 +203,16 @@
         top: -50vh;
     }
 
-    // .square {
-    //     &:after {
-    //         padding-bottom: 50vh;
-    //     }
-    // }
+    .square {
+        width: 100%;
+        &:after {
+            padding-bottom: 55vh;
+            width: 100%;
+        }
+    }
 
     .inside-frame {
+        
         position: absolute;
         margin: 5vh;
         z-index: 3;
@@ -227,7 +230,7 @@
 
 }
 
-@include media-breakpoint-down(sm) {
+@media (max-width: 799px) {
     html, body {
     height: 100vh;
     width: 100vw;

@@ -37,7 +37,7 @@
     .container {
         display: flex;
         flex-direction: row;
-        // width: 100vw;
+        max-width: 70vw;
 
         .gameboy-card {
             background-color: $body-bg-md-up;

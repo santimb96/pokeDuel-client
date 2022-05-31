@@ -25,7 +25,7 @@
       <div class="start-select">
         <div class="select" routerLink="/options" (click)="savePath()">OPTIONS</div>
         <ng-container *ngIf="!userLogged">
-          <div class="start" routerLink="/">MENU</div>
+          <div class="start" routerLink="">MENU</div>
         </ng-container>
         <ng-container *ngIf="userLogged">
           <div class="start" (click)="goTo()">MENU</div>

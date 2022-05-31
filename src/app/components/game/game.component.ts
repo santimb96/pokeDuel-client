@@ -115,6 +115,8 @@ export class GameComponent {
   }
 
   private generateDataPokemon(): void {
+    // document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
+    // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
     if (this.myAliveTeam.length !== 0) {
       this.pokemonLeft = this.myAliveTeam[this.myAliveTeam.length - 1];
       if (localStorage.getItem('pokemonLeftLife') !== null) {

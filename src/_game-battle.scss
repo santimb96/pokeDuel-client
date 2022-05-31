@@ -89,7 +89,7 @@
     }
 
     .background-battle {
-        background-image: url('../../../assets/img/background-xl-battle.jpg');
+        background-image: url('assets/img/background-xl-battle.jpg');
         background-size: cover;
     }
 
@@ -97,7 +97,7 @@
 
 @media (max-width: 799px) {
     .background-battle {
-        background-image: url('../../../assets/img/bg-battle.png');
+        background-image: url('assets/img/bg-battle.png');
         background-size: cover;
         height: 92%;
         width: 96%;

@@ -20,10 +20,24 @@ import { UserStatResolverService } from './resolvers/userStat.resolver.service';
 
 //FIXME: '/' TO HOME
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  // {
+  //   path: '',
+  //   redirectTo: 'home',
+  //   pathMatch: 'full'
+  // },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'login',
+
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
   {
     path: 'my-account/:id',
     component: MyAccountComponent,
@@ -32,8 +46,14 @@ const routes: Routes = [
       userStats: UserStatResolverService
     }
   },
-  { path: 'how-to-play', component: HowToPlayComponent },
-  { path: 'options', component: OptionsComponent },
+  {
+    path: 'how-to-play',
+    component: HowToPlayComponent
+  },
+  {
+    path: 'options',
+    component: OptionsComponent
+  },
   {
     path: 'edit-my-account/:id',
     component: EditUserComponent,
@@ -50,7 +70,10 @@ const routes: Routes = [
       userStats: UserStatResolverService
     }
   },
-  { path: 'credits', component: CreditsComponent },
+  {
+    path: 'credits',
+    component: CreditsComponent
+  },
   {
     path: 'continue-game/:id',
     component: ContinueGameComponent,
@@ -60,14 +83,6 @@ const routes: Routes = [
       userStat: UserStatResolverService
     }
   },
-  // {
-  //   path: 'new-game/:id',
-  //   component: NewGameComponent,
-  //   resolve: {
-  //     pokemons: DataResolverService,
-  //     users: UserResolverService
-  //   }
-  // },
   {
     path: 'game/:id',
     component: GameComponent,

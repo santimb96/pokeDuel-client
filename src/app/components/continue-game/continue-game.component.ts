@@ -121,7 +121,8 @@ export class ContinueGameComponent {
         name: pokemon.name,
         life: 100,
         speed: pokemon.speed,
-        imgBack: pokemon.imgBack
+        imgBack: pokemon.imgBack,
+        img3d: pokemon.img3d
       });
     }
     this.myTeam = myTeam;

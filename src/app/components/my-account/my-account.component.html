@@ -1,4 +1,4 @@
-<div class="container-fluid inside-frame">
+<!-- <div class="container-fluid inside-frame">
   <div class="card d-flex flex-column " style="background-color: transparent; border: none;">
     <div class="d-flex justify-content-center mt-1">
       <img :src="{{ user.avatar }}" class="card-img-top" alt="Avatar" style="width:100px; border-radius: 50%;">
@@ -22,6 +22,52 @@
       <button class="btn btn-danger" (click)="deleteProfile(user._id)">Delete my profile</button>
     </div>
   </div>
-</div>
+</div> -->
 
 <!--FIXME: rounds -->
+
+<div class="container inside-frame">
+  <div class="d-flex justify-content-center align-self-center" style="height: 100%;">  
+  <div class="card">
+    <div class="card-body">
+    <div class="row">
+      <div class="col-8">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-between">
+            <h6>USERNAME</h6>
+            <span><h6>{{ user.username }}</h6></span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <h6>VICTORIES</h6><span><h6>{{ userStat.victories }}</h6></span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <h6>ROUNDS</h6><span><h6>{{ userStat.round }}</h6></span>
+          </div>
+          <div class="d-flex justify-content-center">
+            <h6>TEAM</h6>
+          </div>
+        </div>
+        <div class="row pokeRow">
+          <div class="col-4 pokeCol" *ngFor="let pokemon of userStat.team">
+            <img :src="{{ pokemon.img3d }}" class="card-img-top" alt="Avatar">
+            <p class="pokeTeam">{{ pokemon.name }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="d-flex justify-content-center mt-1">
+          <img :src="{{ user.avatar }}" class="card-img-top" alt="Avatar">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 d-flex justify-content-around mt-4">
+        <button class="btn btn-primary" [routerLink]="['/menu-game',userID]">Go to menu</button>
+        <button class="btn btn-secondary" [routerLink]="['/edit-my-account',userID]">Edit my profile</button>
+        <button class="btn btn-danger" (click)="deleteProfile(user._id)">Delete my profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

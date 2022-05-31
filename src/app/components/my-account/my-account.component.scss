@@ -2,8 +2,36 @@
 @import '../../../mixins';
 @import "../../../../node_modules/bootstrap/scss/bootstrap";
 
+.card {
+    align-self: center;
+    box-shadow: rgb(0 0 0 / 37%) 15px 23px 46px 1px;
+    background-color: rgb(221, 221, 221);
+}
+
+.pokeTeam {
+    text-transform: uppercase;
+    align-content: center;
+    justify-content: center;
+}
+
 @include media-breakpoint-down(lg) {
     button {
         font-size: 10px !important;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .pokeCol {
+        display: flex;
+        align-items: end;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .pokeRow {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-content: center;
     }
 }

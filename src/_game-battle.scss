@@ -44,7 +44,6 @@
     img {
         width: 25px;
     }
-
 }
 
 //FIXME: refactorize code
@@ -84,9 +83,9 @@
         align-self: start;
     }
 
-    .pokeR-height {
-        margin-bottom: 110px !important;
-    }
+    // .pokeR-height {
+    //     margin-bottom: 110px !important;
+    // }
 
     .background-battle {
         background-image: url('assets/img/background-xl-battle.jpg');

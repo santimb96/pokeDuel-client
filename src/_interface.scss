@@ -1,9 +1,9 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "variables";
 
-.container {
-    height: 100vh;
-}
+// .container {
+//     height: 100vh;
+// }
 
 .square {
     position: relative;
@@ -22,8 +22,6 @@
         border-bottom: solid black 4vh;
     }
 }
-
-
 
 .controls {
     margin-left: 4vh;
@@ -205,11 +203,17 @@
         top: -50vh;
     }
 
+    // .square {
+    //     &:after {
+    //         padding-bottom: 50vh;
+    //     }
+    // }
+
     .inside-frame {
         position: absolute;
         margin: 5vh;
         z-index: 3;
-        height: 440px;
+        // height: 440px;
     }
 
     .a, .b {
@@ -231,11 +235,14 @@
     padding: 0;
     }
 
+    .container{
+        max-width: 100vw !important;
+    }
+
     .inside-frame {
         position: absolute;
-        top: 1vh;
-        width: 360px;
-        height: 360px;
+        top: 20px;
+        height: 60vh;
         z-index: 3;
     }
 

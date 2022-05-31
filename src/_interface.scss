@@ -213,9 +213,12 @@
 
     .inside-frame {
         position: absolute;
-        margin: 5vh;
+        border-radius: 2px;
         z-index: 3;
-        // height: 440px;
+        height: 88.9%;
+        max-width: 98.1%;
+        left: 0.95%;
+        top: 4.8%;
     }
 
     .a, .b {

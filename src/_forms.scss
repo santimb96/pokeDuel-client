@@ -1,0 +1,54 @@
+@import 'variables';
+@import 'mixins';
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+.mat-stepper-vertical {
+    background-color: transparent !important;
+}
+
+.card{
+    background: rgb(221, 221, 221);
+    box-shadow: rgb(0 0 0 / 37%) 15px 23px 46px 1px;
+    border: none;
+
+    .card-body{
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.inputs-lg{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.form-control{
+    border-radius: 5.25rem;
+}
+
+input .mat-input-element {
+    height: 50px;
+    width: 250px;
+}
+
+.error-input{
+    background: transparent;
+    border:none;
+    color: red;
+}
+
+.register-container{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 60vw;
+    height: 55vh;
+}
+
+@media (min-width: 800px) {
+    .register-container{
+        height: 50vh;
+    }
+       
+}

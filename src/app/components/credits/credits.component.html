@@ -1,21 +1,20 @@
 <div class="container-fluid inside-frame" style="overflow: scroll;">
-    <div class="card d-flex flex-column " style="background-color: transparent; border: none;">
-        <div class="card-body text">
-            <h2 class="card-title">Creditos y Licencia</h2>
-            <div class="d-flex justify-content-center m-4"><img src="../../../assets/img/licencia.png"/></div>
-            <p class="card-text">Este obra está bajo una licencia de Creative Commons Reconocimiento-SinObraDerivada 4.0
-                Internacional. por Kim Asiao y Santiago Martínez
-            </p>
-        </div>
-    </div>
+  <div class="card d-flex flex-column " style="background-color: transparent; border: none;">
+    <div class="card-body text">
+      <h1 class="card-title">Créditos y Licencia</h1>
+      <div class="d-flex justify-content-center m-4"><img src="../../../assets/img/licencia.png" /></div>
+      <p class="card-text">Este obra está bajo una licencia de Creative Commons Reconocimiento-SinObraDerivada 4.0
+        Internacional, por <em>Kim Asiao</em> y <em>Santiago Martínez</em>
+      </p>
 
-    <div>
+      <div class="back-button">
         <ng-container *ngIf="userLogged">
-            <button class="btn btn-secondary" [routerLink]="['/menu-game',userID]">Back</button>
+          <button class="btn btn-secondary" [routerLink]="['/menu-game',userID]">Back</button>
         </ng-container>
         <ng-container *ngIf="!userLogged">
-            <button class="btn btn-secondary" routerLink="">Back</button>
+          <button class="btn btn-secondary" routerLink="">Back</button>
         </ng-container>
+      </div>
     </div>
-
+  </div>
 </div>

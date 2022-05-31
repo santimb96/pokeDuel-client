@@ -5,3 +5,44 @@
 
 //FIXME: fix the color of the button
 $secondary: $secondary;
+
+.inside-frame{
+  width: 100%;
+  max-height: 85%;
+  background: transparent;
+  position: absolute;
+  top: 4vh;
+  overflow-y: scroll;
+  .card{
+    .card-body{
+      background: $white;
+      -webkit-box-shadow: rgb(0 0 0 / 37%) 0px 5px 15px 5px;
+      box-shadow: rgb(0 0 0 / 37%) 0px 5px 15px 5px;
+      h1{
+        margin: 5%;
+        font-size: 4ch;
+        text-align: center;
+      }
+      p{
+        margin: 5%;
+        text-align: justify;
+        text-justify: inter-word;
+      }
+      .back-button{
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 15%;
+      }
+    }
+  }
+  
+}
+
+@media (min-width: 800px){
+  .inside-frame{
+    overflow-y: hidden;
+    overflow-x: hidden;
+    max-height: 80%;
+  }
+}

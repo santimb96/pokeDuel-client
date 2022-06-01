@@ -36,5 +36,3 @@ export class HomeComponent implements OnInit {
   }
 
 }
-
-//TODO: fix the load of the html ('cz it loads the / before the menu)

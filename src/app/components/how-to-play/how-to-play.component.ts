@@ -21,7 +21,7 @@ export class HowToPlayComponent implements OnInit {
 
   ngOnInit(): void {}
   
-  public goTo(): void { //FIXME: CAN WE PUT IT IN A SERVICE?
+  public goTo(): void { 
     let path = localStorage.getItem('path');
     if (path !== null) {
       if (path === `/menu-game/${this.userID}`) {

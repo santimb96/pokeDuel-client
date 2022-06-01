@@ -14,6 +14,14 @@
     justify-content: center;
 }
 
+.avatar {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1vh;
+    align-items: center;
+    gap: 2vh;
+}
+
 @include media-breakpoint-down(lg) {
     button {
         font-size: 10px !important;

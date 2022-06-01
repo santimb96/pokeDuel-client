@@ -163,7 +163,7 @@ export class ContinueGameComponent {
 
   private enemyAtacking(): void {
     let life: number = 0;
-    document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
+    // document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
     const moves = ['attack', 'defense', 'attack', 'attack', 'attack'];
     if (this.pokemonRight.life > 0 && this.pokemonLeft.life > 0) {
       let move = moves[this._battleService.getRandomId(5)];
@@ -178,7 +178,7 @@ export class ContinueGameComponent {
             life = Math.round(this.pokemonLeft.life * (this._battleService.getRandomId(50) / 100));
             this.pokemonLeft.life = this.pokemonLeft.life - life;
             this._battleService.openSnackBar(life,this.pokemonRight.name,'attack');
-            document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
+            // document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
           }
           break;
         case 'defense':
@@ -197,7 +197,7 @@ export class ContinueGameComponent {
 
   public attack(): void {
     let attack: number = 0;
-    document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
+    // document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
     if (this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass'
       || this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water'
       || this.pokemonLeft.type === 'water' && this.pokemonRight.type === 'fire') {
@@ -211,7 +211,7 @@ export class ContinueGameComponent {
         attack = Math.round(this.pokemonRight.life * (this._battleService.getRandomId(80) / 100));
         this.pokemonRight.life = this.pokemonRight.life - attack;
         this._battleService.openSnackBar(attack,this.pokemonLeft.name,'attack');
-        document.getElementById("pokemonRight").classList.add("animate__bounceIn");
+        // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
       }
     }
     else {
@@ -224,7 +224,7 @@ export class ContinueGameComponent {
         attack = Math.round(this.pokemonRight.life * (this._battleService.getRandomId(50) / 100));
         this.pokemonRight.life = this.pokemonRight.life - attack;
         this._battleService.openSnackBar(attack,this.pokemonLeft.name,'attack');
-        document.getElementById("pokemonRight").classList.add("animate__bounceIn");
+        // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
       }
     }
     localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));

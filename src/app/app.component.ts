@@ -63,12 +63,15 @@ export class AppComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogContentComponent);
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if(result){
         this._battleService.saveGame(this.userID);
         this.router.navigate([`menu-game/${this.userID}`]);
       } else if(!result){
         this.router.navigate([`menu-game/${this.userID}`]);
-      } 
+      } else if(result == '') {
+        console.log('pressed cancel');
+      }
     });
   }
 

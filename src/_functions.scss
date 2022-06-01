@@ -10,5 +10,6 @@
 @function chooseImg(){
     $bg-img: (1: 'background-xl-battle.jpg', 2: 'bg-battle.png');
     $randomNum: #{randomNum(2)};
+    @debug $randomNum;
     @return map.get($bg-img, $randomNum) or 'bg-battle.png';
 }

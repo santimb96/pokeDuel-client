@@ -9,12 +9,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public currentDate = '';
+  public currentDate: string = '';
+  public logged: boolean = true;
   constructor(public router: Router, private _authService: AuthService) {
     this.currentDate = format(new Date(), 'DD/MM/YYYY HH:mm');
     if (localStorage.getItem("userLogged") !== null) {
       let userLogged = JSON.parse(localStorage.getItem('userLogged'));
-      if (userLogged.token !== null && this.currentDate > userLogged.expiryDate) {
+      if (userLogged.token !== null && this.currentDate < userLogged.expiryDate) {
         this._authService.autoLogIn(userLogged.id, userLogged.token).subscribe( //FIXME: PARA QUE ME SIRVE EL AUTOLOGIN?
           () => {
             this.router.navigate([`menu-game/${userLogged.id}`]);
@@ -23,6 +24,8 @@ export class HomeComponent implements OnInit {
             console.error(error)
           });
       }
+    } else {
+      this.logged = false;
     }
   }
 

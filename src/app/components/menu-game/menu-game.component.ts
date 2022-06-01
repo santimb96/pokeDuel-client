@@ -33,6 +33,11 @@ export class MenuGameComponent implements OnInit {
   public logOut(): void {
     localStorage.removeItem('userLogged');
     localStorage.removeItem('gameId');
+    localStorage.removeItem('path');
+    localStorage.removeItem('myAliveTeam');
+    localStorage.removeItem('pokemonLeft');
+    localStorage.removeItem('pokemonRight');
+    localStorage.removeItem('pokemonLeftLife');
     this.router.navigate([""]);
   }
 }

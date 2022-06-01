@@ -1,44 +1,57 @@
 <div class="container inside-frame">
-  <div class="d-flex justify-content-center align-self-center" style="height: 100%;">  
-  <div class="card">
-    <div class="card-body">
-    <div class="row">
-      <div class="col-8">
-        <div class="d-flex flex-column">
-          <div class="d-flex justify-content-between">
-            <h6>USERNAME</h6>
-            <span><h6>{{ user.username }}</h6></span>
+  <div class="d-flex justify-content-center align-self-center" style="height: 100%;">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-8">
+            <div class="d-flex flex-column">
+              <div class="d-flex justify-content-between" style="gap: 1vh">
+                <h6>USERNAME</h6>
+                <span>
+                  <h6>{{ user.username }}</h6>
+                </span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="d-flex" style="gap: 1vw">
+                  <img src="../../../assets/img/email.png" style="width: 30px;"/>
+                  <h6>EMAIL</h6>
+                </div>
+                <span>
+                  <h6>{{ user.email }}</h6>
+                </span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="d-flex" style="gap:1vw;"><img src="../../../assets/img/trofeo.png" style="width: 30px;"/>
+                  <h6>VICTORIES</h6>
+                </div>
+                <span>
+                  <h6>{{ userStat.victories }}</h6>
+                </span>
+              </div>
+              <div class="d-flex justify-content-center">
+                <h6>TEAM</h6>
+              </div>
+            </div>
+            <div class="row pokeRow">
+              <div class="col-4 pokeCol" *ngFor="let pokemon of userStat.team">
+                <img :src="{{ pokemon.img3d }}" class="card-img-top" alt="Avatar">
+                <p class="pokeTeam">{{ pokemon.name }}</p>
+              </div>
+            </div>
           </div>
-          <div class="d-flex justify-content-between">
-            <h6>VICTORIES</h6><span><h6>{{ userStat.victories }}</h6></span>
-          </div>
-          <div class="d-flex justify-content-between">
-            <h6>ROUNDS</h6><span><h6>{{ userStat.round }}</h6></span>
-          </div>
-          <div class="d-flex justify-content-center">
-            <h6>TEAM</h6>
+          <div class="col-4 avatar">
+            <img :src="{{ user.avatar }}" class="card-img-top" alt="Avatar">
+            <p>Score: {{ score }}</p>
           </div>
         </div>
-        <div class="row pokeRow">
-          <div class="col-4 pokeCol" *ngFor="let pokemon of userStat.team">
-            <img :src="{{ pokemon.img3d }}" class="card-img-top" alt="Avatar">
-            <p class="pokeTeam">{{ pokemon.name }}</p>
+        <div class="row">
+          <div class="col-12 d-flex justify-content-around mt-4">
+            <button class="btn btn-primary" [routerLink]="['/menu-game',userID]">Go to menu</button>
+            <button class="btn btn-secondary" [routerLink]="['/edit-my-account',userID]">Edit my profile</button>
+            <button class="btn btn-danger" (click)="deleteProfile(user._id)">Delete my profile</button>
           </div>
         </div>
-      </div>
-      <div class="col-4 avatar">
-          <img :src="{{ user.avatar }}" class="card-img-top" alt="Avatar">
-          <p>Score: {{ score }}</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12 d-flex justify-content-around mt-4">
-        <button class="btn btn-primary" [routerLink]="['/menu-game',userID]">Go to menu</button>
-        <button class="btn btn-secondary" [routerLink]="['/edit-my-account',userID]">Edit my profile</button>
-        <button class="btn btn-danger" (click)="deleteProfile(user._id)">Delete my profile</button>
       </div>
     </div>
   </div>
-</div>
-</div>
 </div>

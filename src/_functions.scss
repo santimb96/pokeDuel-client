@@ -1,0 +1,14 @@
+@use 'sass:math';
+@use 'sass:map';
+
+@function randomNum($max) {
+    $rand: math.random($max);
+    $randomNum: math.round($rand);
+    @return $randomNum;
+}
+
+@function chooseImg(){
+    $bg-img: (1: 'background-xl-battle.jpg', 2: 'bg-battle.png');
+    $randomNum: #{randomNum(2)};
+    @return map.get($bg-img, $randomNum) or 'bg-battle.png';
+}

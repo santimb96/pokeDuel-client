@@ -1,6 +1,8 @@
 //VARIABLES
 @import 'variables';
+@import 'functions';
 @import "../node_modules/bootstrap/scss/bootstrap";
+
 
 .mat-grid-list {
     height: 360px;
@@ -41,6 +43,7 @@
     justify-content: space-evenly;
     background-color: rgb(255, 255, 255, 0.5);
     padding: 10px 0px 10px 0px;
+
     img {
         width: 25px;
     }
@@ -82,16 +85,18 @@
         align-self: start;
     }
 
+    $img: 'assets/img/#{chooseImg()}';
     .background-battle {
-        background-image: url('assets/img/background-xl-battle.jpg');
+        background-image: url(#{$img});
         background-size: cover;
     }
-
 }
 
 @media (max-width: 799px) {
+    $img: 'assets/img/#{chooseImg()}';
+    @debug $img;
     .background-battle {
-        background-image: url('assets/img/bg-battle.png');
+        background-image: url(#{$img});
         background-size: cover;
         height: 90%;
         width: 97%;

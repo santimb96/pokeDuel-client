@@ -3,7 +3,7 @@
 
 .square {
   position: relative;
-  border: solid black 5px;
+  border: solid $black 5px;
   border-radius: 5px;
   table-layout: fixed;
 
@@ -11,11 +11,11 @@
     content: "";
     display: flex;
     padding-bottom: 60vh;
-    background-color: #bebfc4;
-    border: solid black 10px;
+    background-color: $screen-gameboy-bg;
+    border: solid $black 10px;
     border-radius: 5px;
-    border-top: solid black 3vh;
-    border-bottom: solid black 4vh;
+    border-top: solid $black 3vh;
+    border-bottom: solid $black 4vh;
   }
 }
 
@@ -95,7 +95,7 @@
         top: 20%;
         left: 20%;
         display: inline-block;
-        border: 1px solid #6e737a;
+        border: 1px solid $bg-pad-buttons;
         background: linear-gradient(
           to bottom,
           #6d7075 0%,
@@ -175,7 +175,7 @@
         height: 10px;
         margin-bottom: 5px;
         border-radius: 15px;
-        background: black;
+        background: $black;
         cursor: pointer;
         transition: all 0.2s ease;
         transform: translateY(0);
@@ -230,7 +230,7 @@
 
   .a,
   .b {
-    background-color: #bebfc4;
+    background-color: $a-b-bg;
     color: $black;
   }
 
@@ -262,6 +262,6 @@
   .a,
   .b {
     background-color: $dark-garnet;
-    color: white;
+    color: $white;
   }
 }

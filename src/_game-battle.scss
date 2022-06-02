@@ -94,11 +94,17 @@
 
 @media (max-width: 799px) {
     $img: 'assets/img/#{chooseImg()}';
+
     .background-battle {
         background-image: url(#{$img});
         background-size: cover;
-        height: 90%;
-        width: 97%;
+        height: 91%;
+        width: 98%;
         margin-left: 1.5vw;
+        position: absolute;
+        top: 2vh;
+        right: 1.2%;
+        /* left: 0.3%; */
+        border-radius: 5px;
     }
 }

@@ -46,6 +46,9 @@
     .user-actions{
         // height: 100px;
         // width: 200px;
+        transform: translateX(0);
+        animation-name: actions;
+        animation-duration: 1s;
         max-height: 120px;
         max-width: 220px;
         background: white;
@@ -56,6 +59,14 @@
         place-items: center;
         margin-top: 15vh;
         margin-left: 5%;
+        @keyframes actions {
+            from {
+                transform: translateX(150%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
     
         .attack-buttons {
             font-size: 90%;

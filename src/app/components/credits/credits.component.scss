@@ -8,12 +8,14 @@ $secondary: $secondary;
 
 .inside-frame{
   width: 100%;
-  max-height: 85%;
+  height: 85%;
   background: transparent;
   position: absolute;
   top: 4vh;
-  overflow-y: scroll;
+  overflow-y: hidden;
+  overflow-x: hidden;
   .card{
+    height: 90%;
     .card-body{
       background: $white;
       -webkit-box-shadow: rgb(0 0 0 / 37%) 0px 5px 15px 5px;
@@ -41,8 +43,5 @@ $secondary: $secondary;
 
 @media (min-width: 800px){
   .inside-frame{
-    overflow-y: hidden;
-    overflow-x: hidden;
-    max-height: 80%;
   }
 }

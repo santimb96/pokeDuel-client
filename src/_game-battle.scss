@@ -94,7 +94,6 @@
 
 @media (max-width: 799px) {
     $img: 'assets/img/#{chooseImg()}';
-    @debug $img;
     .background-battle {
         background-image: url(#{$img});
         background-size: cover;

@@ -27,7 +27,7 @@ export class GameComponent {
 
     this.currentStat();
     this.generateDataPokemon();
-    this.attackFirst();
+    // this.attackFirst();
     cdr.detach();
     let interval = setInterval(() => {
       this.cdr.detectChanges();
@@ -164,7 +164,7 @@ export class GameComponent {
             life = Math.round(this.pokemonLeft.life * (this._battleService.getRandomId(50) / 100));
             this.pokemonLeft.life = this.pokemonLeft.life - life;
             this._battleService.openSnackBar(life, this.pokemonRight.name, 'attack');
-            // document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
+            document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
           }
           break;
         case 'defense':
@@ -177,6 +177,7 @@ export class GameComponent {
           this._battleService.openSnackBar(life, this.pokemonRight.name, 'attack');
       }
       this.isDisabled = false;
+      document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
       localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
     }
   }
@@ -197,7 +198,7 @@ export class GameComponent {
         attack = Math.round(this.pokemonRight.life * (this._battleService.getRandomId(80) / 100));
         this.pokemonRight.life = this.pokemonRight.life - attack;
         this._battleService.openSnackBar(attack, this.pokemonLeft.name, 'attack');
-        // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
+        document.getElementById("pokemonRight").classList.add("animate__bounceIn");
       }
     }
     else {
@@ -210,13 +211,13 @@ export class GameComponent {
         attack = Math.round(this.pokemonRight.life * (this._battleService.getRandomId(50) / 100));
         this.pokemonRight.life = this.pokemonRight.life - attack;
         this._battleService.openSnackBar(attack, this.pokemonLeft.name, 'attack');
-        // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
+        document.getElementById("pokemonRight").classList.add("animate__bounceIn");
       }
     }
     localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
+    document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
     this.isDisabled = true;
     setTimeout(function () {
-      // document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
       this.enemyAtacking();
     }.bind(this), 3000);
   }
@@ -227,7 +228,6 @@ export class GameComponent {
     localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
     this._battleService.openSnackBar(heal, this.pokemonLeft.name, 'defense');
     setTimeout(function () {
-      // document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
       this.enemyAtacking();
     }.bind(this), 3000);
   }

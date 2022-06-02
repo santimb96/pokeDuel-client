@@ -21,12 +21,13 @@ $secondary: $secondary;
       -webkit-box-shadow: rgb(0 0 0 / 37%) 0px 5px 15px 5px;
       box-shadow: rgb(0 0 0 / 37%) 0px 5px 15px 5px;
       h1{
-        margin: 5%;
-        font-size: 4ch;
+        margin: 2.5%;
+        font-size: 3.5ch;
         text-align: center;
       }
       p{
-        margin: 5%;
+        margin: 2.5%;
+        font-size: 1.5ch;
         text-align: justify;
         text-justify: inter-word;
       }
@@ -43,5 +44,30 @@ $secondary: $secondary;
 
 @media (min-width: 800px){
   .inside-frame{
+    .card{
+      height: 95%;
+      .card-body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h1{
+          margin: 3%;
+          font-size: 4ch;
+          text-align: center;
+        }
+        p{
+          margin: 3%;
+          margin-bottom: 2%;
+          width: 70%;
+          margin: 0;
+          font-size: 2ch;
+          text-align: center;
+          text-justify: auto;
+        }
+        .back-button {
+          margin: 3%;
+        }
+      }
+    }
   }
 }

@@ -40,13 +40,10 @@ export class GameComponent {
           this._battleService.saveGame(this.user._id);
         }
 
-        localStorage.removeItem('pokemonRight');
-        localStorage.removeItem('pokemonLeft');
-
         if (this.pokemonLeft.life === 0) {
           this.myAliveTeam.pop()
           localStorage.setItem('myAliveTeam', JSON.stringify(this.myAliveTeam));
-          localStorage.removeItem('pokemonLeftLife');
+          localStorage.removeItem('pokemonLeft');
         }
 
         this.generateDataPokemon();
@@ -151,7 +148,7 @@ export class GameComponent {
     let life: number = 0;
     const moves = ['attack', 'defense', 'attack', 'attack', 'attack'];
     if (this.pokemonRight.life > 0 && this.pokemonLeft.life > 0) {
-      
+
       let move = moves[this._battleService.getRandomId(5)];
       switch (move) {
         case 'attack':
@@ -190,6 +187,7 @@ export class GameComponent {
       || this.pokemonLeft.type === 'water' && this.pokemonRight.type === 'fire') {
 
       if (this.pokemonRight.life <= 20) {
+        document.getElementById("pokemonRight").classList.add("animate__backOutRight");
         this.pokemonRight.life = 0;
         this._battleService.openSnackBar(attack, this.pokemonRight.name, 'died');
         localStorage.removeItem('pokemonRight');
@@ -206,6 +204,7 @@ export class GameComponent {
         this.pokemonRight.life = 0;
         this._battleService.openSnackBar(attack, this.pokemonRight.name, 'died');
         localStorage.removeItem('pokemonRight');
+        document.getElementById("pokemonRight").classList.add("animate__backOutRight");
       }
       else {
         attack = Math.round(this.pokemonRight.life * (this._battleService.getRandomId(50) / 100));

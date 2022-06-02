@@ -28,7 +28,7 @@ export class ContinueGameComponent {
     this.user = this.route.snapshot.data['users'].user;
     this.currentStat();
     this.generateDataPokemon();
-    this.attackFirst();
+    // this.attackFirst();
     cdr.detach();
     let interval = setInterval(() => {
       this.cdr.detectChanges();
@@ -163,85 +163,87 @@ export class ContinueGameComponent {
 
   private enemyAtacking(): void {
     let life: number = 0;
-    // document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
     const moves = ['attack', 'defense', 'attack', 'attack', 'attack'];
     if (this.pokemonRight.life > 0 && this.pokemonLeft.life > 0) {
+      
       let move = moves[this._battleService.getRandomId(5)];
       switch (move) {
         case 'attack':
           if (this.pokemonLeft.life <= 20) {
             this.pokemonLeft.life = 0;
-            this._battleService.openSnackBar(life,this.pokemonLeft.name,'died');
+            this._battleService.openSnackBar(life, this.pokemonLeft.name, 'died');
             localStorage.removeItem('pokemonLeftLife');
           }
           else {
             life = Math.round(this.pokemonLeft.life * (this._battleService.getRandomId(50) / 100));
             this.pokemonLeft.life = this.pokemonLeft.life - life;
-            this._battleService.openSnackBar(life,this.pokemonRight.name,'attack');
-            // document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
+            this._battleService.openSnackBar(life, this.pokemonRight.name, 'attack');
+            document.getElementById("pokemonLeft").classList.add("animate__bounceIn");
           }
           break;
         case 'defense':
           life = this.pokemonRight.life * 0.05;
           this.pokemonRight.life = this.pokemonRight.life + life;
-          this._battleService.openSnackBar(life,this.pokemonRight.name,'defense');
+          this._battleService.openSnackBar(life, this.pokemonRight.name, 'defense');
           break;
-        default: 
+        default:
           this.pokemonLeft.life = this.pokemonLeft.life - (this.pokemonLeft.life * (this._battleService.getRandomId(20) / 100));
-          this._battleService.openSnackBar(life,this.pokemonRight.name,'attack');
+          this._battleService.openSnackBar(life, this.pokemonRight.name, 'attack');
       }
       this.isDisabled = false;
+      document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
       localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
     }
   }
 
   public attack(): void {
+    // document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
     let attack: number = 0;
-    // document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
     if (this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass'
       || this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water'
       || this.pokemonLeft.type === 'water' && this.pokemonRight.type === 'fire') {
 
       if (this.pokemonRight.life <= 20) {
         this.pokemonRight.life = 0;
-        this._battleService.openSnackBar(attack,this.pokemonRight.name,'died');
+        this._battleService.openSnackBar(attack, this.pokemonRight.name, 'died');
         localStorage.removeItem('pokemonRight');
       }
       else {
         attack = Math.round(this.pokemonRight.life * (this._battleService.getRandomId(80) / 100));
         this.pokemonRight.life = this.pokemonRight.life - attack;
-        this._battleService.openSnackBar(attack,this.pokemonLeft.name,'attack');
-        // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
+        this._battleService.openSnackBar(attack, this.pokemonLeft.name, 'attack');
+        document.getElementById("pokemonRight").classList.add("animate__bounceIn");
       }
     }
     else {
       if (this.pokemonRight.life <= 10) {
         this.pokemonRight.life = 0;
-        this._battleService.openSnackBar(attack,this.pokemonRight.name,'died');
+        this._battleService.openSnackBar(attack, this.pokemonRight.name, 'died');
         localStorage.removeItem('pokemonRight');
       }
       else {
         attack = Math.round(this.pokemonRight.life * (this._battleService.getRandomId(50) / 100));
         this.pokemonRight.life = this.pokemonRight.life - attack;
-        this._battleService.openSnackBar(attack,this.pokemonLeft.name,'attack');
-        // document.getElementById("pokemonRight").classList.add("animate__bounceIn");
+        this._battleService.openSnackBar(attack, this.pokemonLeft.name, 'attack');
+        document.getElementById("pokemonRight").classList.add("animate__bounceIn");
       }
     }
     localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
+    document.getElementById("pokemonLeft").classList.remove("animate__bounceIn");
     this.isDisabled = true;
     setTimeout(function () {
       this.enemyAtacking();
-    }.bind(this), 2000);
+    }.bind(this), 3000);
   }
 
   public defense(): void {
     let heal = this.pokemonLeft.life * 0.05;
     this.pokemonLeft.life = this.pokemonLeft.life + heal;
     localStorage.setItem('pokemonLeftLife', JSON.stringify(this.pokemonLeft.life));
-    this._battleService.openSnackBar(heal,this.pokemonLeft.name,'defense');
+    this._battleService.openSnackBar(heal, this.pokemonLeft.name, 'defense');
     setTimeout(function () {
       this.enemyAtacking();
-    }.bind(this), 2000);
+    }.bind(this), 3000);
   }
 
   private autosave(): void {

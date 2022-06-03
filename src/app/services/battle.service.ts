@@ -20,17 +20,38 @@ export class BattleService {
   public isDisabled: boolean = false;
   public currentDate: Date = new Date();
   public userCurrentStat: UserStat;
+  private AUDIO = new Audio("../../assets/audio/battleMusic.mp3");
+  private volume: number =  0.3;
 
   constructor(private _pokemonService: PokemonsService, private route: ActivatedRoute,
     private router: Router, private _userStatService: UserStatService,
     private _authService: AuthService, private _snackBar: MatSnackBar) {
   }
 
-  getRandomId(max): number {
+  public playAudio(): void {
+    console.log('playing!');
+    this.AUDIO.volume = this.volume;
+    this.AUDIO.play();
+  }
+  
+  public stopAudio(): void {
+    this.AUDIO.pause();
+  }
+
+  public setVolume(volume: number): void {
+    this.AUDIO.volume = volume;
+    this.volume = this.AUDIO.volume;
+  }
+
+  public getVolume(): number {
+    return this.volume;
+  }
+
+  public getRandomId(max): number {
     return Math.round(Math.random() * max);
   }
 
-  saveGame(userID) {
+  public saveGame(userID) {
     this._userStatService.getOneUserStats(userID).subscribe(currentStatus => {
       this.userCurrentStat = currentStatus.userStat;
     });
@@ -75,7 +96,7 @@ export class BattleService {
     }
   }
 
-  score(): number {
+  public score(): number {
     let sum: number = 0;
     this.myAliveTeam.forEach(pokemon => {
       sum += pokemon.life;
@@ -83,7 +104,7 @@ export class BattleService {
     return sum;
   }
 
-  openSnackBar(life: number, pokemonName: string, action: string) {
+  public openSnackBar(life: number, pokemonName: string, action: string) {
     let message: string = '';
     let pokemonNameFormatted: string = pokemonName.slice(0, 1).toLocaleUpperCase() + pokemonName.slice(1);
     switch(action){

@@ -27,6 +27,7 @@ export class GameComponent {
 
     this.currentStat();
     this.generateDataPokemon();
+    this._battleService.playAudio();
     // this.attackFirst();
     localStorage.setItem('myTeam', JSON.stringify(this.myTeam));
     cdr.detach();
@@ -61,6 +62,8 @@ export class GameComponent {
       }
     }, 3000)
   }
+
+
 
   public currentStat(): void {
     this.userCurrentStat = this.route.snapshot.data['userStat'].userStat;

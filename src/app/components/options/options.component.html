@@ -6,7 +6,7 @@
         <div class="menu">
             <div>
                 <div>
-                    <span>Background music</span><mat-slider min="0" max="1" [value]="getVolumeMusic()" (input)="volumeMusic($event)"></mat-slider>
+                    <span>Background music</span><mat-slider min="0" max="1" step="0.1" [value]="getVolumeMusic()" (input)="volumeMusic($event)"></mat-slider>
                 </div>
                 <div>
                     <span>Sound effects</span><mat-slider min="1" max="100" step="0.5" value="50"></mat-slider>

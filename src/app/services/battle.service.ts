@@ -34,6 +34,7 @@ export class BattleService {
   private audioListener(): void {
     setInterval(() => {
       if (this.AUDIO.ended) {
+        this.AUDIO.currentTime = 0;
         this.playAudio();
       }
     }, 1000);
@@ -45,7 +46,6 @@ export class BattleService {
   
   public playAudio(): void {
     console.log('playing!');
-    this.AUDIO.currentTime = 0;
     this.AUDIO.volume = this.volume;
     this.AUDIO.play();
     this.audioListener();
@@ -134,7 +134,10 @@ export class BattleService {
           message = `${pokemonNameFormatted} has attacked`;
         } else if (life > 30) {
           message = 'Critic attack!';
-        } else {
+        } else if (life < 10) {
+          message = 'You can do better! :´(';
+        }
+        else {
           message = `Amazing attack by ${pokemonNameFormatted}`;
         }
         break;

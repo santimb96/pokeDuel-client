@@ -61,6 +61,9 @@ export class ContinueGameComponent {
     }, 3000)
   }
 
+  ngOnInit(){
+    
+  }
   private currentStat(): void {
     this.userCurrentStat = this.route.snapshot.data['userStat'].userStat;
     if (this.userCurrentStat === null || this.userCurrentStat === undefined) {

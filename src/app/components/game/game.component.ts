@@ -28,6 +28,7 @@ export class GameComponent {
     this.currentStat();
     this.generateDataPokemon();
     // this.attackFirst();
+    localStorage.setItem('myTeam', JSON.stringify(this.myTeam));
     cdr.detach();
     let interval = setInterval(() => {
       this.cdr.detectChanges();
@@ -37,6 +38,7 @@ export class GameComponent {
 
         if ((this.pokemonLeft.life === 0 && this.pokemonRight.life !== 0) ||
           (this.pokemonLeft.life !== 0 && this.pokemonRight.life === 0)) {
+            console.log(this.user._id)
           this._battleService.saveGame(this.user._id);
         }
 
@@ -118,6 +120,7 @@ export class GameComponent {
         img3d: pokemon.img3d
       });
     }
+
     this.myTeam = myTeam;
     this.myAliveTeam = myTeam;
     return myTeam;

@@ -9,7 +9,7 @@ import { PokemonsService } from './pokemons.service';
 import { UserStatService } from './user-stat.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BattleService {
   public pokemonLeft: Pokemon;
@@ -20,12 +20,23 @@ export class BattleService {
   public isDisabled: boolean = false;
   public currentDate: Date = new Date();
   public userCurrentStat: UserStat;
-  private AUDIO = new Audio("../../assets/audio/battleMusic.mp3");
-  private volume: number =  0.3;
+  private AUDIO = new Audio('../../assets/audio/battleMusic.mp3');
+  private volume: number = 0.3;
 
-  constructor(private _pokemonService: PokemonsService, private route: ActivatedRoute,
-    private router: Router, private _userStatService: UserStatService,
-    private _authService: AuthService, private _snackBar: MatSnackBar) {
+  constructor(
+    private _pokemonService: PokemonsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private _userStatService: UserStatService,
+    private _authService: AuthService,
+    private _snackBar: MatSnackBar
+  ) {}
+  private audioListener(): void {
+    setInterval(() => {
+      if (this.AUDIO.ended) {
+        this.playAudio();
+      }
+    }, 1000);
   }
 
   public getAudio(): any {
@@ -34,10 +45,12 @@ export class BattleService {
   
   public playAudio(): void {
     console.log('playing!');
+    this.AUDIO.currentTime = 0;
     this.AUDIO.volume = this.volume;
     this.AUDIO.play();
+    this.audioListener();
   }
-  
+
   public stopAudio(): void {
     this.AUDIO.pause();
   }
@@ -56,7 +69,7 @@ export class BattleService {
   }
 
   public saveGame(userID) {
-    this._userStatService.getOneUserStats(userID).subscribe(currentStatus => {
+    this._userStatService.getOneUserStats(userID).subscribe((currentStatus) => {
       this.userCurrentStat = currentStatus.userStat;
     });
 
@@ -67,21 +80,22 @@ export class BattleService {
     let currentStatus: string = '';
     if (this.pokemonLeft.life === 0) {
       this.myAliveTeam.pop();
-      localStorage.setItem('myAliveTeam',JSON.stringify(this.myAliveTeam));
+      localStorage.setItem('myAliveTeam', JSON.stringify(this.myAliveTeam));
       currentStatus = JSON.stringify({
         user: userID,
         victories: this.userCurrentStat.victories,
         score: this.userCurrentStat.score,
         round: this.userCurrentStat.round + 1,
         team: this.myAliveTeam,
-        aliveTeam: this.userCurrentStat.aliveTeam
+        aliveTeam: this.userCurrentStat.aliveTeam,
       });
 
-      this._userStatService.editState(userID, currentStatus).subscribe(status => {
-        this.userCurrentStat = status.status;
-      });
+      this._userStatService
+        .editState(userID, currentStatus)
+        .subscribe((status) => {
+          this.userCurrentStat = status.status;
+        });
       localStorage.removeItem('pokemonLeftLife');
-
     } else if (this.pokemonRight.life === 0) {
       currentStatus = JSON.stringify({
         user: userID,
@@ -89,12 +103,14 @@ export class BattleService {
         score: this.userCurrentStat.score + this.score(),
         round: this.userCurrentStat.round + 1,
         team: this.myAliveTeam,
-        aliveTeam: this.userCurrentStat.aliveTeam
+        aliveTeam: this.userCurrentStat.aliveTeam,
       });
 
-      this._userStatService.editState(userID, currentStatus).subscribe(status => {
-        this.userCurrentStat = status.status;
-      });
+      this._userStatService
+        .editState(userID, currentStatus)
+        .subscribe((status) => {
+          this.userCurrentStat = status.status;
+        });
 
       localStorage.removeItem('pokemonRight');
     }
@@ -102,34 +118,38 @@ export class BattleService {
 
   public score(): number {
     let sum: number = 0;
-    this.myAliveTeam.forEach(pokemon => {
+    this.myAliveTeam.forEach((pokemon) => {
       sum += pokemon.life;
-    })
+    });
     return sum;
   }
 
   public openSnackBar(life: number, pokemonName: string, action: string) {
     let message: string = '';
-    let pokemonNameFormatted: string = pokemonName.slice(0, 1).toLocaleUpperCase() + pokemonName.slice(1);
-    switch(action){
-      case 'attack': 
-        if (life < 30){
+    let pokemonNameFormatted: string =
+      pokemonName.slice(0, 1).toLocaleUpperCase() + pokemonName.slice(1);
+    switch (action) {
+      case 'attack':
+        if (life < 30) {
           message = `${pokemonNameFormatted} has attacked`;
-        } else if (life > 30){
+        } else if (life > 30) {
           message = 'Critic attack!';
         } else {
           message = `Amazing attack by ${pokemonNameFormatted}`;
         }
-      break;
-      case 'defense': 
+        break;
+      case 'defense':
         message = `${pokemonNameFormatted} choose defense!`;
-      break;
+        break;
       case 'died':
         message = `${pokemonNameFormatted} defeated :(`;
         break;
     }
 
-    this._snackBar.open(message,'', {horizontalPosition: 'start', verticalPosition: 'top', duration: 2000,});
+    this._snackBar.open(message, '', {
+      horizontalPosition: 'start',
+      verticalPosition: 'top',
+      duration: 2000,
+    });
   }
-
 }

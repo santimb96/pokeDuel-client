@@ -56,6 +56,7 @@ export class ContinueGameComponent {
       }
 
       if (this.myAliveTeam.length === 0) {
+        this._battleService.saveGame(this.user._id);
         this.router.navigate([`my-account/${this.user._id}`]);
         clearInterval(interval);
       }

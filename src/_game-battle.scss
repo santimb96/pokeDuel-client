@@ -28,11 +28,7 @@
 }
 
 .card-img-left {
-    max-width: 150px;
-    // img {
-    //     height: 100px;
-    //     width: 100px;
-    // }
+    width: 100px;
 }
 
 .card-img-right {
@@ -119,6 +115,8 @@
 
     .pokemon-left {
         height: 60%;
+        top: 10vh;
+
     }
     .user-actions{
         /* position: absolute; */
@@ -166,6 +164,9 @@
 }
 
 @media (min-width: 1200px){
+    .card-img-left{
+        width: 125px;
+    }
     .card-img-right {
         width: 125px;
     }

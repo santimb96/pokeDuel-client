@@ -28,6 +28,7 @@ export class ContinueGameComponent {
     this.user = this.route.snapshot.data['users'].user;
     this.currentStat();
     this.generateDataPokemon();
+    this._battleService.playAudio();
     // this.attackFirst();
     cdr.detach();
     let interval = setInterval(() => {

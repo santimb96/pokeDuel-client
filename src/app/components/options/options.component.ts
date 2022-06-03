@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { BattleService } from 'src/app/services/battle.service';
 
 @Component({
   selector: 'app-options',
@@ -12,7 +13,7 @@ export class OptionsComponent implements OnInit {
   public user;
   public userID;
   public userLogged: boolean = false;
-  constructor(private router: Router) {
+  constructor(private router: Router, private _battleService: BattleService) {
     if (localStorage.getItem('userLogged') !== null) {
       this.user = JSON.parse(localStorage.getItem('userLogged'));
       this.userID = this.user.id;
@@ -37,5 +38,14 @@ export class OptionsComponent implements OnInit {
     } else {
       this.router.navigate(['']);
     }
+  }
+
+  public volumeMusic(volume: any): void {
+    console.log(volume?.value);
+    this._battleService.setVolume(volume?.value);
+  }
+  public getVolumeMusic(): number {
+    console.log(this._battleService.getVolume());
+    return this._battleService.getVolume();
   }
 }

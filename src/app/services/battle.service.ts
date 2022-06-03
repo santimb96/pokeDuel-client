@@ -68,6 +68,10 @@ export class BattleService {
     return Math.round(Math.random() * max);
   }
 
+  public getRandomAttack(min,max): number {
+    return Math.round(Math.random() * (max-min)) + min;
+  }
+
   public saveGame(userID) {
     this._userStatService.getOneUserStats(userID).subscribe((currentStatus) => {
       this.userCurrentStat = currentStatus.userStat;
@@ -134,7 +138,7 @@ export class BattleService {
           message = `${pokemonNameFormatted} has attacked`;
         } else if (life > 30) {
           message = 'Critic attack!';
-        } else if (life < 10) {
+        } else if (life === 10) {
           message = 'You can do better! :´(';
         }
         else {

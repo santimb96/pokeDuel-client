@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserStat } from 'src/app/models/userStat';
+import { BattleService } from 'src/app/services/battle.service';
 
 @Component({
   selector: 'app-menu-game',
@@ -15,7 +16,8 @@ export class MenuGameComponent implements OnInit {
   public userStat: UserStat;
   public userStatExists: boolean = true;
 
-  constructor(private router: Router, private route: ActivatedRoute) { 
+  constructor(private router: Router, private route: ActivatedRoute, 
+    private _battleService: BattleService) { 
     this.user = this.route.snapshot.data['users'].user;
     this.userStat = this.route.snapshot.data['userStats'].userStat;
     this.userID = this.user._id;
@@ -28,7 +30,9 @@ export class MenuGameComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+      this._battleService.stopAudio();
+  }
 
   public logOut(): void {
     localStorage.removeItem('userLogged');

@@ -28,6 +28,10 @@ export class BattleService {
     private _authService: AuthService, private _snackBar: MatSnackBar) {
   }
 
+  public getAudio(): any {
+    return this.AUDIO;
+  }
+  
   public playAudio(): void {
     console.log('playing!');
     this.AUDIO.volume = this.volume;

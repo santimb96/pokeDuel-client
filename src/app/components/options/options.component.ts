@@ -20,13 +20,27 @@ export class OptionsComponent {
     }
   }
 
+  public goTo(): void {
+    let path = localStorage.getItem('path');
+    if (path !== null) {
+      if (path === `/menu-game/${this.userID}`) {
+        this.router.navigate([`menu-game/${this.userID}`]);
+      }
+      else if (path === `/continue-game/${this.userID}` || path === `/game/${this.userID}`) {
+        this.router.navigate([`continue-game/${this.userID}`]);
+      }
+      else {
+        this.router.navigate(['']);
+      }
+    } else {
+      this.router.navigate(['']);
+    }
+  }
+
   public volumeMusic(volume: any): void {
-    console.log(volume?.value);
     this._battleService.setVolume(volume?.value);
   }
-  
   public getVolumeMusic(): number {
-    console.log(this._battleService.getVolume());
     return this._battleService.getVolume();
   }
 }

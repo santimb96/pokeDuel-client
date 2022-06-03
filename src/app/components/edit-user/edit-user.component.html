@@ -24,8 +24,9 @@
                         <input type="button" class="btn btn-secondary" value="Back" [routerLink]="['/my-account',user._id]"/>
                         <input type="submit" class="btn btn-primary" value="Update profile"/>
                     </div>
-                    </form>
-                </div>
+                </form>
+                <input [(ngModel)]="error" class="error-input"/>
+            </div>
             </div>
         </div>
     </div>

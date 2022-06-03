@@ -47,7 +47,9 @@ export class AuthService {
   editUser(id: string, user): Observable<any> {
     const formData = new FormData();
     formData.append('username', user.username);
-    formData.append('password', user.password);
+    if( user.password !== '') {
+      formData.append('password', user.password);
+    } 
     formData.append('email', user.email);
     formData.append('avatar', user.avatar);
     return this.http.put(`${this.url}/${id}`, formData);

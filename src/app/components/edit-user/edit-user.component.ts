@@ -12,6 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class EditUserComponent implements OnInit {
   editForm: FormGroup;
   public user: User;
+  public error = null;
+
   ngOnInit(): void { }
 
   constructor(public fb: FormBuilder, private _authService: AuthService, private router: Router, private route: ActivatedRoute) {
@@ -35,6 +37,7 @@ export class EditUserComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.error = error.error.message; 
       }
     );
   }
@@ -45,7 +48,7 @@ export class EditUserComponent implements OnInit {
       data => {
         this.editForm.setValue({
           username: data.user.username,
-          password: data.user.password,
+          password: '',
           email: data.user.email,
           avatar: data.user.avatar
         })

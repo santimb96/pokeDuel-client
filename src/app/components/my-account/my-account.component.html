@@ -14,13 +14,12 @@
               <div class="d-flex justify-content-between">
                 <div class="d-flex" style="gap: 1vw">
                   <img src="../../../assets/img/email.png" style="width: 30px;"/>
-                  <h6>EMAIL</h6>
                 </div>
                 <span>
                   <h6>{{ user.email }}</h6>
                 </span>
               </div>
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-between" *ngIf="userStat">
                 <div class="d-flex" style="gap:1vw;"><img src="../../../assets/img/trofeo.png" style="width: 30px;"/>
                   <h6>VICTORIES</h6>
                 </div>
@@ -28,20 +27,20 @@
                   <h6>{{ userStat.victories }}</h6>
                 </span>
               </div>
-              <div class="d-flex justify-content-center">
+              <div class="d-flex justify-content-center" *ngIf="userStat">
                 <h6>TEAM</h6>
               </div>
             </div>
-            <div class="row pokeRow">
+            <div class="row pokeRow" *ngIf="userStat">
               <div class="col-4 pokeCol" *ngFor="let pokemon of userStat.aliveTeam">
-                <img :src="{{ pokemon.img3d }}" class="card-img-top" alt="Avatar">
+                <img :src="{{ pokemon.img3d }}" class="card-img-top" alt="pokemon">
                 <p class="pokeTeam">{{ pokemon.name }}</p>
               </div>
             </div>
           </div>
           <div class="col-4 avatar">
             <img :src="{{ user.avatar }}" class="card-img-top" alt="Avatar">
-            <p>Score: {{ score }}</p>
+            <p *ngIf="score">Score: {{ score }}</p>
           </div>
         </div>
         <div class="row">

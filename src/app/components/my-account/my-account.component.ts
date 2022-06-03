@@ -19,7 +19,9 @@ export class MyAccountComponent implements OnInit {
     this.user = this.route.snapshot.data['users'].user;
     this.userStat = this.route.snapshot.data['userStats'].userStat;
     this.userID = this.user._id;
-    this.score = Math.round(this.userStat.score);
+    if (this.userStat !== null){
+      this.score = Math.round(this.userStat.score);      
+    }
 
   }
 

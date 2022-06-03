@@ -6,6 +6,10 @@
     align-self: center;
     box-shadow: rgb(0 0 0 / 37%) 15px 23px 46px 1px;
     background-color: rgb(221, 221, 221);
+
+    .card-body{
+        max-width: 50vh;
+    }
 }
 
 .pokeTeam {
@@ -20,6 +24,10 @@
     margin-top: 1vh;
     align-items: center;
     gap: 2vh;
+
+    .avatar-img {
+        width: 100%;
+    }
 }
 
 @include media-breakpoint-down(lg) {
@@ -42,4 +50,5 @@
         width: 100%;
         align-content: center;
     }
+    
 }

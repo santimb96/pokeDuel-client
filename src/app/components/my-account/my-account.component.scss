@@ -30,6 +30,10 @@
     }
 }
 
+.trainer-card {
+    font-family: 'Pokemon Solid', sans-serif;
+}
+
 @include media-breakpoint-down(lg) {
     button {
         font-size: 10px !important;

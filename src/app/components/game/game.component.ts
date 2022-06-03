@@ -33,7 +33,6 @@ export class GameComponent {
     this.currentStat();
     this.generateDataPokemon();
     this._battleService.playAudio();
-    // this.attackFirst();
     localStorage.setItem('myTeam', JSON.stringify(this.myTeam));
     cdr.detach();
     let interval = setInterval(() => {
@@ -45,7 +44,6 @@ export class GameComponent {
           (this.pokemonLeft.life === 0 && this.pokemonRight.life !== 0) ||
           (this.pokemonLeft.life !== 0 && this.pokemonRight.life === 0)
         ) {
-          console.log(this.user._id);
           this._battleService.saveGame(this.user._id);
         }
 
@@ -56,15 +54,16 @@ export class GameComponent {
         }
 
         this.generateDataPokemon();
-        setTimeout(
-          function () {
+        setTimeout(function () {
             this.attackFirst();
           }.bind(this),
           5000
         );
       }
 
-      if (this.myAliveTeam.length === 0) {
+      if (this.myAliveTeam.length === 0 || JSON.parse(localStorage.getItem("myAliveTeam")).length === 0) {
+        localStorage.removeItem("myAliveTeam");
+        this.myAliveTeam = null;
         this._battleService.saveGame(this.user._id);
         this.router.navigate([`my-account/${this.user._id}`]);
         clearInterval(interval);
@@ -124,10 +123,7 @@ export class GameComponent {
     let myTeam: Pokemon[] = [];
     let pokemon: Pokemon = {};
     for (let i = 0; i < 3; i++) {
-      pokemon =
-        this.route.snapshot.data['pokemons'].pokemons[
-          this._battleService.getRandomId(88)
-        ];
+      pokemon = this.route.snapshot.data['pokemons'].pokemons[this._battleService.getRandomId(88)];
       myTeam.push({
         name: pokemon.name,
         life: 100,
@@ -192,7 +188,7 @@ export class GameComponent {
               this._battleService.openSnackBar(life, this.pokemonLeft.name,'died');
               localStorage.removeItem('pokemonLeftLife');
             } else {
-              life = Math.round(this.pokemonLeft.life * (this._battleService.getRandomId(50) / 100));
+              life = Math.round(this.pokemonLeft.life * (this._battleService.getRandomId(30) / 100));
               this.pokemonLeft.life = this.pokemonLeft.life - life;
               this._battleService.openSnackBar(life, this.pokemonRight.name, 'attack');
             document.getElementById('pokemonLeft').classList.add('animate__bounceIn');
@@ -274,7 +270,7 @@ export class GameComponent {
           .classList.add('animate__backOutRight');
       } else {
         attack = Math.round(
-          this.pokemonRight.life * (this._battleService.getRandomId(50) / 100)
+          this.pokemonRight.life * (this._battleService.getRandomId(30) / 100)
         );
         this.pokemonRight.life = this.pokemonRight.life - attack;
         this._battleService.openSnackBar(

@@ -15,7 +15,7 @@
           <mat-progress-bar mode="determinate" :value="{{ pokemonRight.life }}"></mat-progress-bar>
           <img :src="{{ pokemonRight.imgFront }}" class="card-img-right" alt="pokemon-right">
         </div>
-        <div class="user-actions">
+        <div class="user-actions" *ngIf="pokemonLeft.life > 0">
 
           <div class="attack-buttons pokeR-height" *ngIf="pokemonLeft.life !== 0 || pokemonRight.life !== 0"
             >

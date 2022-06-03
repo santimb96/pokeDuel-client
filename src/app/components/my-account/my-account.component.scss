@@ -12,10 +12,14 @@
     }
 }
 
+.pokeCol {
+    gap: 2vw;
+}
+
 .pokeTeam {
     text-transform: uppercase;
-    align-content: center;
-    justify-content: center;
+    text-align: center;
+    font-size: 1.4vh;
 }
 
 .avatar {
@@ -53,6 +57,10 @@
         flex-direction: column;
         width: 100%;
         align-content: center;
+    }
+
+    .pokeTeam {
+        font-size: 2vw;
     }
     
 }

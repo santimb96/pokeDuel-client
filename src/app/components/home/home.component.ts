@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HomeComponent implements OnInit {
   public currentDate: string = '';
-  public logged: boolean = true;
+  public logged: boolean;
   constructor(public router: Router, private _authService: AuthService) {
     this.currentDate = format(new Date(), 'DD/MM/YYYY HH:mm');
     if (localStorage.getItem("userLogged") !== null) {
@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
       if (userLogged.token !== null && this.currentDate < userLogged.expiryDate) {
         this._authService.autoLogIn(userLogged.id, userLogged.token).subscribe( //FIXME: PARA QUE ME SIRVE EL AUTOLOGIN?
           () => {
+            this.logged = true;
             this.router.navigate([`menu-game/${userLogged.id}`]);
           },
           error => {

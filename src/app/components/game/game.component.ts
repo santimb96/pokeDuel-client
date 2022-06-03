@@ -70,7 +70,8 @@ export class GameComponent {
         victories: this.userCurrentStat.victories,
         score: this.userCurrentStat.score,
         round: 1,
-        team: this.generateTeam()
+        team: this.generateTeam(),
+        aliveTeam: this.myTeam       
       });
       this._userStatService.editState(this.user._id, newState).subscribe(newStat => {
         this.userCurrentStat = newStat.userToUpdate;
@@ -84,7 +85,8 @@ export class GameComponent {
         victories: 0,
         score: 0,
         round: 1,
-        team: this.generateTeam()
+        team: this.generateTeam(),
+        aliveTeam: this.myTeam
       });
 
       this._userStatService.newState(newState).subscribe(newStat => {

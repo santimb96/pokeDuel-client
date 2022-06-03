@@ -33,7 +33,7 @@
               </div>
             </div>
             <div class="row pokeRow">
-              <div class="col-4 pokeCol" *ngFor="let pokemon of userStat.team">
+              <div class="col-4 pokeCol" *ngFor="let pokemon of userStat.aliveTeam">
                 <img :src="{{ pokemon.img3d }}" class="card-img-top" alt="Avatar">
                 <p class="pokeTeam">{{ pokemon.name }}</p>
               </div>

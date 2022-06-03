@@ -48,7 +48,8 @@ export class BattleService {
         victories: this.userCurrentStat.victories,
         score: this.userCurrentStat.score,
         round: this.userCurrentStat.round + 1,
-        team: this.myAliveTeam
+        team: this.myAliveTeam,
+        aliveTeam: this.userCurrentStat.aliveTeam
       });
 
       this._userStatService.editState(userID, currentStatus).subscribe(status => {
@@ -62,7 +63,8 @@ export class BattleService {
         victories: this.userCurrentStat.victories + 1,
         score: this.userCurrentStat.score + this.score(),
         round: this.userCurrentStat.round + 1,
-        team: this.myAliveTeam
+        team: this.myAliveTeam,
+        aliveTeam: this.userCurrentStat.aliveTeam
       });
 
       this._userStatService.editState(userID, currentStatus).subscribe(status => {

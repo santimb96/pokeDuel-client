@@ -67,18 +67,16 @@ export class AppComponent implements OnInit {
       if(result){
         this._battleService.saveGame(this.userID);
         this.router.navigate([`menu-game/${this.userID}`]);
-      } else if(!result){
-        this.router.navigate([`menu-game/${this.userID}`]);
-      } else if(result == '') {
+      } else if(result === '' && result !== false ){
         console.log('pressed cancel');
+      } else if(result == '') {
+        this.router.navigate([`menu-game/${this.userID}`]);
       }
     });
   }
 
 }
 
-
-//FIXME:CANCEL
 @Component({
   selector: 'dialog-content',
   template: `<h2 mat-dialog-title>Do you want to save the game?</h2>

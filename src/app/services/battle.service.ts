@@ -44,7 +44,7 @@ export class BattleService {
       this.myAliveTeam.pop();
       localStorage.setItem('myAliveTeam',JSON.stringify(this.myAliveTeam));
       currentStatus = JSON.stringify({
-        user: this.userCurrentStat.user,
+        user: userID,
         victories: this.userCurrentStat.victories,
         score: this.userCurrentStat.score,
         round: this.userCurrentStat.round + 1,
@@ -58,7 +58,7 @@ export class BattleService {
 
     } else if (this.pokemonRight.life === 0) {
       currentStatus = JSON.stringify({
-        user: this.userCurrentStat.user,
+        user: userID,
         victories: this.userCurrentStat.victories + 1,
         score: this.userCurrentStat.score + this.score(),
         round: this.userCurrentStat.round + 1,

@@ -92,8 +92,17 @@ export class GameComponent {
       });
     }
 
-    localStorage.removeItem('pokemonRight');
-    localStorage.removeItem('pokemonLeftLife');
+    if (localStorage.getItem("pokemonRight") !== null){
+      localStorage.removeItem('pokemonRight');
+    }
+
+    if(localStorage.getItem("pokemonLeft") !== null){
+      localStorage.removeItem('pokemonLeft');
+    }
+
+    if(localStorage.getItem("pokemonLeftLife") !== null){
+      localStorage.removeItem('pokemonLeftLife');
+    }
   }
 
   private generateTeam(): Pokemon[] {
@@ -135,16 +144,6 @@ export class GameComponent {
     }
   }
 
-  private getPokemonFromTeam(): Pokemon[] {
-    let pokemonAlive: Pokemon[] = [];
-    this.myTeam.forEach(pokemon => {
-      if (pokemon.life > 0) {
-        pokemonAlive.push(pokemon);
-      }
-    });
-    return pokemonAlive;
-  }
-
   private enemyAtacking(): void {
     let life: number = 0;
     const moves = ['attack', 'defense', 'attack', 'attack', 'attack'];
@@ -181,7 +180,6 @@ export class GameComponent {
   }
 
   public attack(): void {
-    // document.getElementById("pokemonRight").classList.remove("animate__bounceIn");
     let attack: number = 0;
     if (this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass'
       || this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water'

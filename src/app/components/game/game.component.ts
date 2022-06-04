@@ -319,12 +319,12 @@ export class GameComponent {
 
   private attackFirst(): void {
     if (this.pokemonLeft.speed < this.pokemonRight.speed) {
-      //this.isDisabled = true;
+      this.isDisabled = true;
       this.enemyAtacking();
     } else if (this.pokemonLeft.speed > this.pokemonRight.speed) {
-      //this.isDisabled = false;
+      this.isDisabled = false;
     } else {
-      //this.isDisabled = true;
+      this.isDisabled = true;
       this.enemyAtacking();
     }
   }

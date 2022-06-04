@@ -1,5 +1,5 @@
 <div class="container-fluid inside-frame background-battle">
-    <mat-grid-list cols="2">
+    <mat-grid-list cols="2" *ngIf="pokemonLeft.imgBack && pokemonRight.imgFront">
       <mat-grid-tile style="display: flex; height: 100%;">
         <div *ngIf="pokemonLeft.life > 0" class="pokemon-left animate__bounceIn" id="pokemonLeft">
           <p class="pokemon-name-left">{{ pokemonLeft.name }}</p>
@@ -15,16 +15,12 @@
             <mat-progress-bar mode="determinate" :value="{{ pokemonRight.life }}"></mat-progress-bar>
             <img :src="{{ pokemonRight.imgFront }}" class="card-img-right" alt="pokemon-right">
           </div>
-          <div class="user-actions" *ngIf="pokemonLeft.life > 0" (click)="isDisabled = !isDisabled">
-  
-            <div class="attack-buttons pokeR-height" *ngIf="pokemonLeft.life !== 0 || pokemonRight.life !== 0"
-              >
+          <div class="user-actions" *ngIf="pokemonLeft.life > 0" (click)="disable()">
+            <div class="attack-buttons pokeR-height" *ngIf="pokemonLeft.life !== 0 || pokemonRight.life !== 0">
               <img src="../../../assets/img/espada.png">
               <button mat-button [disabled]="isDisabled" (click)="attack()">Attack</button>
             </div>
-  
-            <div class="attack-buttons pokeR-height" *ngIf="pokemonLeft.life !== 0 || pokemonRight.life !== 0"
-             >
+            <div class="attack-buttons pokeR-height" *ngIf="pokemonLeft.life !== 0 || pokemonRight.life !== 0">
               <img src="../../../assets/img/escudo.png">
               <button mat-button [disabled]="isDisabled" (click)="defense()">Defense</button>
             </div>
@@ -32,5 +28,5 @@
         </div>
       </mat-grid-tile>
     </mat-grid-list>
+    <spinner [style.display]="!pokemonLeft.imgBack && !pokemonRight.imgFront ? 'block' : 'none'"></spinner>
   </div>
-  

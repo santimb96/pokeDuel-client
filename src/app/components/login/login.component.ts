@@ -28,6 +28,7 @@ export class LoginComponent {
   ngOnInit() {}
 
   public logIn(form: LoginI): void {
+    this.spinner = true;
     this._authService.logIn(form).subscribe(
       data => {
         let dataResponse: ResponseI = data;

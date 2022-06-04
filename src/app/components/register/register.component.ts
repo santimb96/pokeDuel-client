@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterComponent {
   public signUpForm: FormGroup;
+  public spinner: boolean = false;
+  public hideError = true;
   public hide = true;
   public error = null;
 
@@ -24,6 +26,7 @@ export class RegisterComponent {
   }
 
   public signUp(form): void {
+    this.spinner = true;
     this._authService.signUp(form).subscribe(
       data => {
         console.log(data);
@@ -31,7 +34,9 @@ export class RegisterComponent {
       },
       error => {
         console.log(error.error.message);
+        this.spinner = false;
         this.error = error.error.message;
+        this.hideError = true;
       }
     )
   }

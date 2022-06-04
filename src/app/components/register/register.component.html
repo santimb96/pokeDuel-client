@@ -7,31 +7,33 @@
                     <form [formGroup]="signUpForm">
                         <div class="form-group">
                             <input type="text" formControlName="username" name="username" class="form-control"
-                                placeholder="Username" required autofocus />
+                                placeholder="Username" required autofocus (click)="hideError = false"/>
                         </div>
 
                         <div class="form-group d-flex">
-                            <input [type]="hide ? 'password' : 'text'" formControlName="password" name="password" class="form-control"
-                            placeholder="Password" required />
-                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <input [type]="hide ? 'password' : 'text'" formControlName="password" name="password"
+                                class="form-control" placeholder="Password" required (click)="hideError = false"/>
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide">
                                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
                         </div>
 
                         <div class="form-group">
                             <input type="text" formControlName="email" name="email" class="form-control"
-                                placeholder="Email" required autofocus />
+                                placeholder="Email" required autofocus (click)="hideError = false"/>
                         </div>
                         <div class="form-group">
                             <input type="file" (change)="uploadFile($event)" name="avatar" class="form-control"
-                                placeholder="Avatar" required autofocus />
+                                placeholder="Avatar" required autofocus (click)="hideError = false"/>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <input type="button" class="btn btn-secondary" value="Back" routerLink="" />
-                            <input type="submit" class="btn btn-primary" value="Sign up" (click)="signUp(signUpForm.value)"/>
+                            <input type="button" class="btn btn-secondary" value="Back" style="max-height: 38px;" routerLink=""/>
+                            <input type="submit" class="btn btn-primary" value="Sign up" (click)="signUp(signUpForm.value)" [style.display]="spinner ? 'none' : 'block'"/>
+                            <spinner [style.display]="spinner ? 'block' : 'none'"></spinner>
                         </div>
                     </form>
-                    <input [(ngModel)]="error" class="error-input" readonly disabled="true"/>
+                    <input *ngIf="hideError" [(ngModel)]="error" class="error-input" readonly disabled="true" />
                 </div>
             </div>
         </div>

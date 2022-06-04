@@ -88,6 +88,9 @@ export class GameComponent {
           this.userCurrentStat = newStat.userToUpdate;
           this.myTeam = newStat.userToUpdate.team;
           this.myAliveTeam = newStat.userToUpdate.team;
+        },error => {
+          console.log(error);
+          this.router.navigate([`menu-game/${this.user._id}`]);
         });
     } else {
       let newState = JSON.stringify({
@@ -103,6 +106,9 @@ export class GameComponent {
         this.userCurrentStat = newStat.userStat;
         this.myTeam = newStat.userStat.team;
         this.myAliveTeam = newStat.userStat.team;
+      }, error => {
+        console.log(error);
+        this.router.navigate([`menu-game/${this.user._id}`]);
       });
     }
 
@@ -321,5 +327,9 @@ export class GameComponent {
       //this.isDisabled = true;
       this.enemyAtacking();
     }
+  }
+
+  public disable(): void {
+    this.isDisabled = !this.isDisabled;
   }
 }

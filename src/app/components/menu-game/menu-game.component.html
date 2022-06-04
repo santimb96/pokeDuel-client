@@ -3,15 +3,16 @@
         <div class="img-card">
             <img mat-card-image src="../assets/img/pokeDuelOnlyLogo.png">
         </div>
-        <div class="menu">
-            <button mat-raised-button [routerLink]="['/game',userID]">New game</button>
+        <div class="menu" *ngIf="!spinner">
+            <button mat-raised-button [routerLink]="['/game',userID]" (click)="spinner = !spinner">New game</button>
             <ng-container *ngIf="userStatExists">
-                <button mat-raised-button [routerLink]="['/continue-game', userID]">Continue</button>
+                <button mat-raised-button [routerLink]="['/continue-game', userID]" (click)="spinner = !spinner">Continue</button>
             </ng-container>
-            <button mat-raised-button [routerLink]="['/my-account',userID]">My account</button>
-            <button mat-raised-button routerLink="/how-to-play">How to play</button>
-            <button mat-raised-button routerLink="/credits">Credits</button>
-            <button mat-raised-button (click)="logOut()">Log out</button>
+            <button mat-raised-button [routerLink]="['/my-account',userID]" (click)="spinner = !spinner">My account</button>
+            <button mat-raised-button routerLink="/how-to-play" (click)="spinner = !spinner">How to play</button>
+            <button mat-raised-button routerLink="/credits" (click)="spinner = !spinner">Credits</button>
+            <button mat-raised-button (click)="logOut()" (click)="spinner = !spinner">Log out</button>
         </div>
+        <spinner [style.display]="spinner ? 'block' : 'none'"></spinner>
     </section>
 </div>

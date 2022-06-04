@@ -15,6 +15,8 @@ export class LoginComponent {
   username: FormGroup;
   password: FormGroup;
   hide = true;
+  public spinner: boolean = false;
+  public hideError = true;
   public error = null;
   constructor(private _authService: AuthService, private router: Router) { }
 
@@ -26,6 +28,7 @@ export class LoginComponent {
   ngOnInit() {}
 
   public logIn(form: LoginI): void {
+    this.spinner = true;
     this._authService.logIn(form).subscribe(
       data => {
         let dataResponse: ResponseI = data;
@@ -35,7 +38,9 @@ export class LoginComponent {
       },
       error => {
         console.log(error.error.message);
+        this.spinner = false;
         this.error = error.error.message;        
+        this.hideError = true;
       });
   }
 }

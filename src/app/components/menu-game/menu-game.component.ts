@@ -15,6 +15,7 @@ export class MenuGameComponent implements OnInit {
   public user: User;
   public userStat: UserStat;
   public userStatExists: boolean = true;
+  public spinner = false;
 
   constructor(private router: Router, private route: ActivatedRoute, 
     private _battleService: BattleService) { 

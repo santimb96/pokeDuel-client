@@ -62,6 +62,7 @@ import { CreditsComponent } from './components/credits/credits.component';
 import { ContinueGameComponent } from './components/continue-game/continue-game.component';
 import { GameComponent } from './components/game/game.component';
 import { OptionsComponent } from './components/options/options.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 
 /* RESOLVERS */
@@ -80,7 +81,8 @@ import { OptionsComponent } from './components/options/options.component';
     ContinueGameComponent,
     GameComponent,
     OptionsComponent,
-    DialogContentComponent
+    DialogContentComponent,
+    SpinnerComponent
 
   ],
   imports: [

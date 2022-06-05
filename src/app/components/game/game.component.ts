@@ -58,7 +58,7 @@ export class GameComponent {
           function () {
             this.attackFirst();
           }.bind(this),
-          5000
+          3000
         );
       }
 
@@ -167,10 +167,8 @@ export class GameComponent {
         this.pokemonLeft.life = 100;
       }
       if (localStorage.getItem('pokemonRight') == null) {
-        this.pokemonRight =
-          this.route.snapshot.data['pokemons'].pokemons[
-            this._battleService.getRandomId(88)
-          ];
+        console.log('pokemonRight died; generating one new');
+        this.pokemonRight = this.route.snapshot.data['pokemons'].pokemons[this._battleService.getRandomId(88)];
         this.pokemonRight.life = 100;
         localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
       } else {

@@ -29,6 +29,7 @@ export class ContinueGameComponent {
     this.currentStat();
     this.generateDataPokemon();
     this._battleService.playAudio();
+    localStorage.setItem('myTeam', JSON.stringify(this.myTeam));
     cdr.detach();
     let interval = setInterval(() => {
       this.cdr.detectChanges();
@@ -49,7 +50,7 @@ export class ContinueGameComponent {
         this.generateDataPokemon();
         setTimeout(function () {
           this.attackFirst();
-        }.bind(this), 5000);
+        }.bind(this), 3000);
       }
 
       if (this.myAliveTeam.length === 0 || JSON.parse(localStorage.getItem("myAliveTeam")).length === 0) {
@@ -135,6 +136,7 @@ export class ContinueGameComponent {
       myTeam.push({
         name: pokemon.name,
         life: 100,
+        type: pokemon.type,
         speed: pokemon.speed,
         imgBack: pokemon.imgBack,
         img3d: pokemon.img3d

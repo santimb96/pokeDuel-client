@@ -20,6 +20,7 @@ export class GameComponent {
   public isDisabled: boolean = false;
   public currentDate: Date = new Date();
   public userCurrentStat: UserStat;
+  private clickedOneTime: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -249,6 +250,7 @@ export class GameComponent {
           this._battleService.openSnackBar(life,this.pokemonRight.name,'attack',false);
       }
 
+      this.clickedOneTime = 0
       this.isDisabled = false;
       document
         .getElementById('pokemonRight')
@@ -262,6 +264,8 @@ export class GameComponent {
 
   public attack(): void {
     this.isDisabled = true;
+    if (this.clickedOneTime === 0){
+      this.clickedOneTime = 1;
     let attack: number = 0;
     let isCritic = this.criticAttack();
     if ((this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass') || (this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water') ||
@@ -311,9 +315,12 @@ export class GameComponent {
       3000
     );
   }
+  }
 
   public defense(): void {
     this.isDisabled = true;
+    if (this.clickedOneTime === 0) {
+      this.clickedOneTime = 1;
     let heal = 7;
     if (this.pokemonLeft.life === 100) {
       this.pokemonLeft.life = 100;
@@ -332,6 +339,7 @@ export class GameComponent {
       3000
     );
   }
+}
 
   private autosave(): void {
     localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));

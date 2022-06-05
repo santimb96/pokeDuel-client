@@ -90,9 +90,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'leaderboard',
+    path: 'leaderboard/:id',
     component: LeaderboardComponent,
     resolve: {
+      user: UserResolverService,
       users: AllUsersResolverService,
       userStats: LeaderboardResolverService,
     }

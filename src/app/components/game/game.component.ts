@@ -20,7 +20,10 @@ export class GameComponent {
   public isDisabled: boolean = false;
   public currentDate: Date = new Date();
   public userCurrentStat: UserStat;
+  public typoLeft: any;
+  public typoRight: any;
   private clickedOneTime: number = 0;
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -69,7 +72,7 @@ export class GameComponent {
         localStorage.removeItem('myAliveTeam');
         this.myAliveTeam = null;
         this._battleService.saveGame(this.user._id);
-        this.router.navigate([`my-account/${this.user._id}`]);
+        this.router.navigate([`leaderboard/${this.user._id}`]);
         clearInterval(interval);
       }
     }, 3000);
@@ -174,6 +177,8 @@ export class GameComponent {
     } else {
       this.router.navigate([`my-account/${this.user._id}`]);
     }
+
+    this.typos();
   }
 
   private criticAttack(): boolean {
@@ -352,5 +357,23 @@ export class GameComponent {
 
   public disable(): void {
     this.isDisabled = !this.isDisabled;
+  }
+
+  public typos(): void {
+    if (this.pokemonLeft.type === 'grass'){
+      this.typoLeft = '🌱';
+    } else if (this.pokemonLeft.type === 'fire'){
+      this.typoLeft = '🔥';
+    } else {
+      this.typoLeft = '💧';
+    }
+
+    if (this.pokemonRight.type === 'grass'){
+      this.typoRight = '🌱';
+    } else if (this.pokemonRight.type === 'fire'){
+      this.typoRight = '🔥';
+    } else {
+      this.typoRight = '💧';
+    }
   }
 }

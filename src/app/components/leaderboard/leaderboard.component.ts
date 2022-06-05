@@ -15,12 +15,15 @@ export class LeaderboardComponent implements OnInit {
   public allUsers: User[];
   public allUsersStats: UserStat[];
   public users: any;
+  public userID: string;
+  public spinner = false;
 
   constructor(
     private _authService: AuthService,
     private _userStatService: UserStatService,
     private router: ActivatedRoute,
   ) {
+    this.userID = this.router.snapshot.data['user'].user._id;
     this.allUsers = this.router.snapshot.data['users'].users;
     this.allUsersStats = this.router.snapshot.data['userStats'].userStats;
     

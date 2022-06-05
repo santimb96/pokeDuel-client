@@ -114,6 +114,7 @@ mat-progress-bar.progressBar .mat-progress-bar-fill::after {
     width: 20vh;
     color: $white;
     text-transform: uppercase;
+    margin: 0;
 }
 
 .pokemon-name-left {
@@ -125,6 +126,7 @@ mat-progress-bar.progressBar .mat-progress-bar-fill::after {
     width: 20vh;
     color: $white;
     text-transform: uppercase;
+    margin: 0;
 }
 
 @media (min-width: 800px) {

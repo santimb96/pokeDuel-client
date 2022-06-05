@@ -22,4 +22,8 @@
       </table>
       </div>
     </div>
+    <div class="col-12 d-flex justify-content-around m-2">
+      <button class="btn btn-secondary" [routerLink]="['/my-account',userID]" (click)="spinner = !spinner" *ngIf="!spinner">My Account</button>
+      <spinner [style.display]="spinner? 'block' : 'none'"></spinner>
+    </div>
   </div>  

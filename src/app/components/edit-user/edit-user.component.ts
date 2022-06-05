@@ -13,6 +13,7 @@ export class EditUserComponent implements OnInit {
   editForm: FormGroup;
   public user: User;
   public error = null;
+  public spinner = false;
 
   ngOnInit(): void { }
 

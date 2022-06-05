@@ -34,7 +34,7 @@ export class MenuGameComponent implements OnInit {
   ngOnInit(): void {
       setTimeout(function(){
         this.spinner = false;
-      }.bind(this),2000)
+      }.bind(this), 2500)
       this._battleService.stopAudio();
 
   }

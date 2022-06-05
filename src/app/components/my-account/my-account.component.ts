@@ -47,6 +47,9 @@ export class MyAccountComponent implements OnInit {
 
   public deleteProfile(id: string): void {
     this._authService.deleteUser(id).subscribe(user => {
+      if (localStorage.getItem('userLogged') !== null){
+        localStorage.removeItem('userLogged');
+      }
       this.router.navigate([""]);
     });
   }

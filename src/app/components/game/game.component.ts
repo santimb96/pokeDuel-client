@@ -40,33 +40,24 @@ export class GameComponent {
       this.cdr.detectChanges();
       this.autosave();
 
-      if (this.pokemonLeft.life === 0 || this.pokemonRight.life === 0) {
+      if (this.pokemonLeft.life <= 0 || this.pokemonRight.life <= 0) {
         if (
-          (this.pokemonLeft.life === 0 && this.pokemonRight.life !== 0) ||
-          (this.pokemonLeft.life !== 0 && this.pokemonRight.life === 0)
-        ) {
+          (this.pokemonLeft.life <= 0 && this.pokemonRight.life !== 0) ||
+          (this.pokemonLeft.life !== 0 && this.pokemonRight.life <= 0)) {
           this._battleService.saveGame(this.user._id);
         }
 
-        if (this.pokemonLeft.life === 0) {
+        if (this.pokemonLeft.life <= 0) {
           this.myAliveTeam.pop();
           localStorage.setItem('myAliveTeam', JSON.stringify(this.myAliveTeam));
           localStorage.removeItem('pokemonLeft');
         }
 
         this.generateDataPokemon();
-        setTimeout(
-          function () {
-            this.attackFirst();
-          }.bind(this),
-          3000
-        );
+        setTimeout(function () {this.attackFirst();}.bind(this),3000);
       }
 
-      if (
-        this.myAliveTeam.length === 0 ||
-        JSON.parse(localStorage.getItem('myAliveTeam')).length === 0
-      ) {
+      if (this.myAliveTeam.length === 0 || JSON.parse(localStorage.getItem('myAliveTeam')).length === 0) {
         localStorage.removeItem('myAliveTeam');
         this.myAliveTeam = null;
         this._battleService.saveGame(this.user._id);

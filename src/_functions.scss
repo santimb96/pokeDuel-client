@@ -17,11 +17,3 @@
     $randomNum: randomNum(7);
     @return map.get($bg-img, $randomNum);
 }
-
-
-$test: chooseImg();
-$test2: chooseImg();
-$test3: chooseImg();
-@debug $test;
-@debug $test2;
-@debug $test3;

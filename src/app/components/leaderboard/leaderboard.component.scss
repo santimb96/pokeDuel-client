@@ -1,0 +1,96 @@
+@import "../../../variables";
+
+.inside-frame {
+  display: grid;
+  grid-template-columns: auto;
+  place-items: center;
+  .card {
+    overflow-x: hidden;
+    -webkit-box-shadow: rgb(0 0 0 / 37%) 0px 5px 15px 5px;
+    box-shadow: rgb(0 0 0 / 37%) 0px 5px 15px 5px;
+    width: 100%;
+    overflow-y: scroll;
+    height: 95%;
+    .card-body {
+      display: grid;
+      grid-template-columns: auto;
+      place-items: center;
+      table {
+        width: 100%;
+        font-size: 2ch;
+        border-spacing: 10px;
+
+        td,
+        th {
+          text-align: center;
+        }
+        td {
+          padding-bottom: 7px;
+          padding-top: 7px;
+        }
+
+        tr:first-child {
+          th {
+            background-color: $dark-garnet;
+            font-weight: bold;
+            color: $white;
+            padding: 0.5%;
+          }
+          th:first-child {
+            border-radius: 3.5px 0 0 3.5px;
+          }
+          th:last-child {
+            border-radius: 0 3.5px 3.5px 0;
+          }
+        }
+        thead tr {
+          height: 100%;
+          &:hover{
+            transform: none;
+          }
+        }
+
+        tr:nth-child(1) {
+          color: $gold;
+          font-weight: bold;
+          td:first-child::before {
+            content: "🏆";
+          }
+        }
+        tr:nth-child(2) {
+          color: $silver;
+          font-weight: bold;
+          td:first-child::before {
+            content: "🥈";
+          }
+        }
+        tr:nth-child(3) {
+          color: $bronze;
+          font-weight: bold;
+          td:first-child::before {
+            content: "🥉";
+          }
+        }
+        tr {
+          cursor: pointer;
+          transition: 0.4s;
+          &:hover {
+            transform: scale(1.05);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 800px) {
+  .inside-frame {
+    .card {
+      .card-body {
+        table{
+          font-size: 3.8ch;
+        }
+      }
+    }
+  }
+}

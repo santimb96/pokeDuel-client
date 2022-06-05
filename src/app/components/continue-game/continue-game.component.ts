@@ -22,6 +22,7 @@ export class ContinueGameComponent {
   public isDisabled: boolean = false;
   public currentDate: Date = new Date();
   public userCurrentStat: UserStat;
+  private clickedOneTime: number = 0;
 
   constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef,
     private router: Router, private _userStatService: UserStatService, private _battleService: BattleService) {
@@ -29,6 +30,7 @@ export class ContinueGameComponent {
     this.currentStat();
     this.generateDataPokemon();
     this._battleService.playAudio();
+    localStorage.setItem('myTeam', JSON.stringify(this.myTeam));
     cdr.detach();
     let interval = setInterval(() => {
       this.cdr.detectChanges();
@@ -49,7 +51,7 @@ export class ContinueGameComponent {
         this.generateDataPokemon();
         setTimeout(function () {
           this.attackFirst();
-        }.bind(this), 5000);
+        }.bind(this), 3000);
       }
 
       if (this.myAliveTeam.length === 0 || JSON.parse(localStorage.getItem("myAliveTeam")).length === 0) {
@@ -135,6 +137,7 @@ export class ContinueGameComponent {
       myTeam.push({
         name: pokemon.name,
         life: 100,
+        type: pokemon.type,
         speed: pokemon.speed,
         imgBack: pokemon.imgBack,
         img3d: pokemon.img3d
@@ -146,6 +149,7 @@ export class ContinueGameComponent {
   }
 
   private generateDataPokemon(): void {
+    this.clickedOneTime = 0;
     if (this.myAliveTeam.length !== 0) {
       this.pokemonLeft = this.myAliveTeam[this.myAliveTeam.length - 1];
       if (localStorage.getItem('pokemonLeftLife') !== null) {
@@ -236,7 +240,7 @@ export class ContinueGameComponent {
           this._battleService.openSnackBar(life,this.pokemonRight.name,'attack',false);
       }
 
-      this.isDisabled = false;
+      this.clickedOneTime = 0
       document
         .getElementById('pokemonRight')
         .classList.remove('animate__bounceIn');
@@ -248,7 +252,8 @@ export class ContinueGameComponent {
   }
 
   public attack(): void {
-    this.isDisabled = true;
+    if (this.clickedOneTime === 0){
+      this.clickedOneTime = 1;
     let attack: number = 0;
     let isCritic = this.criticAttack();
     if ((this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass') || (this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water') ||
@@ -298,9 +303,12 @@ export class ContinueGameComponent {
       3000
     );
   }
+  }
 
   public defense(): void {
     this.isDisabled = true;
+    if (this.clickedOneTime === 0) {
+      this.clickedOneTime = 1;
     let heal = 7;
     if (this.pokemonLeft.life === 100) {
       this.pokemonLeft.life = 100;
@@ -319,6 +327,7 @@ export class ContinueGameComponent {
       3000
     );
   }
+}
   private autosave(): void {
     localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
     localStorage.setItem('pokemonLeft', JSON.stringify(this.pokemonLeft));
@@ -327,12 +336,9 @@ export class ContinueGameComponent {
 
   private attackFirst(): void {
     if (this.pokemonLeft.speed < this.pokemonRight.speed) {
-      this.isDisabled = true;
       this.enemyAtacking();
     } else if (this.pokemonLeft.speed > this.pokemonRight.speed) {
-      this.isDisabled = false;
     } else {
-      this.isDisabled = true;
       this.enemyAtacking();
     }
   }

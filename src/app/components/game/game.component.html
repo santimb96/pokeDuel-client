@@ -18,11 +18,11 @@
           <div class="user-actions" *ngIf="pokemonLeft.life > 0" (click)="disable()">
             <div class="attack-buttons pokeR-height" *ngIf="pokemonLeft.life !== 0 || pokemonRight.life !== 0">
               <img src="../../../assets/img/espada.png">
-              <button mat-button [disabled]="isDisabled" (click)="attack()">Attack</button>
+              <button mat-button (click)="attack()">Attack</button>
             </div>
             <div class="attack-buttons pokeR-height" *ngIf="pokemonLeft.life !== 0 || pokemonRight.life !== 0">
               <img src="../../../assets/img/escudo.png">
-              <button mat-button [disabled]="isDisabled" (click)="defense()">Defense</button>
+              <button mat-button (click)="defense()">Defense</button>
             </div>
           </div>
         </div>

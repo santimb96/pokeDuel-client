@@ -3,13 +3,27 @@
 @import 'functions';
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-
 .mat-grid-list {
     height: 100%;
 }
 
 .mat-progress-bar {
-    width: 60%;
+    width: 60%;    
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: $green !important;
+    border: 1px solid $black;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+    background-color: $white !important;
+    border: 1px solid $black;
+}
+
+mat-progress-bar.progressBar .mat-progress-bar-fill::after {
+    background-color: $green !important;
+    border: 1px solid $black;
 }
 
 .pokemon-left {

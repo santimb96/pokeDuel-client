@@ -149,6 +149,7 @@ export class ContinueGameComponent {
   }
 
   private generateDataPokemon(): void {
+    this.clickedOneTime = 0;
     if (this.myAliveTeam.length !== 0) {
       this.pokemonLeft = this.myAliveTeam[this.myAliveTeam.length - 1];
       if (localStorage.getItem('pokemonLeftLife') !== null) {
@@ -240,7 +241,6 @@ export class ContinueGameComponent {
       }
 
       this.clickedOneTime = 0
-      this.isDisabled = false;
       document
         .getElementById('pokemonRight')
         .classList.remove('animate__bounceIn');
@@ -252,7 +252,6 @@ export class ContinueGameComponent {
   }
 
   public attack(): void {
-    this.isDisabled = true;
     if (this.clickedOneTime === 0){
       this.clickedOneTime = 1;
     let attack: number = 0;
@@ -337,12 +336,9 @@ export class ContinueGameComponent {
 
   private attackFirst(): void {
     if (this.pokemonLeft.speed < this.pokemonRight.speed) {
-      this.isDisabled = true;
       this.enemyAtacking();
     } else if (this.pokemonLeft.speed > this.pokemonRight.speed) {
-      this.isDisabled = false;
     } else {
-      this.isDisabled = true;
       this.enemyAtacking();
     }
   }

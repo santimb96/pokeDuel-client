@@ -31,7 +31,7 @@ A continuación se listarán los puntos del proyecto:
 - Alumnos: Kim Asiao y Santiago Martínez
 - 2º de Desarrollo de Aplicaciones Web (presencial)
 - 31 de mayo de 2022
-- [Despliegue en Vercel](https://client-five-xi.vercel.app/)
+- [Despliegue en Vercel](https://www.pokeduel.es)
 - [Link del proyecto](https://github.com/onikakimasiaod/pokeDuel)
 
 #### Descripción<a name="descripcion"></a>
@@ -129,7 +129,7 @@ INSERTAR CAPTURAS DEL FRONT Y EXPLICAR BREVE AQUÍ!!
 
 ```sh
 Backend: https://pokeduel-dev-multer.up.railway.app/ (API REST)
-Frontend: https://client-five-xi.vercel.app/
+Frontend: https://www.pokeduel.es
 ```
 
 En un principio, el despliegue estaba pensado para AWS y sus máquinas EC2 con 750h gratuítas al mes, pero Node 'no se lleva' especialmente bien con Apache y tuvimos diversos problemas con el servidor (errores 503 por sobrecarga de peticiones), por lo que, tras perder mucho tiempo con esto, decidimos irnos a despliegues más 'sencillos' en _Railway_ y _Vercel_.

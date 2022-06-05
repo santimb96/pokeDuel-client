@@ -246,14 +246,11 @@ export class GameComponent {
           this._battleService.openSnackBar(life,this.pokemonRight.name,'attack',false);
       }
 
-      this.clickedOneTime = 0
-      document
-        .getElementById('pokemonRight')
-        .classList.remove('animate__bounceIn');
-      localStorage.setItem(
-        'pokemonLeftLife',
-        JSON.stringify(this.pokemonLeft.life)
-      );
+      if(this.pokemonLeft.life > 0){
+        this.clickedOneTime = 0
+      }
+      document.getElementById('pokemonRight').classList.remove('animate__bounceIn');
+      localStorage.setItem('pokemonLeftLife',JSON.stringify(this.pokemonLeft.life));
     }
   }
 

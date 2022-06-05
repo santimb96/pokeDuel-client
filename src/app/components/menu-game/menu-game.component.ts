@@ -44,6 +44,7 @@ export class MenuGameComponent implements OnInit {
     localStorage.removeItem('gameId');
     localStorage.removeItem('path');
     localStorage.removeItem('myAliveTeam');
+    localStorage.removeItem('myTeam');
     localStorage.removeItem('pokemonLeft');
     localStorage.removeItem('pokemonRight');
     localStorage.removeItem('pokemonLeftLife');

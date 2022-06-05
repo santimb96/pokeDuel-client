@@ -217,7 +217,7 @@ export class GameComponent {
               } else {
                 life = Math.round(this.pokemonLeft.life * (this._battleService.getRandomAttack(15, 25) / 100));
               }
-              this.pokemonLeft.life = this.pokemonLeft.life - life;
+              this.pokemonLeft.life = Math.round(this.pokemonLeft.life - life);
               this._battleService.openSnackBar(
                 life,
                 this.pokemonRight.name,
@@ -247,7 +247,7 @@ export class GameComponent {
                     (this._battleService.getRandomAttack(10, 15) / 100)
                 );
               }
-              this.pokemonLeft.life = this.pokemonLeft.life - life;
+              this.pokemonLeft.life = Math.round(this.pokemonLeft.life - life);
               this._battleService.openSnackBar(
                 life,
                 this.pokemonRight.name,
@@ -261,25 +261,14 @@ export class GameComponent {
           }
           break;
         case 'defense':
-          life = this.pokemonRight.life * 0.05;
-          this.pokemonRight.life = this.pokemonRight.life + life;
-          this._battleService.openSnackBar(
-            life,
-            this.pokemonRight.name,
-            'defense',
-            false
+          life = Math.round(this.pokemonRight.life * 0.05);
+          this.pokemonRight.life = Math.round(this.pokemonRight.life + life);
+          this._battleService.openSnackBar(life,this.pokemonRight.name,'defense',false
           );
           break;
         default:
-          this.pokemonLeft.life =
-            this.pokemonLeft.life -
-            this.pokemonLeft.life * (this._battleService.getRandomId(20) / 100);
-          this._battleService.openSnackBar(
-            life,
-            this.pokemonRight.name,
-            'attack',
-            false
-          );
+          this.pokemonLeft.life = Math.round(this.pokemonLeft.life - this.pokemonLeft.life * (this._battleService.getRandomId(20) / 100));
+          this._battleService.openSnackBar(life,this.pokemonRight.name,'attack',false);
       }
 
       this.isDisabled = false;
@@ -297,11 +286,7 @@ export class GameComponent {
     this.isDisabled = true;
     let attack: number = 0;
     let isCritic = this.criticAttack();
-    if (
-      (this.pokemonLeft.type === 'fire' &&
-        this.pokemonRight.type === 'grass') ||
-      (this.pokemonLeft.type === 'grass' &&
-        this.pokemonRight.type === 'water') ||
+    if ((this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass') || (this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water') ||
       (this.pokemonLeft.type === 'water' && this.pokemonRight.type === 'fire')
     ) {
       if (this.pokemonRight.life <= 20) {
@@ -328,7 +313,7 @@ export class GameComponent {
           'attack',
           isCritic
         );
-        this.pokemonRight.life = this.pokemonRight.life - attack;
+        this.pokemonRight.life = Math.round(this.pokemonRight.life - attack);
         document
           .getElementById('pokemonRight')
           .classList.add('animate__bounceIn');
@@ -345,7 +330,7 @@ export class GameComponent {
         } else {
           attack = Math.round(this.pokemonRight.life *(this._battleService.getRandomAttack(10, 15) / 100));
         }
-        this.pokemonRight.life = this.pokemonRight.life - attack;
+        this.pokemonRight.life = Math.round(this.pokemonRight.life - attack);
         this._battleService.openSnackBar(attack,this.pokemonLeft.name,'attack', isCritic);
         document
           .getElementById('pokemonRight')
@@ -367,7 +352,7 @@ export class GameComponent {
   public defense(): void {
     this.isDisabled = true;
     let heal = this.pokemonLeft.life * 0.05;
-    this.pokemonLeft.life = this.pokemonLeft.life + heal;
+    this.pokemonLeft.life = Math.round(this.pokemonLeft.life + heal);
     localStorage.setItem(
       'pokemonLeftLife',
       JSON.stringify(this.pokemonLeft.life)

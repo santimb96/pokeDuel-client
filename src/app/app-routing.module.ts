@@ -8,12 +8,15 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { GameComponent } from './components/game/game.component';
 import { HomeComponent } from './components/home/home.component';
 import { HowToPlayComponent } from './components/how-to-play/how-to-play.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { MenuGameComponent } from './components/menu-game/menu-game.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { OptionsComponent } from './components/options/options.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AllUsersResolverService } from './resolvers/allUsers.resolver.service';
 import { DataResolverService } from './resolvers/data.resolver.service';
+import { LeaderboardResolverService } from './resolvers/leaderboard.resolver.service';
 import { UserResolverService } from './resolvers/user.resolver.service';
 import { UserStatResolverService } from './resolvers/userStat.resolver.service';
 
@@ -86,6 +89,14 @@ const routes: Routes = [
       userStat: UserStatResolverService
     }
   },
+  {
+    path: 'leaderboard',
+    component: LeaderboardComponent,
+    resolve: {
+      users: AllUsersResolverService,
+      userStats: LeaderboardResolverService,
+    }
+  }
 ];
 
 

@@ -63,6 +63,7 @@ import { ContinueGameComponent } from './components/continue-game/continue-game.
 import { GameComponent } from './components/game/game.component';
 import { OptionsComponent } from './components/options/options.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 
 /* RESOLVERS */
@@ -82,7 +83,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     GameComponent,
     OptionsComponent,
     DialogContentComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    LeaderboardComponent
 
   ],
   imports: [

@@ -10,7 +10,7 @@
             </ng-container>
             <button mat-raised-button [routerLink]="['/my-account',userID]" (click)="spinner = !spinner">My account</button>
             <button mat-raised-button routerLink="/how-to-play" (click)="spinner = !spinner">How to play</button>
-            <button mat-raised-button routerLink="/credits" (click)="spinner = !spinner">Credits</button>
+            <button mat-raised-button routerLink="/leaderboard" (click)="spinner = !spinner">Leaderboard</button>
             <button mat-raised-button (click)="logOut()" (click)="spinner = !spinner">Log out</button>
         </div>
         <spinner [style.display]="spinner ? 'block' : 'none'"></spinner>

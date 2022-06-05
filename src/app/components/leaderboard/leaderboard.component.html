@@ -1,0 +1,25 @@
+<div class="container-fluid inside-frame" >
+  <div class="card d-flex flex-column">
+    <div class="card-body text">
+      <h1 class="card-title">Leaderboard</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Victories</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{user?.username}}</td>
+            <td>{{user?.victories}}</td>
+            <td>{{user?.score}}</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>  

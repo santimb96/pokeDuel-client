@@ -30,6 +30,8 @@ export class HomeComponent implements OnInit {
     } else {
       this.logged = false;
     }
+
+    this.logOutFully();
   }
 
   ngOnInit(): void {
@@ -40,6 +42,18 @@ export class HomeComponent implements OnInit {
 
   quit(): void {
     window.open("", '_self').window.close(); //TODO: fix the close window
+  }
+
+  private logOutFully(): void{
+    if (localStorage.getItem('myAliveTeam') !== null){
+      localStorage.removeItem('myAliveTeam');
+    }
+    if (localStorage.getItem('pokemonLeft') !== null){
+      localStorage.removeItem('pokemonLeft');
+    }
+    if (localStorage.getItem('pokemonRight') !== null){
+      localStorage.removeItem('pokemonRight');
+    }
   }
 
 }

@@ -29,12 +29,16 @@ export class MenuGameComponent implements OnInit {
       this.userStatExists = false;
     }
 
+    if (localStorage.getItem('reloaded') === null){
+      location.reload();
+      localStorage.setItem('reloaded', 'reloaded already');
+    }
   }
 
   ngOnInit(): void {
       setTimeout(function(){
         this.spinner = false;
-      }.bind(this), 2500)
+      }.bind(this), 1000)
       this._battleService.stopAudio();
 
   }
@@ -48,6 +52,7 @@ export class MenuGameComponent implements OnInit {
     localStorage.removeItem('pokemonLeft');
     localStorage.removeItem('pokemonRight');
     localStorage.removeItem('pokemonLeftLife');
+    localStorage.removeItem('reloaded');
     this.router.navigate([""]);
   }
 

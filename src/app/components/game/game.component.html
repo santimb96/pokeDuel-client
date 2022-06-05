@@ -4,7 +4,7 @@
       <mat-grid-tile style="display: flex; height: 100%;">
         <div *ngIf="pokemonLeft.life > 0" class="pokemon-left animate__bounceIn" id="pokemonLeft">
           <p class="pokemon-name-left">{{ pokemonLeft.name }} <span style="font-size: 8px">{{ pokemonLeft.life }}/100</span></p>
-          <mat-progress-bar mode="determinate" :value="{{ pokemonLeft.life }}"></mat-progress-bar>
+          <mat-progress-bar class="progressBar" mode="determinate" :value="{{ pokemonLeft.life }}"></mat-progress-bar>
           <img :src="{{ pokemonLeft.imgBack }}" class="card-img-left" alt="pokemon-left">
         </div>
       </mat-grid-tile>
@@ -13,7 +13,7 @@
           <div class="d-flex flex-column justify-content-center animate__bounceIn"
             style="align-items: flex-end; height: 100%;" id="pokemonRight">
             <p class="pokemon-name-right">{{ pokemonRight.name }} <span style="font-size: 8px">{{ pokemonRight.life }}/100</span></p>
-            <mat-progress-bar mode="determinate" :value="{{ pokemonRight.life }}"></mat-progress-bar>
+            <mat-progress-bar class="progressBar" mode="determinate" :value="{{ pokemonRight.life }}"></mat-progress-bar>
             <img :src="{{ pokemonRight.imgFront }}" class="card-img-right" alt="pokemon-right">
           </div>
           <div class="user-actions" *ngIf="pokemonLeft.life > 0" (click)="disable()">

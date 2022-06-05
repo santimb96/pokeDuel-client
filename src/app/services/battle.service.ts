@@ -145,7 +145,7 @@ export class BattleService {
         }
         break;
       case 'defense':
-        message = `${pokemonNameFormatted} have rest`;
+        message = `${pokemonNameFormatted} has rest`;
         break;
       case 'died':
         message = `${pokemonNameFormatted} defeated :(`;

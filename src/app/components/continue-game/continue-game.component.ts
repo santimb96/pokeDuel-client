@@ -166,7 +166,7 @@ export class ContinueGameComponent {
       else {
         this.pokemonLeft.life = 100;
       }
-      if (localStorage.getItem('pokemonRight') == null) {
+      if (localStorage.getItem('pokemonRight') === null) {
         this.pokemonRight = this.route.snapshot.data['pokemons'].pokemons[this._battleService.getRandomId(88)];
         this.pokemonRight.life = 100;
         localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));

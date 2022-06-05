@@ -3,13 +3,13 @@
         <div class="img-card">
             <img mat-card-image src="../../../assets/img/pokeDuelOnlyLogo.png">
         </div>
-        <div class="menu" *ngIf="!logged">
+        <div class="menu" *ngIf="!logged && !spinner">
             <button mat-raised-button routerLink="/login">Log In</button>
             <button mat-raised-button routerLink="/register">Register</button>
             <button mat-raised-button routerLink="/credits">Credits</button>
             <button mat-raised-button (click)="quit()">Quit</button>
         </div>
-        <div class="menu" *ngIf="logged">
+        <div class="menu" *ngIf="logged && !spinner">
             <button mat-raised-button [routerLink]="['/game',userID]">New game</button>
             <ng-container *ngIf="userStatExists">
                 <button mat-raised-button [routerLink]="['/continue-game', userID]">Continue</button>
@@ -19,5 +19,6 @@
             <button mat-raised-button routerLink="/credits">Credits</button>
             <button mat-raised-button (click)="logOut()">Log out</button>
         </div>
+        <spinner [style.display]="spinner ? 'block' : 'none'"></spinner>
     </section>
 </div>

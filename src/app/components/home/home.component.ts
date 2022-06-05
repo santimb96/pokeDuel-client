@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HomeComponent implements OnInit {
   public currentDate: string = '';
   public logged: boolean;
+  public spinner: boolean = true;
+
   constructor(public router: Router, private _authService: AuthService) {
     this.currentDate = format(new Date(), 'DD/MM/YYYY HH:mm');
     if (localStorage.getItem("userLogged") !== null) {
@@ -30,7 +32,11 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setTimeout(function(){
+      this.spinner = false;
+    }.bind(this),2000)
+  }
 
   quit(): void {
     window.open("", '_self').window.close(); //TODO: fix the close window

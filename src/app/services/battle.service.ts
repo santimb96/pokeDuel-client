@@ -128,20 +128,19 @@ export class BattleService {
     return sum;
   }
 
-  public openSnackBar(life: number, pokemonName: string, action: string) {
+  public openSnackBar(life: number, pokemonName: string, action: string, critic: boolean) {
     let message: string = '';
     let pokemonNameFormatted: string =
       pokemonName.slice(0, 1).toLocaleUpperCase() + pokemonName.slice(1);
     switch (action) {
       case 'attack':
-        if (life < 30) {
-          message = `${pokemonNameFormatted} has attacked`;
-        } else if (life > 30) {
+        if (critic){
           message = 'Critic attack!';
+        } else if (10 < life && life < 25) {
+          message = `${pokemonNameFormatted} has attacked`;
         } else if (life === 10) {
           message = 'You can do better! :´(';
-        }
-        else {
+        } else {
           message = `Amazing attack by ${pokemonNameFormatted}`;
         }
         break;

@@ -51,10 +51,11 @@ export class AppComponent implements OnInit {
   }
 
   public goTo(): void{
-    if(location.pathname.includes('/game/') || location.pathname.includes('continue-game')){
+    if(location.pathname.includes('/game/')){
       this.openDialog();
-    }
-    else{
+    } else if(location.pathname.includes('continue-game')){
+      this.openDialog();
+    } else{
       this.router.navigate([`menu-game/${this.userID}`]);
     }
   }

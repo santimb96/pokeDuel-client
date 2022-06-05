@@ -11,6 +11,7 @@
     width: 100%;
     overflow-y: scroll;
     height: 95%;
+
     .card-body {
       display: grid;
       grid-template-columns: auto;
@@ -19,6 +20,7 @@
         width: 100%;
         font-size: 2ch;
         border-spacing: 10px;
+
 
         td,
         th {
@@ -45,6 +47,9 @@
         }
         thead tr {
           height: 100%;
+          position: sticky;
+          z-index: 3;
+          top: 0;
           &:hover{
             transform: none;
           }

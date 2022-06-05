@@ -54,15 +54,19 @@ export class GameComponent {
         }
 
         this.generateDataPokemon();
-        setTimeout(function () {
+        setTimeout(
+          function () {
             this.attackFirst();
           }.bind(this),
           5000
         );
       }
 
-      if (this.myAliveTeam.length === 0 || JSON.parse(localStorage.getItem("myAliveTeam")).length === 0) {
-        localStorage.removeItem("myAliveTeam");
+      if (
+        this.myAliveTeam.length === 0 ||
+        JSON.parse(localStorage.getItem('myAliveTeam')).length === 0
+      ) {
+        localStorage.removeItem('myAliveTeam');
         this.myAliveTeam = null;
         this._battleService.saveGame(this.user._id);
         this.router.navigate([`my-account/${this.user._id}`]);
@@ -82,16 +86,17 @@ export class GameComponent {
         team: this.generateTeam(),
         aliveTeam: this.myTeam,
       });
-      this._userStatService
-        .editState(this.user._id, newState)
-        .subscribe((newStat) => {
+      this._userStatService.editState(this.user._id, newState).subscribe(
+        (newStat) => {
           this.userCurrentStat = newStat.userToUpdate;
           this.myTeam = newStat.userToUpdate.team;
           this.myAliveTeam = newStat.userToUpdate.team;
-        },error => {
+        },
+        (error) => {
           console.log(error);
           this.router.navigate([`menu-game/${this.user._id}`]);
-        });
+        }
+      );
     } else {
       let newState = JSON.stringify({
         user: this.user._id,
@@ -102,14 +107,17 @@ export class GameComponent {
         aliveTeam: this.myTeam,
       });
 
-      this._userStatService.newState(newState).subscribe((newStat) => {
-        this.userCurrentStat = newStat.userStat;
-        this.myTeam = newStat.userStat.team;
-        this.myAliveTeam = newStat.userStat.team;
-      }, error => {
-        console.log(error);
-        this.router.navigate([`menu-game/${this.user._id}`]);
-      });
+      this._userStatService.newState(newState).subscribe(
+        (newStat) => {
+          this.userCurrentStat = newStat.userStat;
+          this.myTeam = newStat.userStat.team;
+          this.myAliveTeam = newStat.userStat.team;
+        },
+        (error) => {
+          console.log(error);
+          this.router.navigate([`menu-game/${this.user._id}`]);
+        }
+      );
     }
 
     if (localStorage.getItem('pokemonRight') !== null) {
@@ -129,10 +137,14 @@ export class GameComponent {
     let myTeam: Pokemon[] = [];
     let pokemon: Pokemon = {};
     for (let i = 0; i < 3; i++) {
-      pokemon = this.route.snapshot.data['pokemons'].pokemons[this._battleService.getRandomId(88)];
+      pokemon =
+        this.route.snapshot.data['pokemons'].pokemons[
+          this._battleService.getRandomId(88)
+        ];
       myTeam.push({
         name: pokemon.name,
         life: 100,
+        type: pokemon.type,
         speed: pokemon.speed,
         imgBack: pokemon.imgBack,
         img3d: pokemon.img3d,
@@ -169,35 +181,82 @@ export class GameComponent {
     }
   }
 
+  private criticAttack(): boolean {
+    return this._battleService.getRandomAttack(1, 5) === 3 ? true : false;
+  }
+
   private enemyAtacking(): void {
     let life: number = 0;
+    let isCritic = this.criticAttack();
     const moves = ['attack', 'defense', 'attack', 'attack', 'attack'];
     if (this.pokemonRight.life > 0 && this.pokemonLeft.life > 0) {
       let move = moves[this._battleService.getRandomId(5)];
       switch (move) {
         case 'attack':
-          if ((this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass') ||(this.pokemonLeft.type === 'grass' && this.pokemonRight.type === 'water') ||
-            (this.pokemonLeft.type === 'water' && this.pokemonRight.type === 'fire')) {
+          if (
+            (this.pokemonLeft.type === 'grass' &&
+              this.pokemonRight.type === 'fire') ||
+            (this.pokemonLeft.type === 'water' &&
+              this.pokemonRight.type === 'grass') ||
+            (this.pokemonLeft.type === 'fire' &&
+              this.pokemonRight.type === 'water')
+          ) {
             if (this.pokemonLeft.life <= 20) {
               this.pokemonLeft.life = 0;
-              this._battleService.openSnackBar(life, this.pokemonLeft.name,'died');
+              this._battleService.openSnackBar(
+                life,
+                this.pokemonLeft.name,
+                'died',
+                false
+              );
               localStorage.removeItem('pokemonLeftLife');
             } else {
-              life = Math.round(this.pokemonLeft.life * (this._battleService.getRandomAttack(25,40) / 100));
+              if (isCritic) {
+                life = Math.round(this.pokemonLeft.life *((this._battleService.getRandomAttack(15, 25) + 5) / 100)
+                );
+              } else {
+                life = Math.round(this.pokemonLeft.life * (this._battleService.getRandomAttack(15, 25) / 100));
+              }
               this.pokemonLeft.life = this.pokemonLeft.life - life;
-              this._battleService.openSnackBar(life, this.pokemonRight.name, 'attack');
-              document.getElementById('pokemonLeft').classList.add('animate__bounceIn');
+              this._battleService.openSnackBar(
+                life,
+                this.pokemonRight.name,
+                'attack',
+                isCritic
+              );
+              document
+                .getElementById('pokemonLeft')
+                .classList.add('animate__bounceIn');
             }
           } else {
             if (this.pokemonLeft.life <= 20) {
               this.pokemonLeft.life = 0;
-              this._battleService.openSnackBar(life, this.pokemonLeft.name,'died');
+              this._battleService.openSnackBar(
+                life,
+                this.pokemonLeft.name,
+                'died',
+                false
+              );
               localStorage.removeItem('pokemonLeftLife');
             } else {
-              life = Math.round(this.pokemonLeft.life * (this._battleService.getRandomAttack(10,35) / 100));
+              if (isCritic) {
+                life = Math.round(this.pokemonLeft.life * ((this._battleService.getRandomAttack(10, 15) + 5) / 100));
+              } else {
+                life = Math.round(
+                  this.pokemonLeft.life *
+                    (this._battleService.getRandomAttack(10, 15) / 100)
+                );
+              }
               this.pokemonLeft.life = this.pokemonLeft.life - life;
-              this._battleService.openSnackBar(life, this.pokemonRight.name, 'attack');
-            document.getElementById('pokemonLeft').classList.add('animate__bounceIn');
+              this._battleService.openSnackBar(
+                life,
+                this.pokemonRight.name,
+                'attack',
+                isCritic
+              );
+              document
+                .getElementById('pokemonLeft')
+                .classList.add('animate__bounceIn');
             }
           }
           break;
@@ -207,7 +266,8 @@ export class GameComponent {
           this._battleService.openSnackBar(
             life,
             this.pokemonRight.name,
-            'defense'
+            'defense',
+            false
           );
           break;
         default:
@@ -217,9 +277,11 @@ export class GameComponent {
           this._battleService.openSnackBar(
             life,
             this.pokemonRight.name,
-            'attack'
+            'attack',
+            false
           );
       }
+
       this.isDisabled = false;
       document
         .getElementById('pokemonRight')
@@ -232,10 +294,12 @@ export class GameComponent {
   }
 
   public attack(): void {
-    //this.isDisabled = true;
+    this.isDisabled = true;
     let attack: number = 0;
+    let isCritic = this.criticAttack();
     if (
-      (this.pokemonLeft.type === 'fire' && this.pokemonRight.type === 'grass') ||
+      (this.pokemonLeft.type === 'fire' &&
+        this.pokemonRight.type === 'grass') ||
       (this.pokemonLeft.type === 'grass' &&
         this.pokemonRight.type === 'water') ||
       (this.pokemonLeft.type === 'water' && this.pokemonRight.type === 'fire')
@@ -245,19 +309,26 @@ export class GameComponent {
         this._battleService.openSnackBar(
           attack,
           this.pokemonRight.name,
-          'died'
+          'died',
+          false
         );
         localStorage.removeItem('pokemonRight');
       } else {
-        attack = Math.round(
-          this.pokemonRight.life * (this._battleService.getRandomAttack(25,40) / 100)
-        );
-        this.pokemonRight.life = this.pokemonRight.life - attack;
+        if (isCritic) {
+          attack = Math.round(this.pokemonRight.life *((this._battleService.getRandomAttack(15, 25) + 5) / 100));
+        } else {
+          attack = Math.round(
+            this.pokemonRight.life *
+              (this._battleService.getRandomAttack(15, 25) / 100)
+          );
+        }
         this._battleService.openSnackBar(
           attack,
           this.pokemonLeft.name,
-          'attack'
+          'attack',
+          isCritic
         );
+        this.pokemonRight.life = this.pokemonRight.life - attack;
         document
           .getElementById('pokemonRight')
           .classList.add('animate__bounceIn');
@@ -265,32 +336,26 @@ export class GameComponent {
     } else {
       if (this.pokemonRight.life <= 10) {
         this.pokemonRight.life = 0;
-        this._battleService.openSnackBar(
-          attack,
-          this.pokemonRight.name,
-          'died'
-        );
+        this._battleService.openSnackBar(attack,this.pokemonRight.name,'died',false);
         localStorage.removeItem('pokemonRight');
-        document
-          .getElementById('pokemonRight')
-          .classList.add('animate__backOutRight');
+        document.getElementById('pokemonRight').classList.add('animate__backOutRight');
       } else {
-        attack = Math.round(
-          this.pokemonRight.life * (this._battleService.getRandomAttack(10,35) / 100)
-        );
+        if (isCritic){
+          attack = Math.round(this.pokemonRight.life *((this._battleService.getRandomAttack(10, 15) + 5)/ 100));
+        } else {
+          attack = Math.round(this.pokemonRight.life *(this._battleService.getRandomAttack(10, 15) / 100));
+        }
         this.pokemonRight.life = this.pokemonRight.life - attack;
-        this._battleService.openSnackBar(
-          attack,
-          this.pokemonLeft.name,
-          'attack'
-        );
+        this._battleService.openSnackBar(attack,this.pokemonLeft.name,'attack', isCritic);
         document
           .getElementById('pokemonRight')
           .classList.add('animate__bounceIn');
       }
     }
     localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
-    document.getElementById('pokemonLeft').classList.remove('animate__bounceIn');
+    document
+      .getElementById('pokemonLeft')
+      .classList.remove('animate__bounceIn');
     setTimeout(
       function () {
         this.enemyAtacking();
@@ -300,15 +365,20 @@ export class GameComponent {
   }
 
   public defense(): void {
-    //this.isDisabled = true;
+    this.isDisabled = true;
     let heal = this.pokemonLeft.life * 0.05;
     this.pokemonLeft.life = this.pokemonLeft.life + heal;
     localStorage.setItem(
       'pokemonLeftLife',
       JSON.stringify(this.pokemonLeft.life)
     );
-    this._battleService.openSnackBar(heal, this.pokemonLeft.name, 'defense');
-    setTimeout(function () {this.enemyAtacking();}.bind(this),3000);
+    this._battleService.openSnackBar(heal, this.pokemonLeft.name, 'defense', false);
+    setTimeout(
+      function () {
+        this.enemyAtacking();
+      }.bind(this),
+      3000
+    );
   }
 
   private autosave(): void {
@@ -319,12 +389,12 @@ export class GameComponent {
 
   private attackFirst(): void {
     if (this.pokemonLeft.speed < this.pokemonRight.speed) {
-      //this.isDisabled = true;
+      this.isDisabled = true;
       this.enemyAtacking();
     } else if (this.pokemonLeft.speed > this.pokemonRight.speed) {
-      //this.isDisabled = false;
+      this.isDisabled = false;
     } else {
-      //this.isDisabled = true;
+      this.isDisabled = true;
       this.enemyAtacking();
     }
   }

@@ -36,33 +36,41 @@ export class ContinueGameComponent {
       this.cdr.detectChanges();
       this.autosave();
 
-      if (this.pokemonLeft.life === 0 || this.pokemonRight.life === 0) {
-        if ((this.pokemonLeft.life === 0 && this.pokemonRight.life !== 0) ||
-          (this.pokemonLeft.life !== 0 && this.pokemonRight.life === 0)) {
+      if (this.pokemonLeft.life <= 0 || this.pokemonRight.life <= 0) {
+        if(this.pokemonRight.life <= 0){
+          this.pokemonRight.imgFront = null;
+        }
+
+        if(this.pokemonLeft.life <= 0){
+          this.pokemonLeft.imgBack = null;
+        }
+
+        if (
+          (this.pokemonLeft.life <= 0 && this.pokemonRight.life > 0) ||
+          (this.pokemonLeft.life > 0 && this.pokemonRight.life <= 0)) {
           this._battleService.saveGame(this.user._id);
         }
 
-        if (this.pokemonLeft.life === 0) {
-          this.myAliveTeam.pop()
+        if (this.pokemonLeft.life <= 0) {
+          this.myAliveTeam.pop();
           localStorage.setItem('myAliveTeam', JSON.stringify(this.myAliveTeam));
           localStorage.removeItem('pokemonLeft');
-        }
+        } 
 
         this.generateDataPokemon();
-        setTimeout(function () {
-          this.attackFirst();
-        }.bind(this), 3000);
+        setTimeout(function () {this.attackFirst();}.bind(this),3000);
       }
 
-      if (this.myAliveTeam.length === 0 || JSON.parse(localStorage.getItem("myAliveTeam")).length === 0) {
-        localStorage.removeItem("myAliveTeam");
+      if (this.myAliveTeam.length === 0 || JSON.parse(localStorage.getItem('myAliveTeam')).length === 0) {
+        localStorage.removeItem('myAliveTeam');
         this.myAliveTeam = null;
         this._battleService.saveGame(this.user._id);
         this.router.navigate([`my-account/${this.user._id}`]);
         clearInterval(interval);
       }
-    }, 3000)
+    }, 3000);
   }
+
 
   ngOnInit(){
     
@@ -198,7 +206,6 @@ export class ContinueGameComponent {
                 'died',
                 false
               );
-              localStorage.removeItem('pokemonLeftLife');
             } else {
               if (isCritic) {
                 life = Math.round(this._battleService.getRandomAttack(15, 25) + 5);
@@ -224,6 +231,11 @@ export class ContinueGameComponent {
               this._battleService.openSnackBar(life, this.pokemonRight.name,'attack',isCritic);
               document.getElementById('pokemonLeft').classList.add('animate__bounceIn');
             }
+          }
+          if (this.pokemonLeft.life <= 0){
+            this.pokemonLeft.life = 0;
+            localStorage.removeItem('pokemonLeftLife');
+            this.pokemonLeft.imgBack = null;
           }
           break;
         case 'defense':
@@ -292,16 +304,20 @@ export class ContinueGameComponent {
           .classList.add('animate__bounceIn');
       }
     }
-    localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
-    document
-      .getElementById('pokemonLeft')
-      .classList.remove('animate__bounceIn');
-    setTimeout(
-      function () {
-        this.enemyAtacking();
-      }.bind(this),
-      3000
-    );
+    if (this.pokemonRight.life <= 0){
+      this.pokemonRight.life = 0;
+      this.pokemonRight.imgFront = null;
+      localStorage.removeItem('pokemonRight');
+    } else {
+      localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
+      document.getElementById('pokemonLeft').classList.remove('animate__bounceIn');
+      setTimeout(
+        function () {
+          this.enemyAtacking();
+        }.bind(this),
+        3000
+      );
+    } 
   }
   }
 

@@ -1,5 +1,6 @@
 <div class="container-fluid inside-frame background-battle">
-    <mat-grid-list cols="2" *ngIf="pokemonLeft.imgBack && pokemonRight.imgFront">
+  <spinner [style.display]="!pokemonLeft.imgBack || !pokemonRight.imgFront ? 'block' : 'none'" style="position: absolute;"></spinner>
+    <mat-grid-list cols="2" *ngIf="pokemonLeft.imgBack || pokemonRight.imgFront">
       <mat-grid-tile style="display: flex; height: 100%;">
         <div *ngIf="pokemonLeft.life > 0" class="pokemon-left animate__bounceIn" id="pokemonLeft">
           <p class="pokemon-name-left">{{ pokemonLeft.name }} <span style="font-size: 8px">{{ pokemonLeft.life }}/100</span></p>
@@ -28,5 +29,4 @@
         </div>
       </mat-grid-tile>
     </mat-grid-list>
-    <spinner [style.display]="!pokemonLeft.imgBack && !pokemonRight.imgFront ? 'block' : 'none'"></spinner>
   </div>

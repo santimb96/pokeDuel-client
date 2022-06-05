@@ -41,9 +41,17 @@ export class GameComponent {
       this.autosave();
 
       if (this.pokemonLeft.life <= 0 || this.pokemonRight.life <= 0) {
+        if(this.pokemonRight.life <= 0){
+          this.pokemonRight.imgFront = null;
+        }
+
+        if(this.pokemonLeft.life <= 0){
+          this.pokemonLeft.imgBack = null;
+        }
+
         if (
-          (this.pokemonLeft.life <= 0 && this.pokemonRight.life !== 0) ||
-          (this.pokemonLeft.life !== 0 && this.pokemonRight.life <= 0)) {
+          (this.pokemonLeft.life <= 0 && this.pokemonRight.life > 0) ||
+          (this.pokemonLeft.life > 0 && this.pokemonRight.life <= 0)) {
           this._battleService.saveGame(this.user._id);
         }
 
@@ -51,7 +59,7 @@ export class GameComponent {
           this.myAliveTeam.pop();
           localStorage.setItem('myAliveTeam', JSON.stringify(this.myAliveTeam));
           localStorage.removeItem('pokemonLeft');
-        }
+        } 
 
         this.generateDataPokemon();
         setTimeout(function () {this.attackFirst();}.bind(this),3000);
@@ -129,10 +137,7 @@ export class GameComponent {
     let myTeam: Pokemon[] = [];
     let pokemon: Pokemon = {};
     for (let i = 0; i < 3; i++) {
-      pokemon =
-        this.route.snapshot.data['pokemons'].pokemons[
-          this._battleService.getRandomId(88)
-        ];
+      pokemon = this.route.snapshot.data['pokemons'].pokemons[this._battleService.getRandomId(88)];
       myTeam.push({
         name: pokemon.name,
         life: 100,
@@ -160,7 +165,6 @@ export class GameComponent {
         this.pokemonLeft.life = 100;
       }
       if (localStorage.getItem('pokemonRight') == null) {
-        console.log('pokemonRight died; generating one new');
         this.pokemonRight = this.route.snapshot.data['pokemons'].pokemons[this._battleService.getRandomId(88)];
         this.pokemonRight.life = 100;
         localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
@@ -194,13 +198,7 @@ export class GameComponent {
           ) {
             if (this.pokemonLeft.life <= 20) {
               this.pokemonLeft.life = 0;
-              this._battleService.openSnackBar(
-                life,
-                this.pokemonLeft.name,
-                'died',
-                false
-              );
-              localStorage.removeItem('pokemonLeftLife');
+              this._battleService.openSnackBar(life, this.pokemonLeft.name,'died',false);
             } else {
               if (isCritic) {
                 life = Math.round(this._battleService.getRandomAttack(15, 25) + 5);
@@ -226,6 +224,12 @@ export class GameComponent {
               this._battleService.openSnackBar(life, this.pokemonRight.name,'attack',isCritic);
               document.getElementById('pokemonLeft').classList.add('animate__bounceIn');
             }
+          }
+
+          if (this.pokemonLeft.life <= 0){
+            this.pokemonLeft.life = 0;
+            localStorage.removeItem('pokemonLeftLife');
+            this.pokemonLeft.imgBack = null;
           }
           break;
         case 'defense':
@@ -264,7 +268,6 @@ export class GameComponent {
       if (this.pokemonRight.life <= 20) {
         this.pokemonRight.life = 0;
         this._battleService.openSnackBar(attack,this.pokemonRight.name,'died',false);
-        localStorage.removeItem('pokemonRight');
       } else {
         if (isCritic) {
           attack = Math.round((this._battleService.getRandomAttack(15, 25) + 5));
@@ -294,18 +297,23 @@ export class GameComponent {
           .classList.add('animate__bounceIn');
       }
     }
-    localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
-    document
-      .getElementById('pokemonLeft')
-      .classList.remove('animate__bounceIn');
-    setTimeout(
-      function () {
-        this.enemyAtacking();
-      }.bind(this),
-      3000
-    );
+
+    if (this.pokemonRight.life <= 0){
+      this.pokemonRight.life = 0;
+      this.pokemonRight.imgFront = null;
+      localStorage.removeItem('pokemonRight');
+    } else {
+      localStorage.setItem('pokemonRight', JSON.stringify(this.pokemonRight));
+      document.getElementById('pokemonLeft').classList.remove('animate__bounceIn');
+      setTimeout(
+        function () {
+          this.enemyAtacking();
+        }.bind(this),
+        3000
+      );
+    }    
   }
-  }
+}
 
   public defense(): void {
     if (this.clickedOneTime === 0) {

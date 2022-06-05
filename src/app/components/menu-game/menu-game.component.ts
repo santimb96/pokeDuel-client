@@ -15,7 +15,7 @@ export class MenuGameComponent implements OnInit {
   public user: User;
   public userStat: UserStat;
   public userStatExists: boolean = true;
-  public spinner = false;
+  public spinner = true;
 
   constructor(private router: Router, private route: ActivatedRoute, 
     private _battleService: BattleService) { 
@@ -32,7 +32,11 @@ export class MenuGameComponent implements OnInit {
   }
 
   ngOnInit(): void {
+      setTimeout(function(){
+        this.spinner = false;
+      }.bind(this),2000)
       this._battleService.stopAudio();
+
   }
 
   public logOut(): void {
@@ -45,4 +49,5 @@ export class MenuGameComponent implements OnInit {
     localStorage.removeItem('pokemonLeftLife');
     this.router.navigate([""]);
   }
+
 }

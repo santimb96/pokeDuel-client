@@ -36,6 +36,9 @@ export class RegisterComponent {
         console.log(error.error.message);
         this.spinner = false;
         this.error = error.error.message;
+        if (error.error.message === undefined){
+          this.error = `Fields are not optional :P `; 
+        }
         this.hideError = true;
       }
     )

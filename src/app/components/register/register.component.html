@@ -7,12 +7,12 @@
                     <form [formGroup]="signUpForm">
                         <div class="form-group">
                             <input type="text" formControlName="username" name="username" class="form-control"
-                                placeholder="Username" required autofocus (click)="hideError = false"/>
+                                placeholder="Username*" required autofocus (click)="hideError = false"/>
                         </div>
 
                         <div class="form-group d-flex">
                             <input [type]="hide ? 'password' : 'text'" formControlName="password" name="password"
-                                class="form-control" placeholder="Password" required (click)="hideError = false"/>
+                                class="form-control" placeholder="Password*" required (click)="hideError = false"/>
                             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                                 [attr.aria-pressed]="hide">
                                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -21,7 +21,7 @@
 
                         <div class="form-group">
                             <input type="text" formControlName="email" name="email" class="form-control"
-                                placeholder="Email" required autofocus (click)="hideError = false"/>
+                                placeholder="Email*" required autofocus (click)="hideError = false"/>
                         </div>
                         <div class="form-group">
                             <input type="file" (change)="uploadFile($event)" name="avatar" class="form-control"

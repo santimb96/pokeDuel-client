@@ -53,6 +53,7 @@ export class MenuGameComponent implements OnInit {
     localStorage.removeItem('pokemonRight');
     localStorage.removeItem('pokemonLeftLife');
     localStorage.removeItem('reloaded');
+    localStorage.removeItem('reloadedHome');
     this.router.navigate([""]);
   }
 

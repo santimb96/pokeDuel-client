@@ -31,10 +31,15 @@ export class HomeComponent implements OnInit {
       this.logged = false;
     }
 
-    this.logOutFully();
-  }
+    if (localStorage.getItem('reloadedHome') === null){
+      location.reload();
+      localStorage.setItem('reloadedHome', 'reloaded already');
+    }
 
+  }
+  
   ngOnInit(): void {
+    this.logOutFully();
     setTimeout(function(){
       this.spinner = false;
     }.bind(this),2000)

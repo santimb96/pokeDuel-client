@@ -223,7 +223,7 @@ export class ContinueGameComponent {
           }
           break;
         case 'defense':
-          life = Math.round(this.pokemonRight.life * 0.05);
+          life = 7;
           if (this.pokemonRight.life === 100){
             this.pokemonRight.life = 100;
           } else {
@@ -301,7 +301,7 @@ export class ContinueGameComponent {
 
   public defense(): void {
     this.isDisabled = true;
-    let heal = this.pokemonLeft.life * 0.05;
+    let heal = 7;
     if (this.pokemonLeft.life === 100) {
       this.pokemonLeft.life = 100;
     } else {

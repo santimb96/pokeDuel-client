@@ -52,7 +52,7 @@ Se han usado los siguientes lenguajes/frameworks para trabajar en este proyecto:
 
 | Lenguaje/framework | Librerías |
 | ------ | ------ |
-| Angular 11 | funcionamiento por módulos (imports): fs, angular material... |
+| Angular 11 | funcionamiento por módulos (imports): fs, angular material, RxJS ... |
 | Express | funcionamiento por módulos (require): multer, fs, aws, jwt, datefns, mongoose, dotenv... |
 | SCSS | 'custom' CSS |
 | Bootstrap 5 | 'custom' CSS |

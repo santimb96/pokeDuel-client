@@ -7,13 +7,12 @@ import { LoginI } from '../models/login.interface';
 import { ResponseI } from '../models/response.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   readonly url = `${environment.api}/users`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.url);
@@ -25,15 +24,27 @@ export class AuthService {
     formData.append('password', user.password);
     formData.append('email', user.email);
     formData.append('avatar', user.avatar);
-    return this.http.post<ResponseI>(`${this.url}`, formData, this.options('sign-up'));
+    return this.http.post<ResponseI>(
+      `${this.url}`,
+      formData,
+      this.options('sign-up')
+    );
   }
 
   logIn(form: LoginI): Observable<ResponseI> {
-    return this.http.post<ResponseI>(`${this.url}/login`, form, this.options('login'));
+    return this.http.post<ResponseI>(
+      `${this.url}/login`,
+      form,
+      this.options('login')
+    );
   }
 
   autoLogIn(id: string, token: string) {
-    return this.http.post<ResponseI>(`${this.url}/autologin`, { id, token }, this.options('autologin', token));
+    return this.http.post<ResponseI>(
+      `${this.url}/autologin`,
+      { id, token },
+      this.options('autologin', token)
+    );
   }
 
   getOneUser(id: string): Observable<any> {
@@ -47,29 +58,44 @@ export class AuthService {
   editUser(id: string, user): Observable<any> {
     const formData = new FormData();
     formData.append('username', user.username);
-    if( user.password !== '') {
+    if (user.password !== '') {
       formData.append('password', user.password);
-    } 
+    }
     formData.append('email', user.email);
     formData.append('avatar', user.avatar);
     return this.http.put(`${this.url}/${id}`, formData);
   }
 
   isLoggedIn() {
-    if (localStorage.getItem('userLogged') !== null){
+    if (localStorage.getItem('userLogged') !== null) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
 
   options(type: string, token?: any) {
     switch (type) {
-      case 'sign-up': return { headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` }) };
-      case 'autologin': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }) };
-      case 'login': return { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': '' }) };
-      default: console.log('error');
+      case 'sign-up':
+        return {
+          headers: new HttpHeaders({ Authorization: `Bearer ${token}` }),
+        };
+      case 'autologin':
+        return {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          }),
+        };
+      case 'login':
+        return {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            Authorization: '',
+          }),
+        };
+      default:
+        console.log('error');
     }
   }
 }

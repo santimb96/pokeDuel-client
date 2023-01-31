@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://pokeduel-dev-multer.up.railway.app'
+  api: 'https://pokeduel-backend.onrender.com',
 };
 
 /*

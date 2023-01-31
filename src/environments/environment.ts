@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://pokeduel-backend.onrender.com',
+  api: 'https://pokeduel-backend.vercel.app',
 };
 
 /*

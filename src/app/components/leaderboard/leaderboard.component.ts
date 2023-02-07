@@ -21,17 +21,21 @@ export class LeaderboardComponent implements OnInit {
   constructor(
     private _authService: AuthService,
     private _userStatService: UserStatService,
-    private router: ActivatedRoute,
+    private router: ActivatedRoute
   ) {
     this.userID = this.router.snapshot.data['user'].user._id;
     this.allUsers = this.router.snapshot.data['users'].users;
     this.allUsersStats = this.router.snapshot.data['userStats'].userStats;
-    
   }
 
-  ngOnInit(): void{
-    const data = this.allUsersStats?.map(stats => {
-      const user = this.allUsers?.find(user => user?._id === stats?.user);
+  ngOnInit(): void {
+    const data = this.allUsersStats?.map((stats) => {
+      const user = this.allUsers?.find((user) => user?._id === stats?.user);
+      console.warn({
+        username: user?.username,
+        victories: stats?.victories,
+        score: Math.round(stats?.score),
+      });
       return {
         username: user?.username,
         victories: stats?.victories,

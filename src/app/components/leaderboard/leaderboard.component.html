@@ -1,4 +1,4 @@
-<div class="container-fluid inside-frame" >
+<div class="container-fluid inside-frame">
   <div class="card d-flex flex-column">
     <div class="card-body text">
       <h1 class="card-title">Leaderboard</h1>
@@ -13,17 +13,24 @@
         </thead>
         <tbody>
           <tr *ngFor="let user of users; let i = index">
-            <td>{{i+1}}</td>
-            <td>{{user?.username}}</td>
-            <td>{{user?.victories}}</td>
-            <td>{{user?.score}}</td>
+            <td>{{ i + 1 }}</td>
+            <td>{{ user?.username }}</td>
+            <td>{{ user?.victories }}</td>
+            <td>{{ user?.score }}</td>
           </tr>
         </tbody>
       </table>
-      </div>
     </div>
-    <div class="col-12 d-flex justify-content-around m-2">
-      <button class="btn btn-secondary" [routerLink]="['/my-account',userID]" (click)="spinner = !spinner" *ngIf="!spinner">My Account</button>
-      <spinner [style.display]="spinner? 'block' : 'none'"></spinner>
-    </div>
-  </div>  
+  </div>
+  <div class="col-12 d-flex justify-content-around m-2">
+    <button
+      class="btn btn-secondary"
+      [routerLink]="['/my-account', userID]"
+      (click)="spinner = !spinner"
+      *ngIf="!spinner"
+    >
+      My Account
+    </button>
+    <spinner [style.display]="spinner ? 'block' : 'none'"></spinner>
+  </div>
+</div>

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { UserStatService } from '../services/user-stat.service';
 
 @Injectable({ providedIn: 'root' })
-export class LeaderboardResolverService implements Resolve<any> {
+export class AllUserStatsResolverService implements Resolve<any> {
   constructor(private _userStatService: UserStatService) {}
   resolve(): Observable<any> {
     return this._userStatService.getUsersStats();

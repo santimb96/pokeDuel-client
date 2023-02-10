@@ -15,48 +15,48 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { OptionsComponent } from './components/options/options.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AllUsersResolverService } from './resolvers/allUsers.resolver.service';
+import { AllUserStatsResolverService } from './resolvers/allUserStats.resolver.service';
 import { DataResolverService } from './resolvers/data.resolver.service';
 import { LeaderboardResolverService } from './resolvers/leaderboard.resolver.service';
 import { UserResolverService } from './resolvers/user.resolver.service';
 import { UserStatResolverService } from './resolvers/userStat.resolver.service';
 
-
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'login',
 
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
   },
   {
     path: 'my-account/:id',
     component: MyAccountComponent,
     resolve: {
       users: UserResolverService,
-      userStats: UserStatResolverService
-    }
+      userStats: UserStatResolverService,
+    },
   },
   {
     path: 'how-to-play',
-    component: HowToPlayComponent
+    component: HowToPlayComponent,
   },
   {
     path: 'options',
-    component: OptionsComponent
+    component: OptionsComponent,
   },
   {
     path: 'edit-my-account/:id',
     component: EditUserComponent,
     resolve: {
       users: UserResolverService,
-    }
+    },
   },
   {
     path: 'menu-game/:id',
@@ -64,12 +64,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     resolve: {
       users: UserResolverService,
-      userStats: UserStatResolverService
-    }
+      userStats: UserStatResolverService,
+    },
   },
   {
     path: 'credits',
-    component: CreditsComponent
+    component: CreditsComponent,
   },
   {
     path: 'continue-game/:id',
@@ -77,8 +77,8 @@ const routes: Routes = [
     resolve: {
       pokemons: DataResolverService,
       users: UserResolverService,
-      userStat: UserStatResolverService
-    }
+      userStat: UserStatResolverService,
+    },
   },
   {
     path: 'game/:id',
@@ -86,8 +86,8 @@ const routes: Routes = [
     resolve: {
       pokemons: DataResolverService,
       users: UserResolverService,
-      userStat: UserStatResolverService
-    }
+      userStat: UserStatResolverService,
+    },
   },
   {
     path: 'leaderboard/:id',
@@ -96,16 +96,12 @@ const routes: Routes = [
       user: UserResolverService,
       users: AllUsersResolverService,
       userStats: LeaderboardResolverService,
-    }
-  }
+    },
+  },
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes),
-    ReactiveFormsModule,
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes), ReactiveFormsModule],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
